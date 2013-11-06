@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- makes mobile browsers not zoom by default, not good unless media queries are used for phones -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLC Live</title>
+<link rel="stylesheet" href="flclive_dc.css">
+<!-- required for the redirectToSystemBrowser() function -->
+<script src="phonegap.js"></script>
+<!-- used to change the formats of dates -->
+<script src="date.js"></script>
+<!-- jquery (we might as well use it) -->
+<script src="jquery-1.10.1.min.js"></script>
+<!-- our javascripts -->
+<script src="flclive.js"></script>
+</head>
+<body class="home">
+<header>
+	<h1><a href="index.html"><abbr title="Faith Life Church">FLC</abbr> <span>Live</span></a></h1>
+</header>
+<section id="content">
+
+    <section id="livebroadcasts">
+		<h2>Live Broadcast</h2>
+
+		<table class="box boxmp">
+			<tr>
+				<td class="firstb">
+					<dl>
+						<dt>Fridays</dt>
+						<dd>6:30 CST</dd>
+					</dl>
+				</td>
+				<td class="secondb">
+					<dl>
+						<dt>Sundays</dt>
+						<dd>9:00 &amp; 11:00 CST</dd>
+					</dl>
+				</td>
+			</tr>
+		</table>
+
+		<!--
+		<div class="box boxmp">
+			<dl class="first">
+				<dt>Fridays</dt>
+				<dd>6:30 CST</dd>
+			</dl>
+			<dl class="second">
+				<dt>Sundays</dt>
+				<dd>9:00 &amp; 11:00 CST</dd>
+			</dl>
+		</div>
+		-->
+
+		<div id="nextinternetbroadcast"></div>
+
+	</section>
+
+    <section id="rebroadcasts">
+		<h2>Rebroadcasts</h2>
+
+		<table class="boxdual">
+			<tr>
+				<td class="firstb box link" onclick="javascript:fridayRebroadcast();">Friday</td>
+				<td class="secondb box link" onclick="javascript:sundayRebroadcast();">Sunday</td>
+			</tr>
+		</table>        
+
+        <!--
+		<div class="a">
+			<ul>
+				<li class="box" class="first" onclick="fridayRebroadcast();">Friday</li>
+				<li class="box" class="second" onclick="sundayRebroadcast();">Sunday</li>
+			</ul>
+		</div>
+		-->
+
+	</section>
+
+	<section id="featuredseries">
+		<h2>Featured Series</h2>
+
+		<div id="featuredseriestitle" class="box boxmp"></div>
+
+	</section>
+
+    <section id="events">
+		<!-- no header was in the picture but there should be one (consistency) -->
+		<h2>Events</h2>
+
+		<div class="box boxmp">
+			<p><a href="events.html">Upcoming Events</a></p>
+		</div>
+
+	</section>
+
+    <section id="dailybiblereading">
+		<h2>Daily Bible Reading</h2>
+
+		<div id="todayschapterreference" class="box boxmp"></div>
+
+	</section>
+
+    <section id="externallinks">
+		<h2>Links</h2>
+
+		<table class="boxdual">
+			<tr>
+				<td class="firstb box link" onclick="redirectToSystemBrowser('http://www.flcbranson.org/');"><abbr title="Faith Life Church">FLC</abbr> Website</td>
+				<td class="secondb box link" onclick="redirectToSystemBrowser('https://faithlifechurchbranson.thankyou4caring.org/');">Sowing</td>
+			</tr>
+		</table>        
+
+        <!--
+        <div class="boxdual">
+			<ul>
+				<li class="firstb box" onclick="redirectToSystemBrowser('http://www.flcbranson.org/');"><abbr title="Faith Life Church">FLC</abbr> Website</li>
+				<li class="secondb box" onclick="redirectToSystemBrowser('https://faithlifechurchbranson.thankyou4caring.org/');">Sowing</li>
+			</ul>
+		</div>
+        -->
+
+	</section>
+
+</section>
+<!-- page specific javascripts -->
+<script>
+// set a global javascript variable
+var livepublishingpoint, nextlivebroadcast;
+// tell the function where the JSON data is
+fetchJSONFile('http://www.flcbranson.org/api/livebroadcast', function(data){
+	// do something with your data
+	// alert(JSON.stringify(data));
+	// alert(data.datetime + ', ' + data.status);
+	nextlivebroadcast = data.nextbroadcast;
+	if (data.status == 'flcb' || data.status == 'flcs') {
+		// define the global variable (only works when using synchronous connections)
+		livepublishingpoint = data.publishingpoint_hls;
+		//window.location = 'http://www.flcbranson.org/liveapp';
+		openVideo(livepublishingpoint);
+	}
+});
+// see if the global variable is still set (would say "undefined" if using an asychronous connection)
+//alert(livepublishingpoint);
+
+// live broadcast countdown
+cdtd(nextlivebroadcast);
+
+// show the featured series info
+document.getElementById('featuredseriestitle').innerHTML = '<a href="featuredseries.html">' + featuredseries + '</a>';
+
+// show today's chapter reference
+todaysChapterReference();
+</script>
+<!-- this is what was in the .js but it didn't send data to google -->
+<script>
+// google analytics
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-39575525-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>

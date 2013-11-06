@@ -1,0 +1,383 @@
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/css?family=Raleway:100,500,800);
+
+/* 
+=============CSS RESET===================
+html5doctor css reset (http://html5doctor.com/html-5-reset-stylesheet/)
+	it goes above and beyond Eric Meyer's venerable reset.css (http://meyerweb.com/eric/tools/css/reset/) */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; }
+body { line-height:1; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display:block; }
+nav ul { list-style:none; }
+blockquote, q { quotes:none; }
+blockquote:before, blockquote:after, q:before, q:after { content:''; content:none; }
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+ins { background-color:#ff9; color:#000; text-decoration:none; }
+mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+del { text-decoration:line-through; }
+abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
+table { border-collapse:collapse; border-spacing:0; }
+hr { display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0; }
+input, select { vertical-align:middle; }
+
+/*
+=============STYLES================
+*/
+
+/* height required for the background gradient to fill the screen height if content doesn't
+	min-height required if the content does go past the screen height
+	of course the background will grow with the content if min-height is used (may not be desirable) */
+html {
+	min-height:100%;
+}
+
+body {
+	margin:5px;
+	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color:#e4e4e4;
+	background-image:linear-gradient(to bottom, #e4e4e4 0%,#a9a9a9 100%);
+	color:#000000;
+}
+
+/* blue and all-caps only on the main page */
+
+.home {
+	color:#6da4c6;
+	text-transform:uppercase;
+}
+
+/* app screenshot had 31px~ gutter on a 533px~ screen
+	margin caused the background gradient to be messed up */
+.dailybiblereading {
+	padding-left:5.8%;
+	padding-right:5.8%;
+}
+
+header {
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:5;
+	width:100%;
+	font-family: 'Raleway', sans-serif;
+	background-color:#6b9ebc; /* Old browsers */
+	background-image:-moz-linear-gradient(top, #6b9ebc 0%, #a8dcfb 100%); /* FF3.6+ */
+	background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#6b9ebc), color-stop(100%,#a8dcfb)); /* Chrome,Safari4+ */
+	background-image:-webkit-linear-gradient(top, #6b9ebc 0%,#a8dcfb 100%); /* Chrome10+,Safari5.1+ */
+	background-image:-o-linear-gradient(top, #6b9ebc 0%,#a8dcfb 100%); /* Opera 11.10+ */
+	background-image:-ms-linear-gradient(top, #6b9ebc 0%,#a8dcfb 100%); /* IE10+ */
+	background-image:linear-gradient(to bottom, #6b9ebc 0%,#a8dcfb 100%); /* W3C */
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#6b9ebc', endColorstr='#a8dcfb',GradientType=0 ); /* IE6-9 */
+	box-shadow:0px 2px 1px 0px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+	position:relative;
+	z-index:9;
+	color:#FFF;
+	font-weight:100;
+	padding:0.001em 0;
+	font-size:2.5em;
+	background-image:url(images/flc_logo_one_color_nbg-215x153.png);
+	background-size:auto 140%;
+	background-repeat:no-repeat;
+	background-position:right;
+}
+
+h1 span {
+	margin-left:-0.85em;
+	font-size:1rem;
+	font-style:italic;
+	font-weight:400;
+}
+
+h1 a {
+	display:block;
+	width:100%;
+}
+
+.home h2 {
+	margin:0.5em 0 0.25em 0.25em;
+	font-weight:800;
+}
+
+@media screen and (min-height:481px) and (max-height:568px) and (orientation:portrait) {
+	.home h2 {
+		margin:0.7em 0 0.3em 0.25em;
+	}
+}
+
+a {
+	color:inherit;
+	text-decoration:none;
+}
+
+/* changes the cursor for javascript links */
+
+.link {
+	cursor:pointer;
+}
+
+abbr[title], dfn[title] {
+	border:none;
+	cursor:pointer;
+}
+
+dl, ul {
+	list-style:none;
+}
+
+dt {
+	font-weight:800;
+}
+
+dt:not(:first-of-type) {
+	margin-top:1em;
+}
+
+video {
+	width:100%;
+	height:100%;
+}
+
+/* border-collapse and border-spacing are css equivalents to <table cellspacing="5"> */
+
+.boxmp, .boxdual {
+	width:100%;
+	border-collapse:separate;
+	border-spacing:5px 0;
+}
+
+/* border-spacing includes the left of the first cell and the right of the last cell
+	negative margin the left/right and add those negative margins to the width
+	ios6 requires -webkit-
+	android browser doesn't support calc()
+	100.57% is the widest that I could get without a horizontal scrollbar at 1920px wide */
+
+.boxdual {
+	margin:0 -5px;
+	width:100.57%;
+	width:-webkit-calc(100% + 10px);
+	width:calc(100% + 10px);
+}
+
+/* ROUNDED CORNERS */
+
+.box {
+	padding:0.74em 0;
+	border-radius:2px;
+	text-align:center;
+	background-color:#ffffff; /* Old browsers */
+	background-image:-moz-linear-gradient(top, #ffffff 0%, #d9d9d9 100%); /* FF3.6+ */
+	background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#d9d9d9)); /* Chrome,Safari4+ */
+	background-image:-webkit-linear-gradient(top, #ffffff 0%,#d9d9d9 100%); /* Chrome10+,Safari5.1+ */
+	background-image:-o-linear-gradient(top, #ffffff 0%,#d9d9d9 100%); /* Opera 11.10+ */
+	background-image:-ms-linear-gradient(top, #ffffff 0%,#d9d9d9 100%); /* IE10+ */
+	background-image:linear-gradient(to bottom, #ffffff 0%,#d9d9d9 100%); /* W3C */
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d9d9d9',GradientType=0 ); /* IE6-9 */
+	box-shadow:inset 0px 1px 1px 0px rgba(255, 255, 255, 0.35), 0px 1.5px 1px 0px rgba(0, 0, 0, 0.35);
+}
+
+@media screen and (min-height:481px) and (max-height:568px) and (orientation:portrait) {
+	.box {
+		padding:1.1em 0;
+	}
+}
+
+/* makes the link fill the whole space */
+
+.box a {
+	display:block;
+	width:100%;
+	height:100%;
+}
+
+/* table rows aren't lists
+tr {
+    list-style-type: none;
+}
+*/
+
+/* no longer used
+.first, .second {
+	display:inline-block;
+	vertical-align:top;
+	width:48.82%;
+}
+*/
+
+/* no reason to display:inline-block if you're working with table cells
+.firstb, .secondb {
+	display:inline-block;
+	vertical-align:top;
+	width:48%;
+	margin-left:5px;
+	padding:0.5em 0;
+}
+*/
+
+.firstb, .secondb {
+	width:50%;
+}
+
+#content {
+	margin-top:3em;
+	width:100%;
+}
+
+/* don't forget your units */
+
+#todayschapterreference span {
+	font-size:0.7em;
+}
+
+#nextinternetbroadcast {
+	position:fixed;
+	top:1.2em;
+	left:0;
+	width:100%;
+	z-index:6;
+	text-align:center;
+	color:#5588a7;
+}
+
+@media screen and (max-width:275px) {
+	#nextinternetbroadcast {
+		left:110px;
+		width:auto;
+	}
+}
+
+@media screen and (min-width:275px) and (max-width:320px) {
+	#nextinternetbroadcast {
+		left:calc(50% - 28px);
+		width:auto;
+	}
+}
+
+#nextinternetbroadcast span {
+	position:relative;
+	padding-bottom:0.25em;
+	font-weight:bold;
+}
+
+#nextinternetbroadcast span:after {
+	position:absolute;
+	bottom:0;
+	left:1px;
+	text-transform:uppercase;
+	font-size:0.5em;
+	font-weight:normal;
+}
+
+#nextinternetbroadcast .days:after {
+	content:"Day";
+}
+
+#nextinternetbroadcast .hours:after {
+	content:"Hr";
+}
+
+#nextinternetbroadcast .minutes:after {
+	content:"Min";
+}
+
+#nextinternetbroadcast .seconds:after {
+	content:"Sec";
+}
+
+#sermons dt {
+	display:none;
+}
+
+.events #content {
+	font-style:italic;
+	text-align:center;
+}
+
+.events #content dt, .events .venuetimezone, .events #content .eventspeaker, .events #content .venuetimezone, .events #content .map.link, .events #content .eventemail {
+	display:none;
+}
+
+.events #content .eventname {
+	margin-top:1em;
+	/*font-size:1.875em;*/
+	text-transform:uppercase;
+	font-weight:bold;
+}
+
+.events #content .venuetitle {
+	margin-top:1em;
+	font-weight:bold;
+	/*font-size:1.375em;*/
+	color:#29649f;
+	margin-bottom:0;
+}
+
+.events #content .venuetitle .delimiter {
+	color:#7b7b7b;
+	font-weight:normal;
+}
+
+.events #content .venuetitle .delimiter:after {
+	content:"//";
+}
+
+.events #content .address, .events .eventphone {
+	color:#7b7b7b;
+}
+
+.events #content .address {
+	margin-top:1em;
+}
+
+.events #content .address .venuestreet {
+	display:block;
+}
+
+.events #content .schedule {
+	margin-top:1em;
+	font-style:normal;
+}
+
+.events #content .eventdatetime, .events .eventtimezone {
+	display:inline;
+}
+
+.events #content .eventdatetime:after {
+	content:" ";
+}
+
+.featuredseries dt {
+	display:none;
+}
+
+.featuredseries blockquote {
+	margin-top:1em;
+	margin-bottom:1em;
+}
+
+.featuredseries h3 {
+	margin-top:1em;
+}
+
+/*
+@media screen and (max-width:640px) and (orientation:portrait) {
+	h1 {
+		background-size:107px 76px;
+	}
+}
+@media screen and (max-height:640px) and (orientation:landscape) {
+	h1, .back {
+		font-size:1.75em;
+	}
+	h1 {
+		background-size:57px 40px;
+	}
+}
+@media screen and (min-width:641px) {
+	h1 {
+		background-size:100px 71px;
+	}
+}
+*/
