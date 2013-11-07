@@ -2,6 +2,36 @@
 var today = Date.today().toString('yyyy-MM-dd');
 //alert(today);
 
+// make an ajax call
+function loadJson(url, callback) {
+	var xmlhttprequest = new XMLHttpRequest();
+	xmlhttprequest.onreadystatechange = function() {
+		if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
+			// do something with your data
+			var data = JSON.parse(xmlhttprequest.responseText);
+			if (callback) callback(data);
+		}
+	}
+	// true is asynchronous and false is synchronous
+	xmlhttprequest.open('GET', url, true);
+	xmlhttprequest.send();
+}
+
+// make an ajax call
+function loadXml(url, callback) {
+	var xmlhttprequest = new XMLHttpRequest();
+	xmlhttprequest.onreadystatechange = function() {
+		if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
+			// do something with your data
+			var data = xmlhttprequest.responseXML;
+			if (callback) callback(data);
+		}
+	}
+	// true is asynchronous and false is synchronous
+	xmlhttprequest.open('GET', url, true);
+	xmlhttprequest.send();
+}
+
 // generic get JSON data function
 function fetchJSONFile(path, callback) {
 	var httpRequest = new XMLHttpRequest();
@@ -18,6 +48,7 @@ function fetchJSONFile(path, callback) {
 	httpRequest.send(); 
 }
 
+// you can't do global variables with asynchronous connections
 // set a global javascript variable
 var featuredseries, featuredseries_camelcase, featuredseries_speaker;
 // tell the function where the JSON data is
@@ -90,9 +121,162 @@ function todaysChapter() {
 	}
 }
 
-/* using an xml-based data source */
+// get data as xml and fiddle with it
+function getXmlEvents() {
+	loadXml('http://www.flcbranson.org/rss/Events.xml', function(data) {
+		// getElementsByTagName() creates an array of elements with that name
+		var items = data.getElementsByTagName('item');
+		for (var i = 0; i < items.length; i++) {
+			// define your variables as null within the loop (just re-declaring a variable will not remove a previous value)
+			var title = null;
+			var title_camelcase = null;
+			var speaker = null;
+			var date = null;
+			var date_iso8601 = null;
+			var date_readable = null;
+			var date_array = null;
+			var date_timezone = null;
+			var extradate1 = null;
+			var extradate1_iso8601 = null;
+			var extradate1_readable = null;
+			var extradate1_array = null;
+			var extradate1_timezone = null;
+			var extradate2 = null;
+			var extradate2_iso8601 = null;
+			var extradate2_readable = null;
+			var extradate2_array = null;
+			var extradate2_timezone = null;
+			var extradate3 = null;
+			var extradate3_iso8601 = null;
+			var extradate3_readable = null;
+			var extradate3_array = null;
+			var extradate3_timezone = null;
+			var extradate4 = null;
+			var extradate4_iso8601 = null;
+			var extradate4_readable = null;
+			var extradate4_array = null;
+			var extradate4_timezone = null;
+			var enddate = null;
+			var enddate_iso8601 = null;
+			var enddate_readable = null;
+			var enddate_array = null;
+			var enddate_timezone = null;
+			var lasteventdate = null;
+			var website = null;
+			var venue = null;
+			var address = null;
+			var location = null;
+			var location_array = null;
+			var location_city = null;
+			var location_state = null;
+			var zip = null;
+			var phone = null;
+			var notes = null;
+			// getElementsByTagName() creates an array of elements with that name
+			// these files only have one title for each item
+			// you can create an array of the titles (of which there is only one) and then a variable for the one title
+			//var titles = items[i].getElementsByTagName('title');
+			//alert(titles[0].firstChild.nodeValue);
+			//var title = titles[0].firstChild.nodeValue;
+			// or just directly access the title
+			// redefine your variables only if there is actual data
+			if (items[i].getElementsByTagName('title').length !== 0) var title = items[i].getElementsByTagName('title')[0].firstChild.nodeValue;
+			// replace non-alphanumeric characters with nothing
+			if (title) title_camelcase = title.replace(/[^a-zA-Z0-9]+/g, '');
+			if (items[i].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator').length !== 0) speaker = items[i].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator')[0].firstChild.nodeValue;
+			if (items[i].getElementsByTagName('pubDate').length !== 0) var date = items[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
+			if (date) date_iso8601 = Date.parse(date.substring(5, 25)).toISOString();
+			// create an array from a string using the defined delimiter
+			if (date) date_array = date.split(' ');
+			if (date_array && date_array.length === 6) date_timezone = date_array[5];
+			if (date) date_readable = Date.parse(date.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + date_timezone + ')';
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate1').length !== 0) extradate1 = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate1')[0].firstChild.nodeValue;
+			if (extradate1) extradate1_iso8601 = Date.parse(extradate1.substring(5, 25)).toISOString();
+			// create an array from a string using the defined delimiter
+			if (extradate1) extradate1_array = extradate1.split(' ');
+			if (extradate1_array && extradate1_array.length === 6) extradate1_timezone = extradate1_array[5];
+			if (extradate1) extradate1_readable = Date.parse(extradate1.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + extradate1_timezone + ')';
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate2').length !== 0) extradate2 = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate2')[0].firstChild.nodeValue;
+			if (extradate2) extradate2_iso8601 = Date.parse(extradate2.substring(5, 25)).toISOString();
+			// create an array from a string using the defined delimiter
+			if (extradate2) extradate2_array = extradate2.split(' ');
+			if (extradate2_array && extradate2_array.length === 6) extradate2_timezone = extradate2_array[5];
+			if (extradate2) extradate2_readable = Date.parse(extradate2.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + extradate2_timezone + ')';
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate3').length !== 0) extradate3 = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate3')[0].firstChild.nodeValue;
+			if (extradate3) extradate3_iso8601 = Date.parse(extradate3.substring(5, 25)).toISOString();
+			// create an array from a string using the defined delimiter
+			if (extradate3) extradate3_array = extradate3.split(' ');
+			if (extradate3_array && extradate3_array.length === 6) extradate3_timezone = extradate3_array[5];
+			if (extradate3) extradate3_readable = Date.parse(extradate3.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + extradate3_timezone + ')';
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate4').length !== 0) extradate4 = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate4')[0].firstChild.nodeValue;
+			if (extradate4) extradate4_iso8601 = Date.parse(extradate4.substring(5, 25)).toISOString();
+			// create an array from a string using the defined delimiter
+			if (extradate4) extradate4_array = extradate4.split(' ');
+			if (extradate4_array && extradate4_array.length === 6) extradate4_timezone = extradate4_array[5];
+			if (extradate4) extradate4_readable = Date.parse(extradate4.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + extradate4_timezone + ')';
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate').length !== 0) enddate = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate')[0].firstChild.nodeValue;
+			if (enddate) enddate_iso8601 = Date.parse(enddate.substring(5, 25)).toISOString();
+			// create an array from a string using the defined delimiter
+			if (enddate) enddate_array = enddate.split(' ');
+			if (enddate_array && enddate_array.length === 6) enddate_timezone = enddate_array[5];
+			if (enddate) enddate_readable = Date.parse(enddate.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + enddate_timezone + ')';
+			if (items[i].getElementsByTagName('link').length !== 0) website = items[i].getElementsByTagName('link')[0].firstChild.nodeValue;
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'venue').length !== 0) venue = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'venue')[0].firstChild.nodeValue;
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'address').length !== 0) address = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'address')[0].firstChild.nodeValue;
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'location').length !== 0) location = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'location')[0].firstChild.nodeValue;
+			// create an array from a string using the defined delimiter
+			if (location) location_array = location.split(',');
+			// if there's only one part of the array (the delimiter wasn't found)
+			if (location_array.length === 1) {
+				location_city = location_array[0];
+			}
+			// if there are two parts then assume a city and state
+			if (location_array.length === 2) {
+				location_city = location_array[0];
+				location_state = location_array[1];
+			}
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'zip').length !== 0) zip = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'zip')[0].firstChild.nodeValue;
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'phone').length !== 0) phone = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'phone')[0].firstChild.nodeValue;
+			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'notes').length !== 0) notes = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'notes')[0].firstChild.nodeValue;
+
+			var today = Date.today().toString('yyyyMMdd');
+			if (date && date_iso8601) lasteventdate = Date.parse(date_iso8601.substring(0, 19)).toString('yyyyMMdd');
+			if (enddate && enddate_iso8601) lasteventdate = Date.parse(enddate_iso8601.substring(0, 19)).toString('yyyyMMdd');
+			if (lasteventdate && lasteventdate >= today) {
+				$('#content').append(
+	'<section id="' + title_camelcase + '" itemscope itemtype="http://schema.org/Event">' +
+		'<h3 itemprop="name">' + title + '</h3>' +
+		'<p class="venue">' + venue + '<span class="delimiter"></span>' + location + '</p>' +
+		'<p class="speaker" itemprop="performer">' + speaker + '</p>' +
+		'<div itemprop="location" itemscope itemtype="http://schema.org/Place">' +
+			'<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' +
+				'<span itemprop="streetAddress">' + address + '</span>' +
+				'<span itemprop="addressLocality">' + location_city + '</span>, <span itemprop="addressRegion">' + location_state + '</span> <span itemprop="postalCode">' + zip + '</span>' +
+			'</p>' +
+			'<!-- you could do <a href="941-388-6961"></a> but most phones will make it a link anyways -->' +
+			'<p itemprop="telephone">' + phone + '</p>' +
+			'<p><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>' +
+		'</div>' +
+		'<ol class="schedule">' +
+			'<li><time datetime="' + date_iso8601 + '" itemprop="startDate">' + date_readable + '</time></li>' +
+			'<li><time datetime="' + extradate1_iso8601 + '">' + extradate1_readable + '</time></li>' +
+			'<li><time datetime="' + extradate2_iso8601 + '">' + extradate2_readable + '</time></li>' +
+			'<li><time datetime="' + extradate3_iso8601 + '">' + extradate3_readable + '</time></li>' +
+			'<li><time datetime="' + extradate4_iso8601 + '">' + extradate4_readable + '</time></li>' +
+			'<li><time datetime="' + enddate_iso8601 + '" itemprop="endDate">' + enddate_readable + '</time></li>' +
+		'</ol>' +
+		'<div class="notes">' +
+			notes +
+		'</div>' +
+	'</section>'
+				);
+			}
+		}
+	});
+}
+
 // get data as json and fiddle with it
-function upcomingEvents() {
+function getApiEvents() {
 	// tell the function where the JSON data is
 	fetchJSONFile('http://www.flcbranson.org/api/events', function(data) {
 		// do something with your data
@@ -101,8 +285,8 @@ function upcomingEvents() {
 		for (var i = 0, l = data.events.length; i < l; i++) {
 			//alert(data.events[i].name);
 			var event_name = data.events[i].name;
-			// replace space with no space
-			var event_name_camelcase = event_name.replace(/ /g,'');
+			// replace non-alphanumeric characters with nothing
+			var event_name_camelcase = event_name.replace(/[^a-zA-Z0-9]+/g, '');
 			var event_speakers = data.events[i].speakers;
 			var event_venue_name = data.events[i].venue.name;
 			var event_venue_host = data.events[i].venue.host;
@@ -164,17 +348,6 @@ function upcomingEvents() {
 		}
 	});
 }
-
-/* xml isn't being viewed as valid
-// load one of our XML files and show the info
-function upcomingEvents() {
-	xml = $.parseXML('http://www.flcbranson.org/rss/Events.xml'),
-	$xml = $( xml );
-	$($xml).each(function() {
-		alert($(this).find('item > title').text());
-	});
-}
-*/
 
 // full service rebroadcasts
 function sundayRebroadcast() {
@@ -293,7 +466,7 @@ function loadXML(url) {
 	}
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			// do s<!---->omething with your data
+			// do something with your data
 			txt = '<div>';
 			x = xmlhttp.responseXML.documentElement.getElementsByTagName('item');
 			for (i = 0; i < x.length; i++) {
@@ -369,12 +542,8 @@ function seriesDownload(seriestitle) {
 			speaker = data.sermons[i].speaker;
 			seriespart = data.sermons[i].seriespart;
 			sermon = data.sermons[i].sermon;
-			// replace certain characters with nothing
-			var sermon_camelcase = sermon.replace(/ /g,'');
-			sermon_camelcase = sermon_camelcase.replace(/\'/g,'');
-			sermon_camelcase = sermon_camelcase.replace(/\"/g,'');
-			sermon_camelcase = sermon_camelcase.replace(/\./g,'');
-			sermon_camelcase = sermon_camelcase.replace(/\$/g,'');
+			// replace non-alphanumeric characters with nothing
+			var sermon_camelcase = sermon.replace(/[^a-zA-Z0-9]+/g, '');
 			sermonpart = data.sermons[i].sermonpart;
 			sermonsubtitle = data.sermons[i].sermonsubtitle;
 			sermonsubtitlepart = data.sermons[i].sermonsubtitlepart;
