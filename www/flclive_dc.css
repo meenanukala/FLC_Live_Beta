@@ -94,7 +94,6 @@ h1 span {
 h1 a {
 	display:block;
 	width:100%;
-	color:inherit;
 }
 
 .home h2 {
@@ -111,6 +110,10 @@ h1 a {
 a {
 	color:#29649f;
 	text-decoration:none;
+}
+
+.home a {
+	color:inherit;
 }
 
 /* changes the cursor for javascript links */
