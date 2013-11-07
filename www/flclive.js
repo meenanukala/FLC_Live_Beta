@@ -127,52 +127,25 @@ function getXmlEvents() {
 	loadXml('http://www.flcbranson.org/rss/Events.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
-		for (var i = 0; i < items.length; i++) {
+		var today = Date.today().toString('yyyyMMdd');
+		for (var i = items.length - 1; i >= 0; i--) {
 			// define your variables as null within the loop (just re-declaring a variable will not remove a previous value)
-			var title = null;
-			var title_camelcase = null;
-			var speaker = null;
-			var date = null;
-			var date_iso8601 = null;
-			var date_readable = null;
-			var date_array = null;
-			var date_timezone = null;
-			var extradate1 = null;
-			var extradate1_iso8601 = null;
-			var extradate1_readable = null;
-			var extradate1_array = null;
-			var extradate1_timezone = null;
-			var extradate2 = null;
-			var extradate2_iso8601 = null;
-			var extradate2_readable = null;
-			var extradate2_array = null;
-			var extradate2_timezone = null;
-			var extradate3 = null;
-			var extradate3_iso8601 = null;
-			var extradate3_readable = null;
-			var extradate3_array = null;
-			var extradate3_timezone = null;
-			var extradate4 = null;
-			var extradate4_iso8601 = null;
-			var extradate4_readable = null;
-			var extradate4_array = null;
-			var extradate4_timezone = null;
-			var enddate = null;
-			var enddate_iso8601 = null;
-			var enddate_readable = null;
-			var enddate_array = null;
-			var enddate_timezone = null;
-			var lasteventdate = null;
-			var website = null;
-			var venue = null;
-			var address = null;
-			var location = null;
-			var location_array = null;
-			var location_city = null;
-			var location_state = null;
-			var zip = null;
-			var phone = null;
-			var notes = null;
+			var title = '';
+			var title_camelcase = '';
+			var speaker = '';
+			var begindate = '';
+			var enddate = '';
+			var website = '';
+			var venue = '';
+			var address = '';
+			var location = '';
+			var location_array = '';
+			var location_city = '';
+			var location_state = '';
+			var zip = '';
+			var phone = '';
+			var notes = '';
+
 			// getElementsByTagName() creates an array of elements with that name
 			// these files only have one title for each item
 			// you can create an array of the titles (of which there is only one) and then a variable for the one title
@@ -185,42 +158,8 @@ function getXmlEvents() {
 			// replace non-alphanumeric characters with nothing
 			if (title) title_camelcase = title.replace(/[^a-zA-Z0-9]+/g, '');
 			if (items[i].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator').length !== 0) speaker = items[i].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator')[0].firstChild.nodeValue;
-			if (items[i].getElementsByTagName('pubDate').length !== 0) var date = items[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
-			if (date) date_iso8601 = Date.parse(date.substring(5, 25)).toISOString();
-			// create an array from a string using the defined delimiter
-			if (date) date_array = date.split(' ');
-			if (date_array && date_array.length === 6) date_timezone = date_array[5];
-			if (date) date_readable = Date.parse(date.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + date_timezone + ')';
-			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate1').length !== 0) extradate1 = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate1')[0].firstChild.nodeValue;
-			if (extradate1) extradate1_iso8601 = Date.parse(extradate1.substring(5, 25)).toISOString();
-			// create an array from a string using the defined delimiter
-			if (extradate1) extradate1_array = extradate1.split(' ');
-			if (extradate1_array && extradate1_array.length === 6) extradate1_timezone = extradate1_array[5];
-			if (extradate1) extradate1_readable = Date.parse(extradate1.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + extradate1_timezone + ')';
-			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate2').length !== 0) extradate2 = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate2')[0].firstChild.nodeValue;
-			if (extradate2) extradate2_iso8601 = Date.parse(extradate2.substring(5, 25)).toISOString();
-			// create an array from a string using the defined delimiter
-			if (extradate2) extradate2_array = extradate2.split(' ');
-			if (extradate2_array && extradate2_array.length === 6) extradate2_timezone = extradate2_array[5];
-			if (extradate2) extradate2_readable = Date.parse(extradate2.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + extradate2_timezone + ')';
-			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate3').length !== 0) extradate3 = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate3')[0].firstChild.nodeValue;
-			if (extradate3) extradate3_iso8601 = Date.parse(extradate3.substring(5, 25)).toISOString();
-			// create an array from a string using the defined delimiter
-			if (extradate3) extradate3_array = extradate3.split(' ');
-			if (extradate3_array && extradate3_array.length === 6) extradate3_timezone = extradate3_array[5];
-			if (extradate3) extradate3_readable = Date.parse(extradate3.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + extradate3_timezone + ')';
-			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate4').length !== 0) extradate4 = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate4')[0].firstChild.nodeValue;
-			if (extradate4) extradate4_iso8601 = Date.parse(extradate4.substring(5, 25)).toISOString();
-			// create an array from a string using the defined delimiter
-			if (extradate4) extradate4_array = extradate4.split(' ');
-			if (extradate4_array && extradate4_array.length === 6) extradate4_timezone = extradate4_array[5];
-			if (extradate4) extradate4_readable = Date.parse(extradate4.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + extradate4_timezone + ')';
+			if (items[i].getElementsByTagName('pubDate').length !== 0) begindate = items[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
 			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate').length !== 0) enddate = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate')[0].firstChild.nodeValue;
-			if (enddate) enddate_iso8601 = Date.parse(enddate.substring(5, 25)).toISOString();
-			// create an array from a string using the defined delimiter
-			if (enddate) enddate_array = enddate.split(' ');
-			if (enddate_array && enddate_array.length === 6) enddate_timezone = enddate_array[5];
-			if (enddate) enddate_readable = Date.parse(enddate.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + enddate_timezone + ')';
 			if (items[i].getElementsByTagName('link').length !== 0) website = items[i].getElementsByTagName('link')[0].firstChild.nodeValue;
 			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'venue').length !== 0) venue = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'venue')[0].firstChild.nodeValue;
 			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'address').length !== 0) address = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'address')[0].firstChild.nodeValue;
@@ -239,11 +178,12 @@ function getXmlEvents() {
 			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'zip').length !== 0) zip = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'zip')[0].firstChild.nodeValue;
 			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'phone').length !== 0) phone = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'phone')[0].firstChild.nodeValue;
 			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'notes').length !== 0) notes = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'notes')[0].firstChild.nodeValue;
-
-			var today = Date.today().toString('yyyyMMdd');
-			if (date && date_iso8601) lasteventdate = Date.parse(date_iso8601.substring(0, 19)).toString('yyyyMMdd');
-			if (enddate && enddate_iso8601) lasteventdate = Date.parse(enddate_iso8601.substring(0, 19)).toString('yyyyMMdd');
-			if (lasteventdate && lasteventdate >= today) {
+			if (enddate) {
+				enddate = Date.parse(enddate.substring(5, 16)).toString('yyyyMMdd');
+			} else {
+				enddate = Date.parse(begindate.substring(5, 16)).toString('yyyyMMdd');
+			}
+			if (enddate && enddate >= today) {
 				$('#content').append(
 				'<section id="' + title_camelcase + '" itemscope itemtype="http://schema.org/Event">' +
 					'<h3 class="title" itemprop="name">' + title + '</h3>' +
@@ -258,19 +198,43 @@ function getXmlEvents() {
 						'<p class="phone" itemprop="telephone">' + phone + '</p>' +
 						'<p class="website"><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>' +
 					'</div>' +
-					'<ol class="schedule">' +
-						'<li><time datetime="' + date_iso8601 + '" itemprop="startDate">' + date_readable + '</time></li>' +
-						'<li><time datetime="' + extradate1_iso8601 + '">' + extradate1_readable + '</time></li>' +
-						'<li><time datetime="' + extradate2_iso8601 + '">' + extradate2_readable + '</time></li>' +
-						'<li><time datetime="' + extradate3_iso8601 + '">' + extradate3_readable + '</time></li>' +
-						'<li><time datetime="' + extradate4_iso8601 + '">' + extradate4_readable + '</time></li>' +
-						'<li><time datetime="' + enddate_iso8601 + '" itemprop="endDate">' + enddate_readable + '</time></li>' +
+					'<ol id="' + title_camelcase + '-schedule" class="schedule">' +
 					'</ol>' +
 					'<div class="notes">' +
 						notes +
 					'</div>' +
 				'</section>'
 				);
+
+				// create an array for the dates and times of each event
+				var dates = new Array();
+				// push() adds a record to the end of the array
+				if (items[i].getElementsByTagName('pubDate').length !== 0) dates.push(items[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue);
+				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate1').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate1')[0].firstChild.nodeValue);
+				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate2').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate2')[0].firstChild.nodeValue);
+				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate3').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate3')[0].firstChild.nodeValue);
+				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate4').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate4')[0].firstChild.nodeValue);
+				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate')[0].firstChild.nodeValue);
+	
+				for (var ii = 0; ii < dates.length; ii++) {
+					var date = '';
+					var date_iso8601 = '';
+					var date_array = '';
+					var date_timezone = '';
+					var date_readable = '';
+					// this will be in rfc-822 format
+					var date = dates[ii];
+					// convert rfc-822 date format to iso8601 date format
+					// date.js doesn't seem to like the abbreviated day or time zones so substring() them
+					if (date) date_iso8601 = Date.parse(date.substring(5, 25)).toISOString();
+					// create an array from a string using the defined delimiter
+					if (date) date_array = date.split(' ');
+					// splitting rfc-822 by spaces should result in 6 fields (starting with field 0)
+					if (date_array && date_array.length === 6) date_timezone = date_array[5];
+					// date.js doesn't seem to like the abbreviated day or time zones so substring() them
+					if (date) date_readable = Date.parse(date.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + date_timezone + ')';
+					$('#content #' + title_camelcase + '-schedule').append('<li><time datetime="' + date_iso8601 + '">' + date_readable + '</time></li>');
+				}
 			}
 		}
 	});
