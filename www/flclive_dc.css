@@ -94,6 +94,7 @@ h1 span {
 h1 a {
 	display:block;
 	width:100%;
+	color:inherit;
 }
 
 .home h2 {
