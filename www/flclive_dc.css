@@ -108,7 +108,7 @@ h1 a {
 }
 
 a {
-	color:inherit;
+	color:#29649f;
 	text-decoration:none;
 }
 
@@ -295,57 +295,43 @@ tr {
 	text-align:center;
 }
 
-.events #content dt, .events .venuetimezone, .events #content .eventspeaker, .events #content .venuetimezone, .events #content .map.link, .events #content .eventemail {
-	display:none;
-}
-
-.events #content .eventname {
+.events .title {
 	margin-top:1em;
-	/*font-size:1.875em;*/
 	text-transform:uppercase;
 	font-weight:bold;
 }
 
-.events #content .venuetitle {
+.events .venue {
 	margin-top:1em;
 	font-weight:bold;
-	/*font-size:1.375em;*/
 	color:#29649f;
 	margin-bottom:0;
 }
 
-.events #content .venuetitle .delimiter {
+.events .venue .delimiter {
 	color:#7b7b7b;
 	font-weight:normal;
 }
 
-.events #content .venuetitle .delimiter:after {
-	content:"//";
+.events .venue .delimiter:after {
+	content:" // ";
 }
 
-.events #content .address, .events .eventphone {
+.events .address, .events .phone {
 	color:#7b7b7b;
 }
 
-.events #content .address {
+.events .address {
 	margin-top:1em;
 }
 
-.events #content .address .venuestreet {
+.events .street {
 	display:block;
 }
 
-.events #content .schedule {
+.events .schedule {
 	margin-top:1em;
 	font-style:normal;
-}
-
-.events #content .eventdatetime, .events .eventtimezone {
-	display:inline;
-}
-
-.events #content .eventdatetime:after {
-	content:" ";
 }
 
 .featuredseries dt {

@@ -246,17 +246,17 @@ function getXmlEvents() {
 			if (lasteventdate && lasteventdate >= today) {
 				$('#content').append(
 				'<section id="' + title_camelcase + '" itemscope itemtype="http://schema.org/Event">' +
-					'<h3 itemprop="name">' + title + '</h3>' +
+					'<h3 class="title" itemprop="name">' + title + '</h3>' +
 					'<p class="venue">' + venue + '<span class="delimiter"></span>' + location + '</p>' +
 					'<p class="speaker" itemprop="performer">' + speaker + '</p>' +
 					'<div itemprop="location" itemscope itemtype="http://schema.org/Place">' +
-						'<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' +
-							'<span itemprop="streetAddress">' + address + '</span>' +
-							'<span itemprop="addressLocality">' + location_city + '</span>, <span itemprop="addressRegion">' + location_state + '</span> <span itemprop="postalCode">' + zip + '</span>' +
+						'<p class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' +
+							'<span class="street" itemprop="streetAddress">' + address + '</span>' +
+							'<span class="city" itemprop="addressLocality">' + location_city + '</span>, <span class="state" itemprop="addressRegion">' + location_state + '</span> <span class="zip" itemprop="postalCode">' + zip + '</span>' +
 						'</p>' +
 						'<!-- you could do <a href="941-388-6961"></a> but most phones will make it a link anyways -->' +
-						'<p itemprop="telephone">' + phone + '</p>' +
-						'<p><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>' +
+						'<p class="phone" itemprop="telephone">' + phone + '</p>' +
+						'<p class="website"><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>' +
 					'</div>' +
 					'<ol class="schedule">' +
 						'<li><time datetime="' + date_iso8601 + '" itemprop="startDate">' + date_readable + '</time></li>' +
