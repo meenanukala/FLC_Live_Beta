@@ -112,7 +112,7 @@ a {
 	text-decoration:none;
 }
 
-.home a {
+.home a, h1 a {
 	color:inherit;
 }
 
