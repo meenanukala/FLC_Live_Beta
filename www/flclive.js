@@ -128,6 +128,7 @@ function getXmlEvents() {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
 		var today = Date.today().toString('yyyyMMdd');
+		// iterate through the array in reverse
 		for (var i = items.length - 1; i >= 0; i--) {
 			// define your variables as null within the loop (just re-declaring a variable will not remove a previous value)
 			var title = '';
