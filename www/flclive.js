@@ -113,6 +113,7 @@ function todaysChapter() {
 				$('.dailybiblereading #content').append('</dl>');
 			}
 		}
+		// sometimes an asynchronous connection can be cached so sending an extra string (doesn't even have to be interpreted by the server) will cause it not to be cached
 		var nocache = new Date().getTime();
 		var path = 'http://www.flcbranson.org/api/dailybiblereading/?cache=' + nocache;
 		// true is asynchronous and false is synchronous
@@ -244,31 +245,31 @@ function getXmlEvents() {
 			if (enddate && enddate_iso8601) lasteventdate = Date.parse(enddate_iso8601.substring(0, 19)).toString('yyyyMMdd');
 			if (lasteventdate && lasteventdate >= today) {
 				$('#content').append(
-	'<section id="' + title_camelcase + '" itemscope itemtype="http://schema.org/Event">' +
-		'<h3 itemprop="name">' + title + '</h3>' +
-		'<p class="venue">' + venue + '<span class="delimiter"></span>' + location + '</p>' +
-		'<p class="speaker" itemprop="performer">' + speaker + '</p>' +
-		'<div itemprop="location" itemscope itemtype="http://schema.org/Place">' +
-			'<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' +
-				'<span itemprop="streetAddress">' + address + '</span>' +
-				'<span itemprop="addressLocality">' + location_city + '</span>, <span itemprop="addressRegion">' + location_state + '</span> <span itemprop="postalCode">' + zip + '</span>' +
-			'</p>' +
-			'<!-- you could do <a href="941-388-6961"></a> but most phones will make it a link anyways -->' +
-			'<p itemprop="telephone">' + phone + '</p>' +
-			'<p><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>' +
-		'</div>' +
-		'<ol class="schedule">' +
-			'<li><time datetime="' + date_iso8601 + '" itemprop="startDate">' + date_readable + '</time></li>' +
-			'<li><time datetime="' + extradate1_iso8601 + '">' + extradate1_readable + '</time></li>' +
-			'<li><time datetime="' + extradate2_iso8601 + '">' + extradate2_readable + '</time></li>' +
-			'<li><time datetime="' + extradate3_iso8601 + '">' + extradate3_readable + '</time></li>' +
-			'<li><time datetime="' + extradate4_iso8601 + '">' + extradate4_readable + '</time></li>' +
-			'<li><time datetime="' + enddate_iso8601 + '" itemprop="endDate">' + enddate_readable + '</time></li>' +
-		'</ol>' +
-		'<div class="notes">' +
-			notes +
-		'</div>' +
-	'</section>'
+				'<section id="' + title_camelcase + '" itemscope itemtype="http://schema.org/Event">' +
+					'<h3 itemprop="name">' + title + '</h3>' +
+					'<p class="venue">' + venue + '<span class="delimiter"></span>' + location + '</p>' +
+					'<p class="speaker" itemprop="performer">' + speaker + '</p>' +
+					'<div itemprop="location" itemscope itemtype="http://schema.org/Place">' +
+						'<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' +
+							'<span itemprop="streetAddress">' + address + '</span>' +
+							'<span itemprop="addressLocality">' + location_city + '</span>, <span itemprop="addressRegion">' + location_state + '</span> <span itemprop="postalCode">' + zip + '</span>' +
+						'</p>' +
+						'<!-- you could do <a href="941-388-6961"></a> but most phones will make it a link anyways -->' +
+						'<p itemprop="telephone">' + phone + '</p>' +
+						'<p><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>' +
+					'</div>' +
+					'<ol class="schedule">' +
+						'<li><time datetime="' + date_iso8601 + '" itemprop="startDate">' + date_readable + '</time></li>' +
+						'<li><time datetime="' + extradate1_iso8601 + '">' + extradate1_readable + '</time></li>' +
+						'<li><time datetime="' + extradate2_iso8601 + '">' + extradate2_readable + '</time></li>' +
+						'<li><time datetime="' + extradate3_iso8601 + '">' + extradate3_readable + '</time></li>' +
+						'<li><time datetime="' + extradate4_iso8601 + '">' + extradate4_readable + '</time></li>' +
+						'<li><time datetime="' + enddate_iso8601 + '" itemprop="endDate">' + enddate_readable + '</time></li>' +
+					'</ol>' +
+					'<div class="notes">' +
+						notes +
+					'</div>' +
+				'</section>'
 				);
 			}
 		}
