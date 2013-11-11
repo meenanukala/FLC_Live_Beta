@@ -48,9 +48,63 @@ function fetchJSONFile(path, callback) {
 	httpRequest.send(); 
 }
 
+// window.open wasn't opening a link in the system browser on iOS, so we have to use this function (requires phonegap.js)
+function redirectToSystemBrowser(url) {
+	// Wait for Cordova to load
+	document.addEventListener('deviceready', onDeviceReady, false);
+	// Cordova is ready
+	function onDeviceReady() {
+		// open URL in default web browser
+		var ref = window.open(encodeURI(url), '_system', 'location=yes');
+	}
+}
+
+// opens and closes the video lightbox (jquery)
+function openVideo(url, poster) {
+	if (poster === undefined) poster = "http://www.flcbranson.org/images/Posters/Flcb.jpg";
+	$('body').append('<div class="lightbox" onclick="closeVideo();"><a class="close" href="javascript:void(0)" onclick="closeVideo();">x</a></div>');
+	$('.lightbox').append('<div class="lightboxcontent video"></div>');
+	$('.lightboxcontent').append('<video src="' + url + '" poster="' + poster + '" autoplay controls x-webkit-airplay="allow" loop></video>');
+}
+function closeVideo() {
+	$('.lightbox video')[0].pause();
+	$('.lightbox').remove();
+	// refresh the page
+	//document.location.reload(true);
+}
+
+// prepend 0s to a number
+function padDigits(number, digits) {
+	return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+}
+
+// full service rebroadcasts
+function sundayRebroadcast() {
+	// tell the function where the JSON data is
+	fetchJSONFile('http://www.flcbranson.org/api/rebroadcast', function(data){
+		// do something with your data
+		// alert(JSON.stringify(data));
+		//alert(data.sunday_publishingpoint_hls);
+		//var sundayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.sunday + '&rebroadcastday=sun';
+		//window.location = sundayrebroadcastlink;
+		openVideo(data.sunday_publishingpoint_hls);
+	});
+}
+function fridayRebroadcast() {
+	// tell the function where the JSON data is
+	fetchJSONFile('http://www.flcbranson.org/api/rebroadcast', function(data){
+		// do something with your data
+		// alert(JSON.stringify(data));
+		//alert(data.friday_publishingpoint_hls);
+		//var fridayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.friday + '&rebroadcastday=fri';
+		//window.location = fridayrebroadcastlink;
+		openVideo(data.friday_publishingpoint_hls);
+	});
+}
+
 // you can't do global variables with asynchronous connections
 // set a global javascript variable
-var featuredseries, featuredseries_camelcase, featuredseries_speaker;
+var featuredseries, featuredseries_camelcase, featuredseries_speaker, featuredseries_poster;
 // tell the function where the JSON data is
 fetchJSONFile('http://www.flcbranson.org/api/featuredseries', function(data) {
 	// do something with your data
@@ -60,9 +114,41 @@ fetchJSONFile('http://www.flcbranson.org/api/featuredseries', function(data) {
 	featuredseries = data.title;
 	featuredseries_camelcase = data.camelcase;
 	featuredseries_speaker = data.speaker;
+	featuredseries_poster = data.poster;
 });
 // see if the global variable is still set (would say "undefined" if using an asychronous connection)
 //alert(featuredseries + ', ' + featuredseries_camelcase);
+
+// start javascript countdown (http://www.developphp.com/view.php?tid=1248)
+// don't forget to pass the broadcast variable
+function cdtd(broadcast) {
+	// just about any standard date format is accepted
+	var nextinternetbroadcast = new Date(broadcast);
+	var now = new Date();
+	var timeDiff = nextinternetbroadcast.getTime() - now.getTime();
+	if (timeDiff <= 0) {
+		document.getElementById('nextinternetbroadcast').classList.remove('disabled');
+		document.getElementById('nextinternetbroadcast').innerHTML = '<a href="index.html">Join now<\/a>';
+		//document.getElementById('nextinternetbroadcast').innerHTML = '<a href="javscript:openVideo(' + livepublishingpoint + ');">Join live service now<\/a>';
+	} else {
+		var seconds = Math.floor(timeDiff / 1000);
+		var minutes = Math.floor(seconds / 60);
+		var hours = Math.floor(minutes / 60);
+		var days = Math.floor(hours / 24);
+		hours %= 24;
+		minutes %= 60;
+		seconds %= 60;
+		// padDigits() referenced above
+		days = padDigits(days, 2);
+		hours = padDigits(hours, 2);
+		minutes = padDigits(minutes, 2);
+		seconds = padDigits(seconds, 2);
+		//document.getElementById('nextinternetbroadcast').className += " disabled";
+		document.getElementById('nextinternetbroadcast').innerHTML = '<span class="days">' + days + ':</span><span class="hours">' + hours + ':</span><span class="minutes">' + minutes + ':</span><span class="seconds">' + seconds + '</span>';
+		// loop the function every second
+		setTimeout(function() { cdtd(broadcast); }, 1000);
+	}
+}
 
 // show today's chapter reference
 function todaysChapterReference() {
@@ -241,6 +327,7 @@ function getXmlEvents() {
 	});
 }
 
+/* using xml-based events
 // get data as json and fiddle with it
 function getApiEvents() {
 	// tell the function where the JSON data is
@@ -314,108 +401,52 @@ function getApiEvents() {
 		}
 	});
 }
+*/
 
-// full service rebroadcasts
-function sundayRebroadcast() {
+function seriesDownload(seriestitle) {
+	var series, number, description;
 	// tell the function where the JSON data is
-	fetchJSONFile('http://www.flcbranson.org/api/rebroadcast', function(data){
+	fetchJSONFile('http://www.flcbranson.org/api/seriesdownload/?series=' + seriestitle, function(data) {
 		// do something with your data
 		// alert(JSON.stringify(data));
-		//alert(data.sunday_publishingpoint_hls);
-		//var sundayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.sunday + '&rebroadcastday=sun';
-		//window.location = sundayrebroadcastlink;
-		openVideo(data.sunday_publishingpoint_hls);
+		// alert(data.title + ', ' + data.camelcase);
+		series = data.series;
+		number = data.seriesnumber;
+		description = data.description;
+		$('#content').append('<h2>' + series + '</h2>');
+		$('#content').append('<blockquote><p>' + description + '</p></blockquote>');
+		for (var i = 0, l = data.sermons.length; i < l; i++) {
+			var date, speaker, seriespart, sermon, sermonpart, sermonsubtitle, sermonsubtitlepart, mp3, mp4;
+			//alert(data.events[i].name);
+			date = data.sermons[i].date;
+			// date.js doesn't seem to like the iso8601 time zone offset
+			var date_readable = Date.parse(date.substring(0, 19)).toString('dddd, MMMM d, yyyy');
+			speaker = data.sermons[i].speaker;
+			seriespart = data.sermons[i].seriespart;
+			sermon = data.sermons[i].sermon;
+			// replace non-alphanumeric characters with nothing
+			var sermon_camelcase = sermon.replace(/[^a-zA-Z0-9]+/g, '');
+			sermonpart = data.sermons[i].sermonpart;
+			sermonsubtitle = data.sermons[i].sermonsubtitle;
+			sermonsubtitlepart = data.sermons[i].sermonsubtitlepart;
+			mp3 = data.sermons[i].downloadlinks.mp3;
+			mp4 = data.sermons[i].downloadlinks.mp4;
+			$('#content').append('<h3>Pt. ' + seriespart + ' - ' + sermon + '</h3>');
+			$('#content').append('<dl id="' + sermon_camelcase + '">');
+			$('#content #' + sermon_camelcase).append('<dt>Date Preached</dt>');
+			$('#content #' + sermon_camelcase).append('<dd><time datetime="' + date + '">' + date_readable + '</time></dd>');
+			$('#content #' + sermon_camelcase).append('<dt>Speaker</dt>');
+			$('#content #' + sermon_camelcase).append('<dd>' + speaker + '</dd>');
+			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
+			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li><a href="' + mp3 + '">Audio (MP3)</a>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li><a href="' + mp4 + '">Video (MP4)</a>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
+			$('#content #' + sermon_camelcase).append('</dd>');
+			$('#content').append('</dl>');
+		}
 	});
-}
-function fridayRebroadcast() {
-	// tell the function where the JSON data is
-	fetchJSONFile('http://www.flcbranson.org/api/rebroadcast', function(data){
-		// do something with your data
-		// alert(JSON.stringify(data));
-		//alert(data.friday_publishingpoint_hls);
-		//var fridayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.friday + '&rebroadcastday=fri';
-		//window.location = fridayrebroadcastlink;
-		openVideo(data.friday_publishingpoint_hls);
-	});
-}
-
-// window.open wasn't opening a link in the system browser on iOS, so we have to use this function (requires phonegap.js)
-function redirectToSystemBrowser(url) {
-	// Wait for Cordova to load
-	document.addEventListener('deviceready', onDeviceReady, false);
-	// Cordova is ready
-	function onDeviceReady() {
-		// open URL in default web browser
-		var ref = window.open(encodeURI(url), '_system', 'location=yes');
-	}
-}
-
-// opens and closes the video lightbox (jquery)
-function openVideo(url, poster) {
-	if (poster === undefined) poster = "http://www.flcbranson.org/images/Posters/Flcb.jpg";
-	$('body').append('<div class="lightbox" onclick="closeVideo();"><a class="close" href="javascript:void(0)" onclick="closeVideo();">x</a></div>');
-	$('.lightbox').append('<div class="lightboxcontent video"></div>');
-	$('.lightboxcontent').append('<video src="' + url + '" poster="' + poster + '" autoplay controls x-webkit-airplay="allow" loop></video>');
-}
-function closeVideo() {
-	$('.lightbox video')[0].pause();
-	$('.lightbox').remove();
-	// refresh the page
-	//document.location.reload(true);
-}
-
-// opens and closes the service times lightbox (jquery)
-function openServiceTimes() {
-	$('body').append('<div class="lightbox" onclick="closeServiceTimes();"><a class="close" href="javascript:void(0)" onclick="closeServiceTimes();">x</a></div>');
-	$('.lightbox').append('<div class="lightboxcontent servicetimes"></div>');
-	$('.lightboxcontent').append('\
-	<dl>\n\
-		<dt>Broadcast Times</dt>\n\
-		<dd>Sundays @ 9:00 <abbr>AM</abbr> & <span class="qualification">***</span> 11:00 <abbr>AM</abbr> <span class="timezone">Central Time</span></dd>\n\
-		<dd>Fridays @ 6:30 <abbr>PM</abbr> <span class="timezone">Central Time</span></dd>\n\
-	</dl>\n\
-	<p>Open "<abbr title="Faith Life Church">FLC</abbr> Live" during these times to connect directly to our live service broadcasts.</p>\n\
-	<p><small><span class="qualification">***</span> When our Sunday service is broadcast live from Sarasota at 9:00 <abbr>AM</abbr> (central), the 11:00 AM service will be a rebroadcast and may be viewed by selecting Sunday Rebroadcast.</small></p>\
-	');
-}
-function closeServiceTimes() {
-	$('.lightbox').remove();
-}
-
-// prepend 0s to a number
-function padDigits(number, digits) {
-	return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
-}
-
-// start javascript countdown (http://www.developphp.com/view.php?tid=1248)
-// don't forget to pass the broadcast variable
-function cdtd(broadcast) {
-	// just about any standard date format is accepted
-	var nextinternetbroadcast = new Date(broadcast);
-	var now = new Date();
-	var timeDiff = nextinternetbroadcast.getTime() - now.getTime();
-	if (timeDiff <= 0) {
-		document.getElementById('nextinternetbroadcast').classList.remove('disabled');
-		document.getElementById('nextinternetbroadcast').innerHTML = '<a href="index.html">Join now<\/a>';
-		//document.getElementById('nextinternetbroadcast').innerHTML = '<a href="javscript:openVideo(' + livepublishingpoint + ');">Join live service now<\/a>';
-	} else {
-		var seconds = Math.floor(timeDiff / 1000);
-		var minutes = Math.floor(seconds / 60);
-		var hours = Math.floor(minutes / 60);
-		var days = Math.floor(hours / 24);
-		hours %= 24;
-		minutes %= 60;
-		seconds %= 60;
-		// padDigits() referenced above
-		days = padDigits(days, 2);
-		hours = padDigits(hours, 2);
-		minutes = padDigits(minutes, 2);
-		seconds = padDigits(seconds, 2);
-		//document.getElementById('nextinternetbroadcast').className += " disabled";
-		document.getElementById('nextinternetbroadcast').innerHTML = '<span class="days">' + days + ':</span><span class="hours">' + hours + ':</span><span class="minutes">' + minutes + ':</span><span class="seconds">' + seconds + '</span>';
-		// loop the function every second
-		setTimeout(function() { cdtd(broadcast); }, 1000);
-	}
 }
 
 /* using the series download api
@@ -487,50 +518,24 @@ function loadXML(url) {
 }
 */
 
-function seriesDownload(seriestitle) {
-	var series, number, description;
-	// tell the function where the JSON data is
-	fetchJSONFile('http://www.flcbranson.org/api/seriesdownload/?series=' + seriestitle, function(data) {
-		// do something with your data
-		// alert(JSON.stringify(data));
-		// alert(data.title + ', ' + data.camelcase);
-		series = data.series;
-		number = data.seriesnumber;
-		description = data.description;
-		$('#content').append('<h2>' + series + '</h2>');
-		$('#content').append('<blockquote><p>' + description + '</p></blockquote>');
-		for (var i = 0, l = data.sermons.length; i < l; i++) {
-			var date, speaker, seriespart, sermon, sermonpart, sermonsubtitle, sermonsubtitlepart, mp3, mp4;
-			//alert(data.events[i].name);
-			date = data.sermons[i].date;
-			// date.js doesn't seem to like the iso8601 time zone offset
-			var date_readable = Date.parse(date.substring(0, 19)).toString('dddd, MMMM d, yyyy');
-			speaker = data.sermons[i].speaker;
-			seriespart = data.sermons[i].seriespart;
-			sermon = data.sermons[i].sermon;
-			// replace non-alphanumeric characters with nothing
-			var sermon_camelcase = sermon.replace(/[^a-zA-Z0-9]+/g, '');
-			sermonpart = data.sermons[i].sermonpart;
-			sermonsubtitle = data.sermons[i].sermonsubtitle;
-			sermonsubtitlepart = data.sermons[i].sermonsubtitlepart;
-			mp3 = data.sermons[i].downloadlinks.mp3;
-			mp4 = data.sermons[i].downloadlinks.mp4;
-			$('#content').append('<h3>Pt. ' + seriespart + ' - ' + sermon + '</h3>');
-			$('#content').append('<dl id="' + sermon_camelcase + '">');
-			$('#content #' + sermon_camelcase).append('<dt>Date Preached</dt>');
-			$('#content #' + sermon_camelcase).append('<dd><time datetime="' + date + '">' + date_readable + '</time></dd>');
-			$('#content #' + sermon_camelcase).append('<dt>Speaker</dt>');
-			$('#content #' + sermon_camelcase).append('<dd>' + speaker + '</dd>');
-			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
-			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li><a href="' + mp3 + '">Audio (MP3)</a>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li><a href="' + mp4 + '">Video (MP4)</a>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
-			$('#content #' + sermon_camelcase).append('</dd>');
-			$('#content').append('</dl>');
-		}
-	});
+// things that are no longer in use or don't work
+
+// opens and closes the service times lightbox (jquery)
+function openServiceTimes() {
+	$('body').append('<div class="lightbox" onclick="closeServiceTimes();"><a class="close" href="javascript:void(0)" onclick="closeServiceTimes();">x</a></div>');
+	$('.lightbox').append('<div class="lightboxcontent servicetimes"></div>');
+	$('.lightboxcontent').append('\
+	<dl>\n\
+		<dt>Broadcast Times</dt>\n\
+		<dd>Sundays @ 9:00 <abbr>AM</abbr> & <span class="qualification">***</span> 11:00 <abbr>AM</abbr> <span class="timezone">Central Time</span></dd>\n\
+		<dd>Fridays @ 6:30 <abbr>PM</abbr> <span class="timezone">Central Time</span></dd>\n\
+	</dl>\n\
+	<p>Open "<abbr title="Faith Life Church">FLC</abbr> Live" during these times to connect directly to our live service broadcasts.</p>\n\
+	<p><small><span class="qualification">***</span> When our Sunday service is broadcast live from Sarasota at 9:00 <abbr>AM</abbr> (central), the 11:00 AM service will be a rebroadcast and may be viewed by selecting Sunday Rebroadcast.</small></p>\
+	');
+}
+function closeServiceTimes() {
+	$('.lightbox').remove();
 }
 
 // a JavaScript equivalent of PHP’s basename() function
