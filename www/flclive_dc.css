@@ -290,10 +290,9 @@ tr {
 	bottom:0;
 	left:0;
 	z-index:4;
-	/*padding:5em;*/
+	padding:5em 1em 1em 1em;
 	white-space:normal;
-	/*background:rgba(0, 0, 0, 0.9);*/
-	background:rgba(0, 0, 0, 0.75);
+	background:rgba(0, 0, 0, 0.9);
 	color:#ffffff;
 	text-align:center;
 }
