@@ -73,6 +73,28 @@ function closeVideo() {
 	//document.location.reload(true);
 }
 
+// phonegap api media playing
+function playAudio(url) {
+	// Play the audio file at url
+	var my_media = new Media(url,
+		// success callback
+		function () {
+			console.log("playAudio():Audio Success");
+		},
+		// error callback
+		function (err) {
+			console.log("playAudio():Audio Error: " + err);
+		}
+	);
+	// Play audio
+	my_media.play({ playAudioWhenScreenIsLocked : true });
+}
+function stopAudio() {
+	if (my_media) {
+		my_media.stop();
+	}
+}
+
 // prepend 0s to a number
 function padDigits(number, digits) {
 	return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
@@ -87,7 +109,7 @@ function sundayRebroadcast() {
 		//alert(data.sunday_publishingpoint_hls);
 		//var sundayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.sunday + '&rebroadcastday=sun';
 		//window.location = sundayrebroadcastlink;
-		openVideo(data.sunday_publishingpoint_hls);
+		playAudio(data.sunday_publishingpoint_hls);
 	});
 }
 function fridayRebroadcast() {
@@ -98,7 +120,7 @@ function fridayRebroadcast() {
 		//alert(data.friday_publishingpoint_hls);
 		//var fridayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.friday + '&rebroadcastday=fri';
 		//window.location = fridayrebroadcastlink;
-		openVideo(data.friday_publishingpoint_hls);
+		playAudio(data.friday_publishingpoint_hls);
 	});
 }
 
@@ -440,8 +462,8 @@ function seriesDownload(seriestitle) {
 			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
 			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
 			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + '\', \'' + featuredseries_poster + '\')">Audio (MP3)</li>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + '\', \'' + featuredseries_poster + '\')">Video (MP4)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp3 + '\')">Audio (MP3)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp4 + '\')">Video (MP4)</li>');
 			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
 			$('#content #' + sermon_camelcase).append('</dd>');
 			$('#content').append('</dl>');
@@ -518,7 +540,7 @@ function loadXML(url) {
 }
 */
 
-// things that are no longer in use or don't work
+/* things that are no longer in use or don't work
 
 // opens and closes the service times lightbox (jquery)
 function openServiceTimes() {
@@ -569,7 +591,6 @@ function getQueryVariable(variable) {
 	return(false);
 }
 
-/* testing functions
 function yo() {
 	alert('Yo')
 };
