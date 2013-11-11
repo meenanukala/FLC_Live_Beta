@@ -109,7 +109,8 @@ function sundayRebroadcast() {
 		//alert(data.sunday_publishingpoint_hls);
 		//var sundayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.sunday + '&rebroadcastday=sun';
 		//window.location = sundayrebroadcastlink;
-		playAudio(data.sunday_publishingpoint_hls);
+		openVideo(data.sunday_publishingpoint_hls);
+		//playAudio(data.sunday_publishingpoint_hls);
 	});
 }
 function fridayRebroadcast() {
@@ -120,7 +121,8 @@ function fridayRebroadcast() {
 		//alert(data.friday_publishingpoint_hls);
 		//var fridayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.friday + '&rebroadcastday=fri';
 		//window.location = fridayrebroadcastlink;
-		playAudio(data.friday_publishingpoint_hls);
+		openVideo(data.friday_publishingpoint_hls);
+		//playAudio(data.friday_publishingpoint_hls);
 	});
 }
 
@@ -462,8 +464,10 @@ function seriesDownload(seriestitle) {
 			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
 			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
 			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp3 + '\')">Audio (MP3)</li>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp4 + '\')">Video (MP4)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + '\')">Audio (MP3)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + '\')">Video (MP4)</li>');
+			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp3 + '\')">Audio (MP3)</li>');
+			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp4 + '\')">Video (MP4)</li>');
 			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
 			$('#content #' + sermon_camelcase).append('</dd>');
 			$('#content').append('</dl>');
