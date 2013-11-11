@@ -440,8 +440,8 @@ function seriesDownload(seriestitle) {
 			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
 			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
 			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li><a href="openVideo(' + mp3 + ', ' + featuredseries_poster + ')">Audio (MP3)</a>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li><a href="openVideo(' + mp4 + ', ' + featuredseries_poster + ')">Video (MP4)</a>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + ', ' + featuredseries_poster + '\')">Audio (MP3)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + ', ' + featuredseries_poster + '\')">Video (MP4)</li>');
 			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
 			$('#content #' + sermon_camelcase).append('</dd>');
 			$('#content').append('</dl>');
