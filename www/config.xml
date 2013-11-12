@@ -28,8 +28,8 @@
 
 	<!-- Plugins can also be added here.  A list of available plugins are available at https://build.phonegap.com/docs/plugins-->
 	<!--<gap:plugin name="GAPlugin" />-->
-	<!--<gap:plugin name="org.apache.cordova.media" />-->
-	<gap:plugin name="Media" />
+	<gap:plugin name="org.apache.cordova.media" />
+	<!--<gap:plugin name="Media" />-->
 
 	<!-- Define app icon for each platform. -->
 	<icon src="images/logo.png" />
