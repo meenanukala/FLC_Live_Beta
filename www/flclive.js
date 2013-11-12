@@ -307,7 +307,7 @@ function getXmlEvents() {
 						'</p>' +
 						'<!-- you could do <a href="941-388-6961"></a> but most phones will make it a link anyways -->' +
 						'<p class="phone" itemprop="telephone">' + phone + '</p>' +
-						'<p class="website"><a href="' + website + '" target="_blank" itemprop="url" onclick="redirectToSystemBrowser(' + website + ')">' + website.substring(7) + '</a></p>' +
+						'<p class="website link" onclick="redirectToSystemBrowser(' + website + ')">' + website.substring(7) + '</p>' +
 					'</div>' +
 					'<ol id="' + title_camelcase + '-schedule" class="schedule">' +
 					'</ol>' +
