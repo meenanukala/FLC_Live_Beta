@@ -406,17 +406,11 @@ function convertLinks() {
 		// keep the browser from doing what it's supposed to
 		e.preventDefault();
 		//return false;
+		var address = $(this).attr('href');
 		// use our system browser function to open the url
 		//redirectToSystemBrowser($(this).attr('href'));
-		// Wait for Cordova to load
-		document.addEventListener('deviceready', onDeviceReady, false);
-		// Cordova is ready
-		function onDeviceReady() {
-			// open URL in default web browser
-			var ref = window.open(encodeURI($(this).attr('href')), '_system', 'location=yes');
-		}
 		//alert('didn\'t follow link');
-		console.log($(this).attr('href'));
+		alert(address);
 	});
 }
 
