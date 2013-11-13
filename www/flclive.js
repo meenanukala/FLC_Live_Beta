@@ -407,8 +407,8 @@ function convertLinks() {
 		e.preventDefault();
 		//return false;
 		// use our system browser function to open the url
-		//redirectToSystemBrowser($(this).attr('href'));
-		alert('didn\'t follow link');
+		redirectToSystemBrowser($(this).attr('href'));
+		//alert('didn\'t follow link');
 		//alert($(this).attr('href'));
 	});
 }
