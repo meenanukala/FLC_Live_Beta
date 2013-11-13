@@ -2,7 +2,7 @@
 var today = Date.today().toString('yyyy-MM-dd');
 //alert(today);
 
-// make an ajax call
+// make an asynchronous json call
 function loadJson(url, callback) {
 	var xmlhttprequest = new XMLHttpRequest();
 	xmlhttprequest.onreadystatechange = function() {
@@ -17,7 +17,7 @@ function loadJson(url, callback) {
 	xmlhttprequest.send();
 }
 
-// make an ajax call
+// make an asynchronous xml call
 function loadXml(url, callback) {
 	var xmlhttprequest = new XMLHttpRequest();
 	xmlhttprequest.onreadystatechange = function() {
@@ -29,6 +29,21 @@ function loadXml(url, callback) {
 	}
 	// true is asynchronous and false is synchronous
 	xmlhttprequest.open('GET', url, true);
+	xmlhttprequest.send();
+}
+
+// make a synchronous xml call
+function loadXmlSynchronous(url, callback) {
+	var xmlhttprequest = new XMLHttpRequest();
+	xmlhttprequest.onreadystatechange = function() {
+		if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
+			// do something with your data
+			var data = xmlhttprequest.responseXML;
+			if (callback) callback(data);
+		}
+	}
+	// true is asynchronous and false is synchronous
+	xmlhttprequest.open('GET', url, false);
 	xmlhttprequest.send();
 }
 
@@ -48,6 +63,7 @@ function fetchJSONFile(path, callback) {
 	httpRequest.send(); 
 }
 
+// open a link in the system browser
 // window.open wasn't opening a link in the system browser on iOS, so we have to use this function (requires phonegap.js)
 function redirectToSystemBrowser(url) {
 	// Wait for Cordova to load
@@ -143,7 +159,7 @@ fetchJSONFile('http://www.flcbranson.org/api/featuredseries', function(data) {
 // see if the global variable is still set (would say "undefined" if using an asychronous connection)
 //alert(featuredseries + ', ' + featuredseries_camelcase);
 
-// start javascript countdown (http://www.developphp.com/view.php?tid=1248)
+// javascript countdown (http://www.developphp.com/view.php?tid=1248)
 // don't forget to pass the broadcast variable
 function cdtd(broadcast) {
 	// just about any standard date format is accepted
@@ -234,7 +250,7 @@ function todaysChapter() {
 
 // get data as xml and fiddle with it
 function getXmlEvents() {
-	loadXml('http://www.flcbranson.org/rss/Events.xml', function(data) {
+	loadXmlSynchronous('http://www.flcbranson.org/rss/Events.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
 		var today = Date.today().toString('yyyyMMdd');
@@ -307,8 +323,7 @@ function getXmlEvents() {
 						'</p>' +
 						'<!-- you could do <a href="941-388-6961"></a> but most phones will make it a link anyways -->' +
 						'<p class="phone" itemprop="telephone">' + phone + '</p>' +
-						'<!--<p class="website"><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>-->' +
-						'<p class="website link" onclick="redirectToSystemBrowser(\'' + website + '\');">' + website.substring(7) + '</p>' +
+						'<p class="website"><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>' +
 					'</div>' +
 					'<ol id="' + title_camelcase + '-schedule" class="schedule">' +
 					'</ol>' +
@@ -352,7 +367,56 @@ function getXmlEvents() {
 	});
 }
 
-/* using xml-based events
+function seriesDownload(seriestitle) {
+	var series, number, description;
+	// tell the function where the JSON data is
+	fetchJSONFile('http://www.flcbranson.org/api/seriesdownload/?series=' + seriestitle, function(data) {
+		// do something with your data
+		// alert(JSON.stringify(data));
+		// alert(data.title + ', ' + data.camelcase);
+		series = data.series;
+		number = data.seriesnumber;
+		description = data.description;
+		$('#content').append('<h2>' + series + '</h2>');
+		$('#content').append('<blockquote><p>' + description + '</p></blockquote>');
+		for (var i = 0, l = data.sermons.length; i < l; i++) {
+			var date, speaker, seriespart, sermon, sermonpart, sermonsubtitle, sermonsubtitlepart, mp3, mp4;
+			//alert(data.events[i].name);
+			date = data.sermons[i].date;
+			// date.js doesn't seem to like the iso8601 time zone offset
+			var date_readable = Date.parse(date.substring(0, 19)).toString('dddd, MMMM d, yyyy');
+			speaker = data.sermons[i].speaker;
+			seriespart = data.sermons[i].seriespart;
+			sermon = data.sermons[i].sermon;
+			// replace non-alphanumeric characters with nothing
+			var sermon_camelcase = sermon.replace(/[^a-zA-Z0-9]+/g, '');
+			sermonpart = data.sermons[i].sermonpart;
+			sermonsubtitle = data.sermons[i].sermonsubtitle;
+			sermonsubtitlepart = data.sermons[i].sermonsubtitlepart;
+			mp3 = data.sermons[i].downloadlinks.mp3;
+			mp4 = data.sermons[i].downloadlinks.mp4;
+			$('#content').append('<h3>Pt. ' + seriespart + ' - ' + sermon + '</h3>');
+			$('#content').append('<dl id="' + sermon_camelcase + '">');
+			$('#content #' + sermon_camelcase).append('<dt>Date Preached</dt>');
+			$('#content #' + sermon_camelcase).append('<dd><time datetime="' + date + '">' + date_readable + '</time></dd>');
+			$('#content #' + sermon_camelcase).append('<dt>Speaker</dt>');
+			$('#content #' + sermon_camelcase).append('<dd>' + speaker + '</dd>');
+			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
+			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + '\')">Audio (MP3)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + '\')">Video (MP4)</li>');
+			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp3 + '\')">Audio (MP3)</li>');
+			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp4 + '\')">Video (MP4)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
+			$('#content #' + sermon_camelcase).append('</dd>');
+			$('#content').append('</dl>');
+		}
+	});
+}
+
+/* things that are no longer in use or don't work
+
 // get data as json and fiddle with it
 function getApiEvents() {
 	// tell the function where the JSON data is
@@ -426,57 +490,7 @@ function getApiEvents() {
 		}
 	});
 }
-*/
 
-function seriesDownload(seriestitle) {
-	var series, number, description;
-	// tell the function where the JSON data is
-	fetchJSONFile('http://www.flcbranson.org/api/seriesdownload/?series=' + seriestitle, function(data) {
-		// do something with your data
-		// alert(JSON.stringify(data));
-		// alert(data.title + ', ' + data.camelcase);
-		series = data.series;
-		number = data.seriesnumber;
-		description = data.description;
-		$('#content').append('<h2>' + series + '</h2>');
-		$('#content').append('<blockquote><p>' + description + '</p></blockquote>');
-		for (var i = 0, l = data.sermons.length; i < l; i++) {
-			var date, speaker, seriespart, sermon, sermonpart, sermonsubtitle, sermonsubtitlepart, mp3, mp4;
-			//alert(data.events[i].name);
-			date = data.sermons[i].date;
-			// date.js doesn't seem to like the iso8601 time zone offset
-			var date_readable = Date.parse(date.substring(0, 19)).toString('dddd, MMMM d, yyyy');
-			speaker = data.sermons[i].speaker;
-			seriespart = data.sermons[i].seriespart;
-			sermon = data.sermons[i].sermon;
-			// replace non-alphanumeric characters with nothing
-			var sermon_camelcase = sermon.replace(/[^a-zA-Z0-9]+/g, '');
-			sermonpart = data.sermons[i].sermonpart;
-			sermonsubtitle = data.sermons[i].sermonsubtitle;
-			sermonsubtitlepart = data.sermons[i].sermonsubtitlepart;
-			mp3 = data.sermons[i].downloadlinks.mp3;
-			mp4 = data.sermons[i].downloadlinks.mp4;
-			$('#content').append('<h3>Pt. ' + seriespart + ' - ' + sermon + '</h3>');
-			$('#content').append('<dl id="' + sermon_camelcase + '">');
-			$('#content #' + sermon_camelcase).append('<dt>Date Preached</dt>');
-			$('#content #' + sermon_camelcase).append('<dd><time datetime="' + date + '">' + date_readable + '</time></dd>');
-			$('#content #' + sermon_camelcase).append('<dt>Speaker</dt>');
-			$('#content #' + sermon_camelcase).append('<dd>' + speaker + '</dd>');
-			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
-			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + '\')">Audio (MP3)</li>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + '\')">Video (MP4)</li>');
-			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp3 + '\')">Audio (MP3)</li>');
-			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp4 + '\')">Video (MP4)</li>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
-			$('#content #' + sermon_camelcase).append('</dd>');
-			$('#content').append('</dl>');
-		}
-	});
-}
-
-/* using the series download api
 // load one of our XML files and show the info
 function loadXML(url) {
 	var xmlhttp;
@@ -543,9 +557,6 @@ function loadXML(url) {
 	xmlhttp.open('GET', url, true);
 	xmlhttp.send();
 }
-*/
-
-/* things that are no longer in use or don't work
 
 // opens and closes the service times lightbox (jquery)
 function openServiceTimes() {

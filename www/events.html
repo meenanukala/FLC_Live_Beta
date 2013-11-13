@@ -28,16 +28,17 @@
 //getApiEvents();
 getXmlEvents();
 
-/* let's just see what happens first
 // convert the target="_blank" links to our function
-$('a[target=_blank]').click(function(e){
-	// keep the browser from doing what it wants
-    e.preventDefault();
-	// use our system browser function to open the url
-	//redirectToSystemBrowser($(this).attr('href'));
-	alert('didn\'t work');
+$(document).ready(function() {
+	$('#content a').click(function() {
+		// keep the browser from doing what it's supposed to
+		e.preventDefault();
+		//return false;
+		// use our system browser function to open the url
+		//redirectToSystemBrowser($(this).attr('href'));
+		alert('didn\'t work');
+	});
 });
-*/
 </script>
 <!-- google analytics -->
 <script>
