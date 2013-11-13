@@ -2,7 +2,7 @@
 var today = Date.today().toString('yyyy-MM-dd');
 //alert(today);
 
-// make an asynchronous json call
+// make a json call
 function loadJson(url, callback) {
 	var xmlhttprequest = new XMLHttpRequest();
 	xmlhttprequest.onreadystatechange = function() {
@@ -17,7 +17,7 @@ function loadJson(url, callback) {
 	xmlhttprequest.send();
 }
 
-// make an asynchronous xml call
+// make an xml call
 function loadXml(url, callback) {
 	var xmlhttprequest = new XMLHttpRequest();
 	xmlhttprequest.onreadystatechange = function() {
@@ -29,21 +29,6 @@ function loadXml(url, callback) {
 	}
 	// true is asynchronous and false is synchronous
 	xmlhttprequest.open('GET', url, true);
-	xmlhttprequest.send();
-}
-
-// make a synchronous xml call
-function loadXmlSynchronous(url, callback) {
-	var xmlhttprequest = new XMLHttpRequest();
-	xmlhttprequest.onreadystatechange = function() {
-		if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
-			// do something with your data
-			var data = xmlhttprequest.responseXML;
-			if (callback) callback(data);
-		}
-	}
-	// true is asynchronous and false is synchronous
-	xmlhttprequest.open('GET', url, false);
 	xmlhttprequest.send();
 }
 
@@ -250,7 +235,7 @@ function todaysChapter() {
 
 // get data as xml and fiddle with it
 function getXmlEvents() {
-	loadXmlSynchronous('http://www.flcbranson.org/rss/Events.xml', function(data) {
+	loadXml('http://www.flcbranson.org/rss/Events.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
 		var today = Date.today().toString('yyyyMMdd');
@@ -412,6 +397,18 @@ function seriesDownload(seriestitle) {
 			$('#content #' + sermon_camelcase).append('</dd>');
 			$('#content').append('</dl>');
 		}
+	});
+}
+
+function convertLinks() {
+	// convert the target="_blank" links to our function
+	$('#content a').click(function(e) {
+		// keep the browser from doing what it's supposed to
+		e.preventDefault();
+		//return false;
+		// use our system browser function to open the url
+		//redirectToSystemBrowser($(this).attr('href'));
+		alert('didn\'t work');
 	});
 }
 

@@ -30,6 +30,7 @@
 	<!--<gap:plugin name="GAPlugin" />-->
 	<!--<gap:plugin name="org.apache.cordova.media" />-->
 	<!--<gap:plugin name="Media" />-->
+	<!--<gap:plugin name="com.adobe.plugins.gaplugin" />-->
 
 	<!-- Define app icon for each platform. -->
 	<icon src="images/logo.png" />
