@@ -17,169 +17,59 @@
 </head>
 <body class="home">
 <header>
-	<h1><a href="index.html"><abbr title="Faith Life Church">FLC</abbr> <span>Live</span></a></h1>
+	<h1><a href="index.html"><abbr title="Faith Life Church">FLC</abbr> <span>Live</span><span class="extrainfo"> <abbr title="Application">App</abbr></span></a></h1>
 </header>
 <section id="content">
-
-    <section id="livebroadcasts">
+	<section id="livebroadcasts">
 		<h2>Live Broadcast</h2>
-
-		<table class="box boxmp">
-			<tr>
-				<td class="firstb">
-					<dl>
-						<dt>Fridays</dt>
-						<dd>6:30 CST</dd>
-					</dl>
-				</td>
-				<td class="secondb">
-					<dl>
-						<dt>Sundays</dt>
-						<dd>9:00 &amp; 11:00 CST</dd>
-					</dl>
-				</td>
-			</tr>
-		</table>
-
-		<!--
-		<div class="box boxmp">
-			<dl class="first">
-				<dt>Fridays</dt>
-				<dd>6:30 CST</dd>
-			</dl>
-			<dl class="second">
-				<dt>Sundays</dt>
-				<dd>9:00 &amp; 11:00 CST</dd>
-			</dl>
-		</div>
-		-->
-
+		<ul class="box boxwrapper">
+			<li class="first">Fridays<span class="delimiter"> @ </span>6:30 CST</li>
+			<li class="second">Sundays<span class="delimiter"> @ </span>9:00 &amp; 11:00 CST</li>
+		</ul>
 		<div id="nextinternetbroadcast"></div>
-
 	</section>
-
     <section id="rebroadcasts">
-		<h2>Rebroadcasts</h2>
-
-		<table class="boxdual">
-			<tr>
-				<td class="firstb box link" onclick="fridayRebroadcast();">Friday</td>
-				<td class="secondb box link" onclick="sundayRebroadcast();">Sunday</td>
-			</tr>
-		</table>        
-
-        <!--
-		<div class="a">
-			<ul>
-				<li class="box" class="first" onclick="fridayRebroadcast();">Friday</li>
-				<li class="box" class="second" onclick="sundayRebroadcast();">Sunday</li>
-			</ul>
-		</div>
-		-->
-
+		<h2><span class="extrainfo">Full Service </span>Rebroadcasts</h2>
+		<ul class="boxwrapper">
+			<li class="first box link" onclick="fridayRebroadcast();">Friday</li>
+			<li class="second box link" onclick="sundayRebroadcast();">Sunday</li>
+		</ul>
 	</section>
-
 	<section id="featuredseries">
 		<h2>Featured Series</h2>
-
-		<div id="featuredseriestitle" class="box boxmp"></div>
-
+		<div id="featuredseriestitle" class="box"></div>
 	</section>
-
     <section id="events">
-		<!-- no header was in the picture but there should be one (consistency) -->
 		<h2>Events</h2>
-
-		<div class="box boxmp">
+		<div class="box">
 			<p><a href="events.html">Upcoming Events</a></p>
 		</div>
-
 	</section>
-
     <section id="dailybiblereading">
 		<h2>Daily Bible Reading</h2>
-
-		<div id="todayschapterreference" class="box boxmp"></div>
-
+		<div id="todayschapterreference" class="box"></div>
 	</section>
-
     <section id="externallinks">
 		<h2>Links</h2>
-
-		<table class="boxdual">
-			<tr>
-				<td class="firstb box link" onclick="redirectToSystemBrowser('http://www.flcbranson.org/');"><abbr title="Faith Life Church">FLC</abbr> Website</td>
-				<td class="secondb box link" onclick="redirectToSystemBrowser('https://faithlifechurchbranson.thankyou4caring.org/');">Sowing</td>
-			</tr>
-		</table>        
-
-        <!--
-        <div class="boxdual">
-			<ul>
-				<li class="firstb box" onclick="redirectToSystemBrowser('http://www.flcbranson.org/');"><abbr title="Faith Life Church">FLC</abbr> Website</li>
-				<li class="secondb box" onclick="redirectToSystemBrowser('https://faithlifechurchbranson.thankyou4caring.org/');">Sowing</li>
-			</ul>
-		</div>
-        -->
-
+		<ul class="boxwrapper">
+			<li class="first box link" onclick="redirectToSystemBrowser('http://www.flcbranson.org/');"><abbr title="Faith Life Church">FLC</abbr> Website</li>
+			<li class="second box link" onclick="redirectToSystemBrowser('https://faithlifechurchbranson.thankyou4caring.org/');">Sowing</li>
+		</ul>
 	</section>
-
 </section>
 <!-- page specific javascripts -->
 <script>
-// set a global javascript variable
-var livepublishingpoint, nextlivebroadcast;
-// tell the function where the JSON data is
-fetchJSONFile('http://www.flcbranson.org/api/livebroadcast', function(data){
-	// do something with your data
-	// alert(JSON.stringify(data));
-	// alert(data.datetime + ', ' + data.status);
-	nextlivebroadcast = data.nextbroadcast;
-	if (data.status == 'flcb' || data.status == 'flcs') {
-		// define the global variable (only works when using synchronous connections)
-		livepublishingpoint = data.publishingpoint_hls;
-		//window.location = 'http://www.flcbranson.org/liveapp';
-		openVideo(livepublishingpoint);
-	}
-});
-// see if the global variable is still set (would say "undefined" if using an asychronous connection)
-//alert(livepublishingpoint);
+// when the next live broadcast is and play if broadcasting
+liveBroadcast();
 
 // live broadcast countdown
 cdtd(nextlivebroadcast);
 
-// show the featured series info
-document.getElementById('featuredseriestitle').innerHTML = '<a href="featuredseries.html">' + featuredseries + '</a>';
+// show the featured series title
+featuredSeriesTitle();
 
 // show today's chapter reference
 todaysChapterReference();
 </script>
-<!-- google analytics (universal analytics)
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-45723004-1', 'dummy.com');
-  ga('send', 'pageview');
-
-</script>
--->
-<!-- google analytics (classic analytics)
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-45723004-2']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
--->
 </body>
 </html>

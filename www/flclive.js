@@ -62,22 +62,6 @@ function loadXmlSynchronous(url, callback) {
 	xmlhttprequest.send();
 }
 
-// generic get JSON data function
-function fetchJSONFile(path, callback) {
-	var httpRequest = new XMLHttpRequest();
-	httpRequest.onreadystatechange = function() {
-		if (httpRequest.readyState === 4) {
-			if (httpRequest.status === 200) {
-				var data = JSON.parse(httpRequest.responseText);
-				if (callback) callback(data);
-			}
-		}
-	};
-	// false tells it to be synchronous instead of asynchronous
-	httpRequest.open('GET', path, false);
-	httpRequest.send(); 
-}
-
 // opens and closes the video lightbox (jquery)
 function openVideo(url, poster) {
 	if (poster === undefined) poster = "http://www.flcbranson.org/images/Posters/Flcb.jpg";
@@ -122,7 +106,7 @@ function padDigits(number, digits) {
 // full service rebroadcasts
 function sundayRebroadcast() {
 	// tell the function where the JSON data is
-	fetchJSONFile('http://www.flcbranson.org/api/rebroadcast', function(data){
+	loadJson('http://www.flcbranson.org/api/rebroadcast', function(data){
 		// do something with your data
 		// alert(JSON.stringify(data));
 		//alert(data.sunday_publishingpoint_hls);
@@ -134,7 +118,7 @@ function sundayRebroadcast() {
 }
 function fridayRebroadcast() {
 	// tell the function where the JSON data is
-	fetchJSONFile('http://www.flcbranson.org/api/rebroadcast', function(data){
+	loadJson('http://www.flcbranson.org/api/rebroadcast', function(data){
 		// do something with your data
 		// alert(JSON.stringify(data));
 		//alert(data.friday_publishingpoint_hls);
@@ -145,22 +129,26 @@ function fridayRebroadcast() {
 	});
 }
 
-// you can't do global variables with asynchronous connections
+// when the next live broadcast is and play if broadcasting
 // set a global javascript variable
-var featuredseries, featuredseries_camelcase, featuredseries_speaker, featuredseries_poster;
-// tell the function where the JSON data is
-fetchJSONFile('http://www.flcbranson.org/api/featuredseries', function(data) {
-	// do something with your data
-	// alert(JSON.stringify(data));
-	// alert(data.title + ', ' + data.camelcase);
-	// define the global variable (only works when using synchronous connections)
-	featuredseries = data.title;
-	featuredseries_camelcase = data.camelcase;
-	featuredseries_speaker = data.speaker;
-	featuredseries_poster = data.poster;
-});
+var nextlivebroadcast;
+function liveBroadcast() {
+	// tell the function where the JSON data is
+	loadJsonSynchronous('http://www.flcbranson.org/api/livebroadcast', function(data){
+		// do something with your data
+		// alert(JSON.stringify(data));
+		// alert(data.datetime + ', ' + data.status);
+		nextlivebroadcast = data.nextbroadcast;
+		if (data.status == 'flcb' || data.status == 'flcs') {
+			// define the global variable (only works when using synchronous connections)
+			var livepublishingpoint = data.publishingpoint_hls;
+			//window.location = 'http://www.flcbranson.org/liveapp';
+			openVideo(livepublishingpoint);
+		}
+	});
+}
 // see if the global variable is still set (would say "undefined" if using an asychronous connection)
-//alert(featuredseries + ', ' + featuredseries_camelcase);
+//alert(nextlivebroadcast);
 
 // javascript countdown (http://www.developphp.com/view.php?tid=1248)
 // don't forget to pass the broadcast variable
@@ -193,15 +181,36 @@ function cdtd(broadcast) {
 	}
 }
 
+// you can't do global variables with asynchronous connections
+// set a global javascript variable
+var featuredseries, featuredseries_camelcase, featuredseries_speaker, featuredseries_poster;
+// tell the function where the JSON data is
+loadJsonSynchronous('http://www.flcbranson.org/api/featuredseries', function(data) {
+	// do something with your data
+	// alert(JSON.stringify(data));
+	// alert(data.title + ', ' + data.camelcase);
+	// define the global variable (only works when using synchronous connections)
+	featuredseries = data.title;
+	featuredseries_camelcase = data.camelcase;
+	featuredseries_speaker = data.speaker;
+	featuredseries_poster = data.poster;
+});
+// see if the global variable is still set (would say "undefined" if using an asychronous connection)
+//alert(featuredseries + ', ' + featuredseries_camelcase);
+
+function featuredSeriesTitle() {
+	$('.home #featuredseriestitle').append('<a href="featuredseries.html">' + featuredseries + '</a>');
+}
+
 // show today's chapter reference
 function todaysChapterReference() {
 	if (Date.today().toString('dddd') == 'Saturday' || Date.today().toString('dddd') == 'Sunday') {
-		$('.home #todayschapterreference').append('<p>No chapter today</p>');
+		$('.home #todayschapterreference').append('<p>No chapter today.</p>');
 	} else {
 		// set a global javascript variable
 		var dailychapter_book, dailychapter_chapter, dailychapter_todayschapter;
 		// tell the function where the JSON data is
-		fetchJSONFile('http://www.flcbranson.org/api/dailybiblereading', function(data) {
+		loadJson('http://www.flcbranson.org/api/dailybiblereading', function(data) {
 			// do something with your data
 			// alert(JSON.stringify(data));
 			// alert(data.title + ', ' + data.camelcase);
@@ -217,37 +226,22 @@ function todaysChapterReference() {
 // get data as json and fiddle with it
 function todaysChapter() {
 	if (Date.today().toString('dddd') == 'Saturday' || Date.today().toString('dddd') == 'Sunday') {
-		$('.home #content').append('<p>There is no chapter to read on Saturday or Sunday</p>');
+		$('.home #content').append('<p>There is no chapter to read on Saturday or Sunday.</p>');
 	} else {
-		var xmlhttp;
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-		if (window.XMLHttpRequest) {
-			xmlhttp = new XMLHttpRequest();
-			// code for IE6, IE5
-		} else {
-			xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
-		}
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				var json = JSON.parse(xmlhttp.responseText);
-				//alert(JSON.stringify(json));
-				//alert(json.Title);
-				//$('#todayschapter').append('<p><a href="todayschapter.html">Today\'s chapter is ' + json.dailychapter[0].book + ' ' + json.dailychapter[0].chapter + '.</a></p>');
-				$('.dailybiblereading #content').append('<dl id="verses">');
-				for (var i = 0, l = json.dailychapter[0].verses.length; i < l; i++) {
-					//alert(json.dailychapter[i].verses[i].number);
-					$('.dailybiblereading #content #verses').append('<dt>' + json.dailychapter[0].book + ' ' + json.dailychapter[0].chapter + ':' + json.dailychapter[0].verses[i].number + '</dt>');
-					$('.dailybiblereading #content #verses').append('<dd>' + json.dailychapter[0].verses[i].text + '</dd>');
-				}
-				$('.dailybiblereading #content').append('</dl>');
+		// tell the function where the JSON data is
+		loadJson('http://www.flcbranson.org/api/dailybiblereading', function(data) {
+			// do something with your data
+			//alert(JSON.stringify(data));
+			//alert(data.Title);
+			//$('#todayschapter').append('<p><a href="todayschapter.html">Today\'s chapter is ' + json.dailychapter[0].book + ' ' + json.dailychapter[0].chapter + '.</a></p>');
+			$('.dailybiblereading #content').append('<dl id="verses">');
+			for (var i = 0, l = data.dailychapter[0].verses.length; i < l; i++) {
+				//alert(json.dailychapter[i].verses[i].number);
+				$('.dailybiblereading #content #verses').append('<dt>' + data.dailychapter[0].book + ' ' + data.dailychapter[0].chapter + ':' + data.dailychapter[0].verses[i].number + '</dt>');
+				$('.dailybiblereading #content #verses').append('<dd>' + data.dailychapter[0].verses[i].text + '</dd>');
 			}
-		}
-		// sometimes an asynchronous connection can be cached so sending an extra string (doesn't even have to be interpreted by the server) will cause it not to be cached
-		var nocache = new Date().getTime();
-		var path = 'http://www.flcbranson.org/api/dailybiblereading/?cache=' + nocache;
-		// true is asynchronous and false is synchronous
-		xmlhttp.open('GET', path, true);
-		xmlhttp.send();
+			$('.dailybiblereading #content').append('</dl>');
+		});
 	}
 }
 
@@ -374,7 +368,7 @@ function getXmlEvents() {
 function seriesDownload(seriestitle) {
 	var series, number, description;
 	// tell the function where the JSON data is
-	fetchJSONFile('http://www.flcbranson.org/api/seriesdownload/?series=' + seriestitle, function(data) {
+	loadJson('http://www.flcbranson.org/api/seriesdownload/?series=' + seriestitle, function(data) {
 		// do something with your data
 		// alert(JSON.stringify(data));
 		// alert(data.title + ', ' + data.camelcase);
@@ -454,6 +448,22 @@ function convertLinks() {
 }
 
 /* things that are no longer in use or don't work
+
+// generic get JSON data function
+function fetchJSONFile(path, callback) {
+	var httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = function() {
+		if (httpRequest.readyState === 4) {
+			if (httpRequest.status === 200) {
+				var data = JSON.parse(httpRequest.responseText);
+				if (callback) callback(data);
+			}
+		}
+	};
+	// false tells it to be synchronous instead of asynchronous
+	httpRequest.open('GET', path, false);
+	httpRequest.send(); 
+}
 
 // get data as json and fiddle with it
 function getApiEvents() {

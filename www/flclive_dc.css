@@ -137,12 +137,27 @@ video {
 	height:100%;
 }
 
+/* content included for clarity but removed for visual appeal */
+.extrainfo {
+	display:none;
+}
+
 /* border-collapse and border-spacing are css equivalents to <table cellspacing="5"> */
 
 .boxmp, .boxdual {
 	width:100%;
 	border-collapse:separate;
 	border-spacing:5px 0;
+}
+
+.boxwrapper {
+	display:table;
+	border-collapse:separate;
+	border-spacing:5px 0;
+	margin:0 -5px;
+	width:100.57%;
+	width:-webkit-calc(100% + 10px);
+	width:calc(100% + 10px);
 }
 
 /* border-spacing includes the left of the first cell and the right of the last cell
@@ -181,7 +196,7 @@ video {
 	}
 }
 
-/* makes the link fill the whole space */
+/* makes the link fill the whole parent (but not if the parent has padding like above) */
 
 .box a {
 	display:block;
@@ -189,29 +204,10 @@ video {
 	height:100%;
 }
 
-/* table rows aren't lists
-tr {
-    list-style-type: none;
-}
-*/
-
-/* no longer used
 .first, .second {
-	display:inline-block;
-	vertical-align:top;
-	width:48.82%;
+	display:table-cell;
+	width:50%;
 }
-*/
-
-/* no reason to display:inline-block if you're working with table cells
-.firstb, .secondb {
-	display:inline-block;
-	vertical-align:top;
-	width:48%;
-	margin-left:5px;
-	padding:0.5em 0;
-}
-*/
 
 .firstb, .secondb {
 	width:50%;
@@ -221,8 +217,6 @@ tr {
 	margin-top:3em;
 	width:100%;
 }
-
-/* don't forget your units */
 
 #todayschapterreference span {
 	font-size:0.7em;
