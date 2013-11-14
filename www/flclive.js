@@ -168,13 +168,13 @@ loadJsonSynchronous('http://www.flcbranson.org/api/featuredseries', function(dat
 //alert(featuredseries + ', ' + featuredseries_camelcase);
 
 function featuredSeriesTitle() {
-	$('.home #featuredseriestitle').append('<a href="featuredseries.html">' + featuredseries + '</a>');
+	$('.home #featuredseriestitle').append('<a href="featuredseries.html">' + featuredseries + '</a><span class="extrainfo"> is the currently featured series.</span>');
 }
 
 // show today's chapter reference
 function todaysChapterReference() {
 	if (Date.today().toString('dddd') == 'Saturday' || Date.today().toString('dddd') == 'Sunday') {
-		$('.home #todayschapterreference').append('<p>No chapter today.</p>');
+		$('.home #todayschapterreference').append('No chapter today.');
 	} else {
 		// set a global javascript variable
 		var dailychapter_book, dailychapter_chapter, dailychapter_todayschapter;
@@ -187,7 +187,7 @@ function todaysChapterReference() {
 			dailychapter_book = data.dailychapter[0].book;
 			dailychapter_chapter = data.dailychapter[0].chapter;
 			dailychapter_todayschapter = dailychapter_book + '<span> Ch.</span>' + dailychapter_chapter;
-			$('.home #todayschapterreference').append('<a href="dailybiblereading.html">' + dailychapter_todayschapter + '</a>');
+			$('.home #todayschapterreference').append('<span class="extrainfo">Today\'s chapter is </span><a href="dailybiblereading.html">' + dailychapter_todayschapter + '</a><span class="extrainfo">.</span>');
 		});
 	}
 }
@@ -407,7 +407,7 @@ function cdtd(broadcast) {
 		minutes = padDigits(minutes, 2);
 		seconds = padDigits(seconds, 2);
 		//document.getElementById('nextinternetbroadcast').className += " disabled";
-		document.getElementById('nextinternetbroadcast').innerHTML = '<span class="days">' + days + ':</span><span class="hours">' + hours + ':</span><span class="minutes">' + minutes + ':</span><span class="seconds">' + seconds + '</span>';
+		document.getElementById('nextinternetbroadcast').innerHTML = '<span class="extrainfo">The next live internet broadcast will start in </span><span class="days">' + days + ':</span><span class="hours">' + hours + ':</span><span class="minutes">' + minutes + ':</span><span class="seconds">' + seconds + '</span><span class="extrainfo">.</span>';
 		// loop the function every second
 		setTimeout(function() { cdtd(broadcast); }, 1000);
 	}
