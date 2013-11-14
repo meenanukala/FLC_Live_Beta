@@ -106,7 +106,7 @@ function padDigits(number, digits) {
 // full service rebroadcasts
 function sundayRebroadcast() {
 	// tell the function where the JSON data is
-	loadJson('http://www.flcbranson.org/api/rebroadcast', function(data){
+	loadJsonSynchronous('http://www.flcbranson.org/api/rebroadcast', function(data){
 		// do something with your data
 		// alert(JSON.stringify(data));
 		//alert(data.sunday_publishingpoint_hls);
@@ -118,7 +118,7 @@ function sundayRebroadcast() {
 }
 function fridayRebroadcast() {
 	// tell the function where the JSON data is
-	loadJson('http://www.flcbranson.org/api/rebroadcast', function(data){
+	loadJsonSynchronous('http://www.flcbranson.org/api/rebroadcast', function(data){
 		// do something with your data
 		// alert(JSON.stringify(data));
 		//alert(data.friday_publishingpoint_hls);
@@ -150,37 +150,6 @@ function liveBroadcast() {
 // see if the global variable is still set (would say "undefined" if using an asychronous connection)
 //alert(nextlivebroadcast);
 
-// javascript countdown (http://www.developphp.com/view.php?tid=1248)
-// don't forget to pass the broadcast variable
-function cdtd(broadcast) {
-	// just about any standard date format is accepted
-	var nextinternetbroadcast = new Date(broadcast);
-	var now = new Date();
-	var timeDiff = nextinternetbroadcast.getTime() - now.getTime();
-	if (timeDiff <= 0) {
-		document.getElementById('nextinternetbroadcast').classList.remove('disabled');
-		document.getElementById('nextinternetbroadcast').innerHTML = '<a href="index.html">Join now<\/a>';
-		//document.getElementById('nextinternetbroadcast').innerHTML = '<a href="javscript:openVideo(' + livepublishingpoint + ');">Join live service now<\/a>';
-	} else {
-		var seconds = Math.floor(timeDiff / 1000);
-		var minutes = Math.floor(seconds / 60);
-		var hours = Math.floor(minutes / 60);
-		var days = Math.floor(hours / 24);
-		hours %= 24;
-		minutes %= 60;
-		seconds %= 60;
-		// padDigits() referenced above
-		days = padDigits(days, 2);
-		hours = padDigits(hours, 2);
-		minutes = padDigits(minutes, 2);
-		seconds = padDigits(seconds, 2);
-		//document.getElementById('nextinternetbroadcast').className += " disabled";
-		document.getElementById('nextinternetbroadcast').innerHTML = '<span class="days">' + days + ':</span><span class="hours">' + hours + ':</span><span class="minutes">' + minutes + ':</span><span class="seconds">' + seconds + '</span>';
-		// loop the function every second
-		setTimeout(function() { cdtd(broadcast); }, 1000);
-	}
-}
-
 // you can't do global variables with asynchronous connections
 // set a global javascript variable
 var featuredseries, featuredseries_camelcase, featuredseries_speaker, featuredseries_poster;
@@ -210,7 +179,7 @@ function todaysChapterReference() {
 		// set a global javascript variable
 		var dailychapter_book, dailychapter_chapter, dailychapter_todayschapter;
 		// tell the function where the JSON data is
-		loadJson('http://www.flcbranson.org/api/dailybiblereading', function(data) {
+		loadJsonSynchronous('http://www.flcbranson.org/api/dailybiblereading', function(data) {
 			// do something with your data
 			// alert(JSON.stringify(data));
 			// alert(data.title + ', ' + data.camelcase);
@@ -229,7 +198,7 @@ function todaysChapter() {
 		$('.home #content').append('<p>There is no chapter to read on Saturday or Sunday.</p>');
 	} else {
 		// tell the function where the JSON data is
-		loadJson('http://www.flcbranson.org/api/dailybiblereading', function(data) {
+		loadJsonSynchronous('http://www.flcbranson.org/api/dailybiblereading', function(data) {
 			// do something with your data
 			//alert(JSON.stringify(data));
 			//alert(data.Title);
@@ -243,6 +212,54 @@ function todaysChapter() {
 			$('.dailybiblereading #content').append('</dl>');
 		});
 	}
+}
+
+function seriesDownload(seriestitle) {
+	var series, number, description;
+	// tell the function where the JSON data is
+	loadJsonSynchronous('http://www.flcbranson.org/api/seriesdownload/?series=' + seriestitle, function(data) {
+		// do something with your data
+		// alert(JSON.stringify(data));
+		// alert(data.title + ', ' + data.camelcase);
+		series = data.series;
+		number = data.seriesnumber;
+		description = data.description;
+		$('#content').append('<h2>' + series + '</h2>');
+		$('#content').append('<blockquote><p>' + description + '</p></blockquote>');
+		for (var i = 0, l = data.sermons.length; i < l; i++) {
+			var date, speaker, seriespart, sermon, sermonpart, sermonsubtitle, sermonsubtitlepart, mp3, mp4;
+			//alert(data.events[i].name);
+			date = data.sermons[i].date;
+			// date.js doesn't seem to like the iso8601 time zone offset
+			var date_readable = Date.parse(date.substring(0, 19)).toString('dddd, MMMM d, yyyy');
+			speaker = data.sermons[i].speaker;
+			seriespart = data.sermons[i].seriespart;
+			sermon = data.sermons[i].sermon;
+			// replace non-alphanumeric characters with nothing
+			var sermon_camelcase = sermon.replace(/[^a-zA-Z0-9]+/g, '');
+			sermonpart = data.sermons[i].sermonpart;
+			sermonsubtitle = data.sermons[i].sermonsubtitle;
+			sermonsubtitlepart = data.sermons[i].sermonsubtitlepart;
+			mp3 = data.sermons[i].downloadlinks.mp3;
+			mp4 = data.sermons[i].downloadlinks.mp4;
+			$('#content').append('<h3>Pt. ' + seriespart + ' - ' + sermon + '</h3>');
+			$('#content').append('<dl id="' + sermon_camelcase + '">');
+			$('#content #' + sermon_camelcase).append('<dt>Date Preached</dt>');
+			$('#content #' + sermon_camelcase).append('<dd><time datetime="' + date + '">' + date_readable + '</time></dd>');
+			$('#content #' + sermon_camelcase).append('<dt>Speaker</dt>');
+			$('#content #' + sermon_camelcase).append('<dd>' + speaker + '</dd>');
+			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
+			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + '\')">Audio (MP3)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + '\')">Video (MP4)</li>');
+			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp3 + '\')">Audio (MP3)</li>');
+			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp4 + '\')">Video (MP4)</li>');
+			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
+			$('#content #' + sermon_camelcase).append('</dd>');
+			$('#content').append('</dl>');
+		}
+	});
 }
 
 // get data as xml and fiddle with it
@@ -365,52 +382,35 @@ function getXmlEvents() {
 	});
 }
 
-function seriesDownload(seriestitle) {
-	var series, number, description;
-	// tell the function where the JSON data is
-	loadJson('http://www.flcbranson.org/api/seriesdownload/?series=' + seriestitle, function(data) {
-		// do something with your data
-		// alert(JSON.stringify(data));
-		// alert(data.title + ', ' + data.camelcase);
-		series = data.series;
-		number = data.seriesnumber;
-		description = data.description;
-		$('#content').append('<h2>' + series + '</h2>');
-		$('#content').append('<blockquote><p>' + description + '</p></blockquote>');
-		for (var i = 0, l = data.sermons.length; i < l; i++) {
-			var date, speaker, seriespart, sermon, sermonpart, sermonsubtitle, sermonsubtitlepart, mp3, mp4;
-			//alert(data.events[i].name);
-			date = data.sermons[i].date;
-			// date.js doesn't seem to like the iso8601 time zone offset
-			var date_readable = Date.parse(date.substring(0, 19)).toString('dddd, MMMM d, yyyy');
-			speaker = data.sermons[i].speaker;
-			seriespart = data.sermons[i].seriespart;
-			sermon = data.sermons[i].sermon;
-			// replace non-alphanumeric characters with nothing
-			var sermon_camelcase = sermon.replace(/[^a-zA-Z0-9]+/g, '');
-			sermonpart = data.sermons[i].sermonpart;
-			sermonsubtitle = data.sermons[i].sermonsubtitle;
-			sermonsubtitlepart = data.sermons[i].sermonsubtitlepart;
-			mp3 = data.sermons[i].downloadlinks.mp3;
-			mp4 = data.sermons[i].downloadlinks.mp4;
-			$('#content').append('<h3>Pt. ' + seriespart + ' - ' + sermon + '</h3>');
-			$('#content').append('<dl id="' + sermon_camelcase + '">');
-			$('#content #' + sermon_camelcase).append('<dt>Date Preached</dt>');
-			$('#content #' + sermon_camelcase).append('<dd><time datetime="' + date + '">' + date_readable + '</time></dd>');
-			$('#content #' + sermon_camelcase).append('<dt>Speaker</dt>');
-			$('#content #' + sermon_camelcase).append('<dd>' + speaker + '</dd>');
-			$('#content #' + sermon_camelcase).append('<dt>Download Links</dt>');
-			$('#content #' + sermon_camelcase).append('<dd id="' + sermon_camelcase + '-downloadlinks">');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('<ul>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + '\')">Audio (MP3)</li>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + '\')">Video (MP4)</li>');
-			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp3 + '\')">Audio (MP3)</li>');
-			//$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks ul').append('<li class="link" onclick="playAudio(\'' + mp4 + '\')">Video (MP4)</li>');
-			$('#content #' + sermon_camelcase + ' #' + sermon_camelcase + '-downloadlinks').append('</ul>');
-			$('#content #' + sermon_camelcase).append('</dd>');
-			$('#content').append('</dl>');
-		}
-	});
+// javascript countdown (http://www.developphp.com/view.php?tid=1248)
+// don't forget to pass the broadcast variable
+function cdtd(broadcast) {
+	// just about any standard date format is accepted
+	var nextinternetbroadcast = new Date(broadcast);
+	var now = new Date();
+	var timeDiff = nextinternetbroadcast.getTime() - now.getTime();
+	if (timeDiff <= 0) {
+		document.getElementById('nextinternetbroadcast').classList.remove('disabled');
+		document.getElementById('nextinternetbroadcast').innerHTML = '<a href="index.html">Join now<\/a>';
+		//document.getElementById('nextinternetbroadcast').innerHTML = '<a href="javscript:openVideo(' + livepublishingpoint + ');">Join live service now<\/a>';
+	} else {
+		var seconds = Math.floor(timeDiff / 1000);
+		var minutes = Math.floor(seconds / 60);
+		var hours = Math.floor(minutes / 60);
+		var days = Math.floor(hours / 24);
+		hours %= 24;
+		minutes %= 60;
+		seconds %= 60;
+		// padDigits() referenced above
+		days = padDigits(days, 2);
+		hours = padDigits(hours, 2);
+		minutes = padDigits(minutes, 2);
+		seconds = padDigits(seconds, 2);
+		//document.getElementById('nextinternetbroadcast').className += " disabled";
+		document.getElementById('nextinternetbroadcast').innerHTML = '<span class="days">' + days + ':</span><span class="hours">' + hours + ':</span><span class="minutes">' + minutes + ':</span><span class="seconds">' + seconds + '</span>';
+		// loop the function every second
+		setTimeout(function() { cdtd(broadcast); }, 1000);
+	}
 }
 
 // open a link in the system browser
