@@ -32,6 +32,9 @@ html {
 	min-height:100%;
 }
 
+/* specify a background color for browsers that can't do gradients
+	specify foreground colors when specifying background colors */
+
 body {
 	margin:5px;
 	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -46,6 +49,8 @@ body {
 	color:#6da4c6;
 	text-transform:uppercase;
 }
+
+/* fix the header to the top of the page regardless of user action */
 
 header {
 	position:fixed;
@@ -65,10 +70,16 @@ header {
 	box-shadow:0px 2px 1px 0px rgba(0, 0, 0, 0.35);
 }
 
-h1 {
+/* might be preferred to have the logo as a secondary background image on header (could make things easier)
+	background-size allows the background to be bigger or smaller than it's container
+	background-position allows the background to go past the edges of it's container */
+
+/* better to put header h1 than just h1 as h1 could be within the pages */
+
+header h1 {
 	position:relative;
 	z-index:9;
-	color:#FFF;
+	color:#ffffff;
 	font-weight:100;
 	padding:0.001em 0;
 	font-size:2.5em;
@@ -78,16 +89,20 @@ h1 {
 	background-position:right;
 }
 
-h1 span {
+header h1 span {
 	margin-left:-0.85em;
 	font-size:1rem;
 	font-style:italic;
 	font-weight:400;
 }
 
-h1 a {
+header h1 a {
 	display:block;
 	width:100%;
+}
+
+h2 {
+	margin-bottom:1em;
 }
 
 .home h2 {
@@ -118,6 +133,10 @@ a, .link {
 
 abbr[title], dfn[title] {
 	border:none;
+	cursor:help;
+}
+
+a abbr[title], .link abbr[title], a dfn[title], .link dfn[title] {
 	cursor:pointer;
 }
 
@@ -133,55 +152,9 @@ dt:not(:first-of-type) {
 	margin-top:1em;
 }
 
-video {
+video, audio {
 	width:100%;
 	height:100%;
-}
-
-/* content included for clarity but removed for visual appeal */
-
-.extrainfo {
-	display:none;
-}
-
-/* border-collapse and border-spacing are css equivalents to <table cellspacing="5"> */
-
-.boxmp, .boxdual {
-	width:100%;
-	border-collapse:separate;
-	border-spacing:5px 0;
-}
-
-/* give a static width in case calc() isn't supported
-	over-ride with calc() for those that do
-	vendor-prefixes come before official version */
-
-/* border-spacing includes left of the first cell and right of the last cell
-	negative margin the left/right and add those negative margins to the width
-	ios6 requires -webkit-
-	android browser doesn't support calc()
-	100.57% is the widest that I could get without a horizontal scrollbar at 1920px wide */
-
-.boxwrapper {
-	display:table;
-	border-collapse:separate;
-	border-spacing:5px 0;
-	margin:0 -5px;
-	width:100.57%;
-	width:-webkit-calc(100% + 10px);
-	width:calc(100% + 10px);
-}
-
-#livebroadcasts .box {
-	display:table;
-	width:100%;
-}
-
-.boxdual {
-	margin:0 -5px;
-	width:100.57%;
-	width:-webkit-calc(100% + 10px);
-	width:calc(100% + 10px);
 }
 
 /* ROUNDED CORNERS */
@@ -221,23 +194,102 @@ video {
 	height:100%;
 }
 
+/* give a static width in case calc() isn't supported
+	over-ride with calc() for those that do
+	vendor-prefixes come before official version */
+
+/* border-spacing includes left of the first cell and right of the last cell
+	negative margin the left/right and add those negative margins to the width
+	ios6 requires -webkit-
+	android browser doesn't support calc()
+	100.57% is the widest that I could get without a horizontal scrollbar at 1920px wide */
+
+.boxwrapper {
+	display:table;
+	border-collapse:separate;
+	border-spacing:5px 0;
+	margin:0 -5px;
+	width:100.57%;
+	width:-webkit-calc(100% + 10px);
+	width:calc(100% + 10px);
+}
+
+/* we don't want the negative margins and extra width of .boxwrapper but still want display:table */
+
+#livebroadcasts .box {
+	display:table;
+	width:100%;
+}
+
 .first, .second {
 	display:table-cell;
 	width:50%;
 }
 
-.firstb, .secondb {
-	width:50%;
+/* content included for clarity but removed for visual appeal */
+
+.extrainfo {
+	display:none;
 }
+
+/* we want the lightbox to be in the same place and the same size regardless of the user's action */
+
+.lightbox {
+	position:fixed;
+	top:2.5em;
+	right:0;
+	bottom:0;
+	left:0;
+	z-index:4;
+	padding:5em 1em 1em 1em;
+	white-space:normal;
+	background:rgba(0, 0, 0, 0.9);
+	color:#ffffff;
+	text-align:center;
+}
+
+/* play with padding and border radius to create a circle */
+
+.lightbox .close {
+	display:block;
+	position:absolute;
+	top:2em;
+	right:2em;
+	z-index:9;
+	padding:0 0.35em 0.15em 0.35em;
+	font-size:1em;
+	color:#ffffff;
+	font-style:normal;
+	font-weight:normal;
+	border:1px solid #ffffff;
+	border-radius:1em;
+}
+
+@media screen and (max-height:640px) and (orientation:landscape) {
+	.lightbox {
+		padding-top:1.4em;
+	}
+
+	.lightbox .close {
+		top:0.5em;
+		right:0.5em;
+	}
+}
+
+/* <video> was very small without height specified */
+
+.lightboxcontent {
+	height:100%;
+}
+
+/* keep the content from being hidden by the header */
 
 #content {
 	margin-top:3em;
 	width:100%;
 }
 
-#todayschapterreference span {
-	font-size:0.7em;
-}
+/* fix the countdown in the center of the header */
 
 #nextinternetbroadcast {
 	position:fixed;
@@ -249,12 +301,16 @@ video {
 	color:#5588a7;
 }
 
+/* fix the countdown just to the right of the title */
+
 @media screen and (max-width:275px) {
 	#nextinternetbroadcast {
 		left:110px;
 		width:auto;
 	}
 }
+
+/* fix the countdown between the title and logo */
 
 @media screen and (min-width:275px) and (max-width:320px) {
 	#nextinternetbroadcast {
@@ -263,11 +319,16 @@ video {
 	}
 }
 
+/* pad to give space for the words
+	position:relative so :after can position:absolute within it */
+
 #nextinternetbroadcast span {
 	position:relative;
 	padding-bottom:0.25em;
 	font-weight:bold;
 }
+
+/* bottom:0 to fix to bottom of parent */
 
 #nextinternetbroadcast span:after {
 	position:absolute;
@@ -294,59 +355,9 @@ video {
 	content:"Sec";
 }
 
-.lightbox {
-	position:fixed;
-	top:2.5em;
-	right:0;
-	bottom:0;
-	left:0;
-	z-index:4;
-	padding:5em 1em 1em 1em;
-	white-space:normal;
-	background:rgba(0, 0, 0, 0.9);
-	color:#ffffff;
-	text-align:center;
-}
-
-.lightbox .close {
-	display:block;
-	position:absolute;
-	top:2em;
-	right:2em;
-	z-index:9;
-	padding:0 0.35em 0.15em 0.35em;
-	font-size:1em;
-	color:#ffffff;
-	font-style:normal;
-	font-weight:normal;
-	border:1px solid #ffffff;
-	border-radius:1em;
-}
-
-.lightboxcontent {
-	height:100%;
-}
-
-@media screen and (max-height:640px) and (orientation:landscape) {
-	.lightbox {
-		padding-top:1.4em;
-	}
-
-	.lightbox .close {
-		top:0.5em;
-		right:0.5em;
-	}
-}
-
-.home .delimiter {
-	display:block;
-	overflow:hidden;
-	width:0;
-	height:0;
-}
-
-/* app screenshot had 31px~ gutter on a 533px~ screen
+/* app screenshot had ~31px gutter on a ~533px screen
 	margin caused the background gradient to be messed up */
+
 .dailybiblereading {
 	padding-left:5.8%;
 	padding-right:5.8%;
@@ -357,6 +368,10 @@ video {
 	text-align:center;
 }
 
+.events dt {
+	display:none;
+}
+
 .events .title {
 	margin-top:1em;
 	text-transform:uppercase;
@@ -364,27 +379,19 @@ video {
 }
 
 .events .venue {
-	margin-top:1em;
+	margin-top:0.5em;
 	font-weight:bold;
 	color:#29649f;
 	margin-bottom:0;
 }
 
-.events .venue .delimiter {
+.events .venue .delimiter, .events .address, .events .phone {
 	color:#7b7b7b;
 	font-weight:normal;
 }
 
-.events .venue .delimiter:after {
-	content:" // ";
-}
-
-.events .address, .events .phone {
-	color:#7b7b7b;
-}
-
 .events .address {
-	margin-top:1em;
+	margin-top:0.5em;
 }
 
 .events .street {
@@ -392,8 +399,12 @@ video {
 }
 
 .events .schedule {
-	margin-top:1em;
+	margin-top:0.5em;
 	font-style:normal;
+}
+
+.events .notes {
+	margin-top:0.5em;
 }
 
 .featuredseries dt {
@@ -407,6 +418,38 @@ video {
 
 .featuredseries h3 {
 	margin-top:1em;
+}
+
+.home #livebroadcasts .delimiter {
+	display:block;
+	overflow:hidden;
+	width:0;
+	height:0;
+}
+
+.home #todayschapterreference span {
+	font-size:0.7em;
+}
+
+/* no longer used */
+
+/* border-collapse and border-spacing are css equivalents to <table cellspacing="5"> */
+
+.boxmp, .boxdual {
+	width:100%;
+	border-collapse:separate;
+	border-spacing:5px 0;
+}
+
+.boxdual {
+	margin:0 -5px;
+	width:100.57%;
+	width:-webkit-calc(100% + 10px);
+	width:calc(100% + 10px);
+}
+
+.firstb, .secondb {
+	width:50%;
 }
 
 /*

@@ -327,25 +327,43 @@ function getXmlEvents() {
 			}
 			if (enddate && enddate >= today) {
 				$('#content').append(
-				'<section id="' + title_camelcase + '" itemscope itemtype="http://schema.org/Event">' +
-					'<h3 class="title" itemprop="name">' + title + '</h3>' +
-					'<p class="venue">' + venue + '<span class="delimiter"></span>' + location + '</p>' +
-					'<p class="speaker" itemprop="performer">' + speaker + '</p>' +
-					'<div itemprop="location" itemscope itemtype="http://schema.org/Place">' +
-						'<p class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' +
-							'<span class="street" itemprop="streetAddress">' + address + '</span>' +
-							'<span class="city" itemprop="addressLocality">' + location_city + '</span>, <span class="state" itemprop="addressRegion">' + location_state + '</span> <span class="zip" itemprop="postalCode">' + zip + '</span>' +
-						'</p>' +
-						'<!-- you could do <a href="941-388-6961"></a> but most phones will make it a link anyways -->' +
-						'<p class="phone" itemprop="telephone">' + phone + '</p>' +
-						'<p class="website"><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></p>' +
-					'</div>' +
-					'<ol id="' + title_camelcase + '-schedule" class="schedule">' +
-					'</ol>' +
-					'<div class="notes">' +
-						notes +
-					'</div>' +
-				'</section>'
+					'<section id="' + title_camelcase + '" itemscope itemtype="http://schema.org/Event">' +
+						'<h3 class="title" itemprop="name">' + title + '</h3>' +
+						'<p class="venue">' + venue + '<span class="delimiter"> // </span>' + location + '</p>' +
+						'<dl>' +
+							'<dt>Speaker / Host</dt>' +
+							'<dd class="speaker" itemprop="performer">' + speaker + '</dd>' +
+						'</dl>' +
+						'<div itemprop="location" itemscope itemtype="http://schema.org/Place">' +
+							'<dl>' +
+								'<dt>Address</dt>' +
+								'<dd>' +
+									'<p class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' +
+										'<span class="street" itemprop="streetAddress">' + address + '</span>' +
+										'<span class="city" itemprop="addressLocality">' + location_city + '</span>, <span class="state" itemprop="addressRegion">' + location_state + '</span> <span class="zip" itemprop="postalCode">' + zip + '</span>' +
+									'</p>' +
+								'</dd>' +
+							'</dl>' +
+							'<!-- you could do <a href="941-388-6961"></a> but most phones will make it a link anyways -->' +
+							'<dl>' +
+								'<dt>Phone Number</dt>' +
+								'<dd class="phone" itemprop="telephone">' + phone + '</dd>' +
+							'</dl>' +
+							'<dl>' +
+								'<dt>Website</dt>' +
+								'<dd class="website"><a href="' + website + '" target="_blank" itemprop="url">' + website.substring(7) + '</a></dd>' +
+							'</dl>' +
+						'</div>' +
+						'<dl id="' + title_camelcase + '-schedule" class="schedule">' +
+							'<dt>Schedule</dt>' +
+						'</dl>' +
+						'<dl class="notes">' +
+							'<dt>Event Notes</dt>' +
+							'<dd>' +
+							notes +
+							'</dd>' +
+						'</dl>' +
+					'</section>'
 				);
 
 				// create an array for the dates and times of each event
@@ -375,7 +393,7 @@ function getXmlEvents() {
 					if (date_array && date_array.length === 6) date_timezone = date_array[5];
 					// date.js doesn't seem to like the abbreviated day or time zones so substring() them
 					if (date) date_readable = Date.parse(date.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + date_timezone + ')';
-					$('#content #' + title_camelcase + '-schedule').append('<li><time datetime="' + date_iso8601 + '">' + date_readable + '</time></li>');
+					$('#content #' + title_camelcase + '-schedule').append('<dd><time datetime="' + date_iso8601 + '">' + date_readable + '</time></dd>');
 				}
 			}
 		}
