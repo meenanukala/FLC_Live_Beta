@@ -355,6 +355,25 @@ video, audio {
 	content:"Sec";
 }
 
+#backgroundplayer {
+	display:fixed;
+	bottom:0;
+	left:0;
+	width:100%;
+	background-color:rgba(0, 0, 0, 0.9);
+	color:#ffffff;
+	padding-top:75%;
+	text-align:center;
+}
+
+#backgroundplayer .button {
+	display:inline-block;
+	vertical-align:middle;
+	margin:1em;
+	padding:1em;
+	border:1px solid #ffffff;
+}
+
 /* app screenshot had ~31px gutter on a ~533px screen
 	margin caused the background gradient to be messed up */
 

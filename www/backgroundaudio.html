@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- makes mobile browsers not zoom by default, not good unless media queries are used for phones -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Background Audio | FLC Live</title>
+<link rel="stylesheet" href="flclive_dc.css">
+<!-- required for the redirectToSystemBrowser() function (do not actually include the file, just link) -->
+<script src="phonegap.js"></script>
+<!-- used to change the formats of dates -->
+<script src="date.js"></script>
+<!-- jquery (we might as well use it) -->
+<script src="jquery-1.10.1.min.js"></script>
+<!-- our javascripts -->
+<script src="flclive.js"></script>
+</head>
+<body class="backgroundaudio">
+<header>
+	<h1><a href="index.html"><abbr title="Faith Life Church">FLC</abbr> <span>Live</span><span class="extrainfo"> <abbr title="Application">App</abbr></span></a></h1>
+</header>
+<section id="content">
+	<h2>Background Audio Test Page</h2>
+	<p>The Way Out</p>
+	<ul>
+		<li class="link" onclick="loadMedia('http://www.flcmedia.org/FLCSarasota/MP3/2013/130915Audio.mp3');">Pt. 6 - What You Do After (MP3)</li>
+		<li class="link" onclick="loadMedia('http://www.flcmedia.org/FLCSarasota/MP4/2013/130915Audio.mp4');">Pt. 6 - What You Do After (MP4)</li>
+	</ul>
+	<p>Week of Increase 2013 (Next Level)</p>
+	<ul>
+		<li class="link" onclick="loadMedia('http://www.flcmedia.org/FLCBranson/MP3/2013/131007Audio.mp3');">Pt. 1 - Faithful With A Few (MP3)</li>
+		<li class="link" onclick="loadMedia('http://www.flcmedia.org/FLCBranson/MP4/2013/131007Audio.mp4');">Pt. 1 - Faithful With A Few (MP4)</li>
+	</ul>
+</section>
+<!-- page specific javascripts -->
+<script>
+</script>
+</body>
+</html>

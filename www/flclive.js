@@ -76,28 +76,6 @@ function closeVideo() {
 	//document.location.reload(true);
 }
 
-// phonegap api media playing
-function playAudio(url) {
-	// Play the audio file at url
-	var my_media = new Media(url,
-		// success callback
-		function () {
-			console.log("playAudio():Audio Success");
-		},
-		// error callback
-		function (err) {
-			console.log("playAudio():Audio Error: " + err);
-		}
-	);
-	// Play audio
-	my_media.play({ playAudioWhenScreenIsLocked : true });
-}
-function stopAudio() {
-	if (my_media) {
-		my_media.stop();
-	}
-}
-
 // prepend 0s to a number
 function padDigits(number, digits) {
 	return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
@@ -408,7 +386,7 @@ function cdtd(broadcast) {
 	var now = new Date();
 	var timeDiff = nextinternetbroadcast.getTime() - now.getTime();
 	if (timeDiff <= 0) {
-		document.getElementById('nextinternetbroadcast').classList.remove('disabled');
+		//document.getElementById('nextinternetbroadcast').classList.remove('disabled');
 		document.getElementById('nextinternetbroadcast').innerHTML = '<a href="index.html">Join now<\/a>';
 		//document.getElementById('nextinternetbroadcast').innerHTML = '<a href="javscript:openVideo(' + livepublishingpoint + ');">Join live service now<\/a>';
 	} else {
@@ -463,6 +441,44 @@ function convertLinks() {
 		//alert('didn\'t follow link');
 		//alert('\'' + address + '\'');
 	});
+}
+
+var media;
+// phonegap api media playing
+function loadMedia(url, poster) {
+	if (!poster) poster = "http://www.flcbranson.org/images/Posters/Flcb.jpg";
+	// create the player area
+	$('body').append(
+		'<div id="backgroundplayer" style="background-image:url(' + poster + '); background-size:contain;">' +
+			'<div class="button stop" onclick="stopMedia();">Stop</div>' +
+			'<div class="button play" onclick="playMedia();">Play</div>' +
+			'<div class="button pause" onclick="pauseMedia();">Pause</div>' +
+			'<div class="button close" onclick="closeMediaPlayer();">Close</div>' +
+		'</div>'
+	);
+	// load a media resource
+	media = new Media(url);
+}
+function playMedia() {
+	// play when screen is locked
+	media.play({ playAudioWhenScreenIsLocked : true });
+}
+function stopMedia() {
+	if (media) {
+		media.stop();
+	}
+}
+function pauseMedia() {
+	if (media) {
+		media.pause();
+	}
+}
+function unloadMedia() {
+	if (media) {
+		media.stop();
+		media.release();
+	}
+	$('#backgroundplayer').remove();
 }
 
 /* things that are no longer in use or don't work
