@@ -32,6 +32,21 @@ function loadXml(url, callback) {
 	xmlhttprequest.send();
 }
 
+// make an xml call
+function loadXmlSynchronous(url, callback) {
+	var xmlhttprequest = new XMLHttpRequest();
+	xmlhttprequest.onreadystatechange = function() {
+		if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
+			// do something with your data
+			var data = xmlhttprequest.responseXML;
+			if (callback) callback(data);
+		}
+	}
+	// true is asynchronous and false is synchronous
+	xmlhttprequest.open('GET', url, false);
+	xmlhttprequest.send();
+}
+
 // generic get JSON data function
 function fetchJSONFile(path, callback) {
 	var httpRequest = new XMLHttpRequest();
@@ -235,7 +250,7 @@ function todaysChapter() {
 
 // get data as xml and fiddle with it
 function getXmlEvents() {
-	loadXml('http://www.flcbranson.org/rss/Events.xml', function(data) {
+	loadXmlSynchronous('http://www.flcbranson.org/rss/Events.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
 		var today = Date.today().toString('yyyyMMdd');
@@ -410,7 +425,8 @@ function convertLinks() {
 		// use our system browser function to open the url
 		//redirectToSystemBrowser($(this).attr('href'));
 		//alert('didn\'t follow link');
-		alert(' + address + ');
+		console.log('\'' + address + '\'');
+		alert('\'' + address + '\'');
 	});
 }
 
