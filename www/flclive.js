@@ -2,7 +2,7 @@
 var today = Date.today().toString('yyyy-MM-dd');
 //alert(today);
 
-// make a json call
+// make an asynchronous json call
 function loadJson(url, callback) {
 	var xmlhttprequest = new XMLHttpRequest();
 	xmlhttprequest.onreadystatechange = function() {
@@ -17,7 +17,22 @@ function loadJson(url, callback) {
 	xmlhttprequest.send();
 }
 
-// make an xml call
+// make a synchronous json call
+function loadJsonSynchronous(url, callback) {
+	var xmlhttprequest = new XMLHttpRequest();
+	xmlhttprequest.onreadystatechange = function() {
+		if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
+			// do something with your data
+			var data = JSON.parse(xmlhttprequest.responseText);
+			if (callback) callback(data);
+		}
+	}
+	// true is asynchronous and false is synchronous
+	xmlhttprequest.open('GET', url, false);
+	xmlhttprequest.send();
+}
+
+// make an asynchronous xml call
 function loadXml(url, callback) {
 	var xmlhttprequest = new XMLHttpRequest();
 	xmlhttprequest.onreadystatechange = function() {
@@ -32,7 +47,7 @@ function loadXml(url, callback) {
 	xmlhttprequest.send();
 }
 
-// make an xml call
+// make a synchronous xml call
 function loadXmlSynchronous(url, callback) {
 	var xmlhttprequest = new XMLHttpRequest();
 	xmlhttprequest.onreadystatechange = function() {
@@ -61,18 +76,6 @@ function fetchJSONFile(path, callback) {
 	// false tells it to be synchronous instead of asynchronous
 	httpRequest.open('GET', path, false);
 	httpRequest.send(); 
-}
-
-// open a link in the system browser
-// window.open wasn't opening a link in the system browser on iOS, so we have to use this function (requires phonegap.js)
-function redirectToSystemBrowser(url) {
-	// Wait for Cordova to load
-	document.addEventListener('deviceready', onDeviceReady, false);
-	// Cordova is ready
-	function onDeviceReady() {
-		// open URL in default web browser
-		var ref = window.open(encodeURI(url), '_system', 'location=yes');
-	}
 }
 
 // opens and closes the video lightbox (jquery)
@@ -416,6 +419,18 @@ function seriesDownload(seriestitle) {
 	});
 }
 
+// open a link in the system browser
+// window.open wasn't opening a link in the system browser on iOS, so we have to use this function (requires phonegap.js)
+function redirectToSystemBrowser(url) {
+	// Wait for Cordova to load
+	document.addEventListener('deviceready', onDeviceReady, false);
+	// Cordova is ready
+	function onDeviceReady() {
+		// open URL in default web browser
+		var ref = window.open(encodeURI(url), '_system', 'location=yes');
+	}
+}
+
 function convertLinks() {
 	// convert the target="_blank" links to our function
 	$('#content a').click(function(e) {
@@ -424,6 +439,7 @@ function convertLinks() {
 		//return false;
 		var address = $(this).attr('href');
 		// use our system browser function to open the url
+		// calling redirectToSystemBrowser() didn't work
 		// Wait for Cordova to load
 		document.addEventListener('deviceready', onDeviceReady, false);
 		// Cordova is ready
