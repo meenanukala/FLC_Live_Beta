@@ -410,7 +410,7 @@ function convertLinks() {
 		// use our system browser function to open the url
 		//redirectToSystemBrowser($(this).attr('href'));
 		//alert('didn\'t follow link');
-		alert(address);
+		alert(' + address + ');
 	});
 }
 
