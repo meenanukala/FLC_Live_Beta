@@ -250,6 +250,7 @@ function todaysChapter() {
 
 // get data as xml and fiddle with it
 function getXmlEvents() {
+	// had to use a synchronous connection or the links wouldn't be converted to open in system browser (convertLinks())
 	loadXmlSynchronous('http://www.flcbranson.org/rss/Events.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
@@ -423,10 +424,9 @@ function convertLinks() {
 		//return false;
 		var address = $(this).attr('href');
 		// use our system browser function to open the url
-		//redirectToSystemBrowser($(this).attr('href'));
+		redirectToSystemBrowser('\'' + address + '\'');
 		//alert('didn\'t follow link');
-		console.log('\'' + address + '\'');
-		alert('\'' + address + '\'');
+		//alert('\'' + address + '\'');
 	});
 }
 
