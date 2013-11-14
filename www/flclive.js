@@ -424,8 +424,15 @@ function convertLinks() {
 		//return false;
 		var address = $(this).attr('href');
 		// use our system browser function to open the url
-		// make sure to add the apostrophes (an apostrophe within two apostrophes needs to be escaped (\'))
-		redirectToSystemBrowser('\'' + address + '\'');
+		// Wait for Cordova to load
+		document.addEventListener('deviceready', onDeviceReady, false);
+		// Cordova is ready
+		function onDeviceReady() {
+			// open URL in default web browser
+			// make sure to add the apostrophes (an apostrophe within two apostrophes needs to be escaped (\'))
+			var ref = window.open(encodeURI('\'' + address + '\''), '_system', 'location=yes');
+		}
+		//redirectToSystemBrowser('\'' + address + '\'');
 		//alert('didn\'t follow link');
 		//alert('\'' + address + '\'');
 	});
