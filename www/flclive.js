@@ -424,6 +424,7 @@ function convertLinks() {
 		//return false;
 		var address = $(this).attr('href');
 		// use our system browser function to open the url
+		// make sure to add the apostrophes (an apostrophe within two apostrophes needs to be escaped (\'))
 		redirectToSystemBrowser('\'' + address + '\'');
 		//alert('didn\'t follow link');
 		//alert('\'' + address + '\'');
