@@ -429,8 +429,7 @@ function convertLinks() {
 		// Cordova is ready
 		function onDeviceReady() {
 			// open URL in default web browser
-			// make sure to add the apostrophes (an apostrophe within two apostrophes needs to be escaped (\'))
-			var ref = window.open(encodeURI('\'' + address + '\''), '_system', 'location=yes');
+			var ref = window.open(encodeURI(address), '_system', 'location=yes');
 		}
 		//redirectToSystemBrowser('\'' + address + '\'');
 		//alert('didn\'t follow link');
