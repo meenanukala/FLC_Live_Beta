@@ -462,7 +462,6 @@ function loadMedia(url, poster) {
 	);
 	// load a media resource
 	media = new Media(url);
-	playMedia();
 }
 function playMedia() {
 	// play when screen is locked
