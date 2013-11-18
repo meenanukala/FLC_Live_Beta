@@ -41,6 +41,12 @@ body {
 	background-color:#e4e4e4;
 	background-image:linear-gradient(to bottom, #e4e4e4 0%,#a9a9a9 100%);
 	color:#000000;
+	-webkit-text-size-adjust:none;
+	-moz-text-size-adjust:none;
+	-ms-text-size-adjust:none;
+	-webkit-text-size-adjust:100%;
+	-moz-text-size-adjust:100%;
+	-ms-text-size-adjust:100%;
 }
 
 /* blue and all-caps only on the main page */
@@ -376,6 +382,13 @@ video, audio {
 @media screen and (orientation:landscape) {
 	.backgroundplayer {
 		padding-top:20%;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-width:639px) {
+	.backgroundplayer {
+		background-image:none !important;
+		padding-top:0;
 	}
 }
 
