@@ -457,7 +457,7 @@ function loadMedia(url, poster) {
 			'<div class="button stop" onclick="stopMedia();">Stop</div>' +
 			'<div class="button play" onclick="playMedia();">Play</div>' +
 			'<div class="button pause" onclick="pauseMedia();">Pause</div>' +
-			'<div class="button close" onclick="closeMediaPlayer();">Close</div>' +
+			'<div class="button close" onclick="unloadMedia();">Close</div>' +
 		'</div>'
 	);
 	// load a media resource

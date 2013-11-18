@@ -367,18 +367,25 @@ video, audio {
 	background-color:rgba(0, 0, 0, 0.9);
 	background-size:contain;
 	background-repeat:no-repeat;
-	background-position:center 1em;
+	background-position:center center;
 	color:#ffffff;
-	padding-top:56%;
+	padding-top:40%;
 	text-align:center;
+}
+
+@media screen and (orientation:landscape) {
+	.backgroundplayer {
+		padding-top:20%;
+	}
 }
 
 .backgroundplayer .button {
 	display:table-cell;
 	width:25%;
 	vertical-align:middle;
-	padding:1em;
-	border:1px solid #ffffff;
+	padding:1em 0;
+	background-color:rgba(0, 0, 0, 0.75);
+	cursor:pointer;
 }
 
 /* page specific */
