@@ -356,7 +356,7 @@ video, audio {
 }
 
 /* if a background image is resizable you won't know the height
-	you can divide the height by the width to get a proportional percentage and pad the top/bottom (whichever contains the background image) to that percentage */
+	you can divide the height by the width to get an approximate proportional percentage and pad the top/bottom (whichever contains the background image) to that percentage */
 
 .backgroundplayer {
 	position:fixed;
@@ -373,14 +373,14 @@ video, audio {
 
 @media screen and (orientatio:portrait) {
 	.backgroundplayer {
-		padding-top:40%;
+		padding-top:50%;
 		background-size:cover;
 	}
 }
 
 @media screen and (orientation:landscape) {
 	.backgroundplayer {
-		padding-top:20%;
+		padding-top:25%;
 		background-size:contain;
 	}
 }
