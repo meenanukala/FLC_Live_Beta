@@ -21,15 +21,21 @@
 </header>
 <section id="content">
 	<h2>Background Audio Test Page</h2>
+	<p>There are some, significant, problems with the background audio:</p>
+	<ul>
+		<li>A ~25MB MP3 takes between 1 and 2 minutes to load (others have noted 10-20 seconds for a ~4MB MP3).</li>
+		<li>If the MP3 is set to automatically play, when clicking the link, the player doesn't show up until the MP3 is loaded (again, 1-2 minutes).</li>
+		<li>It doesn't work with videos.</li>
+		<li>It, potentially, stops the audio when the home button is pressed (untested, because of Hydration).</li>
+	</ul>
+	<p>So, I would recommend scrapping the background audio.  It might be a better option if/when we switch to a native app.  It's possible that it will work better if we move away from PhoneGap Build and do all of the compilation, locally.  At that point, though, we're working in Xcode.  It, certainly, doesn't look promising for this release (which is, probably, already considered late).</p>
 	<h3>The Way Out</h3>
 	<ul>
 		<li class="link" onclick="loadMedia('http://www.flcmedia.org/FLCSarasota/MP3/2013/130915Audio.mp3', 'http://www.flcbranson.org/images/Posters/Flcs.jpg');">Pt. 6 - What You Do After (MP3)</li>
-		<li class="link" onclick="loadMedia('http://www.flcmedia.org/FLCSarasota/MP4/2013/130915Audio.mp4', 'http://www.flcbranson.org/images/Posters/Flcs.jpg');">Pt. 6 - What You Do After (MP4)</li>
 	</ul>
 	<h3>Week of Increase 2013 (Next Level)</h3>
 	<ul>
 		<li class="link" onclick="loadMedia('http://www.flcmedia.org/FLCBranson/MP3/2013/131007Audio.mp3', 'http://www.flcbranson.org/images/Posters/WeekOfIncrease2013.jpg');">Pt. 1 - Faithful With A Few (MP3)</li>
-		<li class="link" onclick="loadMedia('http://www.flcmedia.org/FLCBranson/MP4/2013/131007Audio.mp4', 'http://www.flcbranson.org/images/Posters/WeekOfIncrease2013.jpg');">Pt. 1 - Faithful With A Few (MP4)</li>
 	</ul>
 </section>
 <!-- page specific javascripts -->
