@@ -446,6 +446,10 @@ function convertLinks() {
 // phonegap api media playing
 var media;
 function loadMedia(url, poster) {
+	// remove the player if it's already there
+	if ($('.backgroundplayer')) {
+		$('.backgroundplayer').remove();
+	}
 	if (!poster) poster = "http://www.flcbranson.org/images/Posters/Flcb.jpg";
 	// create the player area
 	$('body').append(
