@@ -367,21 +367,15 @@ video, audio {
 	background-color:rgba(0, 0, 0, 0.9);
 	background-repeat:no-repeat;
 	background-position:center center;
+	background-size:contain;
+	padding-top:40%;
 	color:#ffffff;
 	text-align:center;
 }
 
-@media screen and (orientatio:portrait) {
-	.backgroundplayer {
-		padding-top:50%;
-		background-size:cover;
-	}
-}
-
 @media screen and (orientation:landscape) {
 	.backgroundplayer {
-		padding-top:25%;
-		background-size:contain;
+		padding-top:20%;
 	}
 }
 
