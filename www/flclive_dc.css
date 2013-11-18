@@ -355,24 +355,33 @@ video, audio {
 	content:"Sec";
 }
 
+/* if a background image is resizable you won't know the height
+	you can divide the height by the width to get a proportional percentage and pad the top/bottom (whichever contains the background image) to that percentage */
+
 #backgroundplayer {
-	display:fixed;
+	position:fixed;
 	bottom:0;
 	left:0;
+	display:table;
 	width:100%;
 	background-color:rgba(0, 0, 0, 0.9);
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center 1em;
 	color:#ffffff;
-	padding-top:75%;
+	padding-top:56%;
 	text-align:center;
 }
 
 #backgroundplayer .button {
-	display:inline-block;
+	display:table-cell;
 	vertical-align:middle;
 	margin:1em;
 	padding:1em;
 	border:1px solid #ffffff;
 }
+
+/* page specific */
 
 /* app screenshot had ~31px gutter on a ~533px screen
 	margin caused the background gradient to be messed up */

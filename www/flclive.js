@@ -443,13 +443,13 @@ function convertLinks() {
 	});
 }
 
-var media;
 // phonegap api media playing
+var media;
 function loadMedia(url, poster) {
 	if (!poster) poster = "http://www.flcbranson.org/images/Posters/Flcb.jpg";
 	// create the player area
 	$('body').append(
-		'<div id="backgroundplayer" style="background-image:url(' + poster + '); background-size:contain;">' +
+		'<div class="backgroundplayer" style="background-image:url(' + poster + ');">' +
 			'<div class="button stop" onclick="stopMedia();">Stop</div>' +
 			'<div class="button play" onclick="playMedia();">Play</div>' +
 			'<div class="button pause" onclick="pauseMedia();">Pause</div>' +
@@ -478,7 +478,9 @@ function unloadMedia() {
 		media.stop();
 		media.release();
 	}
-	$('#backgroundplayer').remove();
+	if ($('.backgroundplayer')) {
+		$('.backgroundplayer').remove();
+	}
 }
 
 /* things that are no longer in use or don't work
