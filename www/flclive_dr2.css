@@ -43,7 +43,7 @@ body {
 .block {
 	display:block;
 	padding:0.5rem 0;
-	border-radius:0.75rem;
+	border-radius:0.375rem;
 	background-color:#ffffff;
 	background-color:rgba(255, 255, 255, 0.25);
 }
