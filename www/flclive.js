@@ -164,7 +164,7 @@ function todaysChapterReference() {
 			// define the global variable (only works when using synchronous connections)
 			dailychapter_book = data.dailychapter[0].book;
 			dailychapter_chapter = data.dailychapter[0].chapter;
-			dailychapter_todayschapter = dailychapter_book + '<span> Ch.</span>' + dailychapter_chapter;
+			dailychapter_todayschapter = dailychapter_book + ' ' + dailychapter_chapter;
 			$('.home #dailybiblereading .title').append('Today\'s chapter is ' + dailychapter_todayschapter + '.');
 		});
 	}

@@ -19,7 +19,7 @@
 <body class="home" role="document">
 <div class="wrapper first">
 	<header id="siteheader" role="banner">
-		<h1 class="heading site link" onclick="openLink('/');"><abbr title="Faith Life Church">FLC</abbr> <span>Live</span><span class="extrainfo"> <abbr title="Application">App</abbr></span></h1>
+		<h1 class="heading site link" onclick="openLink('/');"><abbr title="Faith Life Church">FLC</abbr> <span class="stylehook">Live</span><span class="extrainfo"> <abbr title="Application">App</abbr></span></h1>
 	</header>
 	<nav id="navigation" role="navigation">
 		<h2>Main site navigation</h2>
@@ -39,9 +39,9 @@
 	</section>
 	<section id="rebroadcasts">
 		<h2 class="heading section">Full Service Rebroadcasts</h2>
-		<ul class="wrapper blocks">
-			<li class="block first link" onclick="fridayRebroadcast();">Friday <span>Rebroadcast</span></li>
-			<li class="block second link" onclick="sundayRebroadcast();">Sunday <span>Rebroadcast</span></li>
+		<ul class="blocks">
+			<li class="block first link" onclick="fridayRebroadcast();">Friday <span class="stylehook">Rebroadcast</span></li>
+			<li class="block second link" onclick="sundayRebroadcast();">Sunday <span class="stylehook">Rebroadcast</span></li>
 		</ul>
 	</section>
 </div>
@@ -64,15 +64,16 @@
 <div class="wrapper third">
 	<footer id="footer" role="contentinfo">
 		<h2 class="heading section">External Links</h2>
-		<ul class="wrapper blocks">
+		<ul class="blocks">
 			<li class="block first link" onclick="redirectToSystemBrowser('http://www.flcbranson.org/');"><span class="extrainfo">Official </span><abbr title="Faith Life Church">FLC</abbr> Website</li>
 			<li class="block second link" onclick="redirectToSystemBrowser('https://faithlifechurchbranson.thankyou4caring.org/');"><span class="extrainfo">Official <abbr title="Faith Life Church">FLC</abbr> </span>Sowing<span class="extrainfo"> Page</span></li>
 		</ul>
 	</footer>
 </div>
-<h2>Testing Area</h2>
-<p><a href="backgroundaudio.html">Background Audio</a></p>
-</section>
+<div class="wrapper testing">
+	<h2 class="heading section">Testing Area</h2>
+	<p class="block"><a class="link" href="backgroundaudio.html">Background Audio</a></p>
+</div>
 <!-- page specific javascripts -->
 <script>
 // when the next live broadcast is and play if broadcasting
