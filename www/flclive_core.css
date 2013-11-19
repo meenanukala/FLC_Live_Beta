@@ -1,0 +1,263 @@
+@charset "utf-8";
+
+/* 
+=============CSS RESET===================
+*/
+/* html5doctor css reset (http://html5doctor.com/html-5-reset-stylesheet/)
+	it goes above and beyond Eric Meyer's venerable reset.css (http://meyerweb.com/eric/tools/css/reset/) */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; }
+body { line-height:1; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display:block; }
+nav ul { list-style:none; }
+blockquote, q { quotes:none; }
+blockquote:before, blockquote:after, q:before, q:after { content:''; content:none; }
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+ins { background-color:#ff9; color:#000; text-decoration:none; }
+mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+del { text-decoration:line-through; }
+abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
+table { border-collapse:collapse; border-spacing:0; }
+hr { display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0; }
+input, select { vertical-align:middle; }
+
+/* keep text from getting bigger when switching from portrait to landscape */
+
+body {
+	-webkit-text-size-adjust:none;
+	-moz-text-size-adjust:none;
+	-ms-text-size-adjust:none;
+	-webkit-text-size-adjust:100%;
+	-moz-text-size-adjust:100%;
+	-ms-text-size-adjust:100%;
+}
+
+/* padding-bottom should match the padding-top of .backgroundplayer */
+
+body.withbackgroundplayer {
+	padding-bottom:41.25%;
+}
+
+@media screen and (orientation:landscape) {
+	body.withbackgroundplayer {
+		padding-top:20%;
+	}
+}
+
+/* 3m is 1em of text plus 1em of top and bottom padding */
+
+@media screen and (orientation:landscape) and (max-width:639px) {
+	body.withbackgroundplayer {
+		background-image:none !important;
+		padding-bottom:3em;
+	}
+}
+
+/* if a background image is resizable you won't know the height
+	you can divide the height by the width to get an approximate proportional percentage and pad the top/bottom (whichever contains the background image) to that percentage */
+
+.backgroundplayer {
+	position:fixed;
+	bottom:0;
+	left:0;
+	display:table;
+	width:100%;
+	background-color:rgba(0, 0, 0, 0.9);
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size:contain;
+	padding-top:41.25%;
+	color:#ffffff;
+	text-align:center;
+}
+
+@media screen and (orientation:landscape) {
+	.backgroundplayer {
+		padding-top:20%;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-width:640px) {
+	.backgroundplayer {
+		background-image:none !important;
+		padding-top:0;
+	}
+}
+
+.backgroundplayer .button {
+	display:table-cell;
+	width:25%;
+	vertical-align:middle;
+	padding:1em 0;
+	background-color:rgba(0, 0, 0, 0.75);
+	cursor:pointer;
+}
+
+/* we want the lightbox to be in the same place and the same size regardless of the user's action */
+
+.lightbox {
+	position:fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	z-index:4;
+	padding:5em 1em 1em 1em;
+	white-space:normal;
+	background:rgba(0, 0, 0, 0.9);
+	color:#ffffff;
+	text-align:center;
+}
+
+/* play with padding and border radius to create a circle */
+
+.lightbox .close {
+	display:block;
+	position:absolute;
+	top:2em;
+	right:2em;
+	z-index:9;
+	padding:0 0.35em 0.15em 0.35em;
+	font-size:1em;
+	color:#ffffff;
+	font-style:normal;
+	font-weight:normal;
+	border:1px solid #ffffff;
+	border-radius:1em;
+}
+
+@media screen and (max-height:640px) and (orientation:landscape) {
+	.lightbox {
+		padding-top:1.4em;
+	}
+
+	.lightbox .close {
+		top:0.5em;
+		right:0.5em;
+	}
+}
+
+/* <video> was very small without height specified */
+
+.lightboxcontent {
+	height:100%;
+}
+
+/* change the cursor so the user knows there is more information */
+
+abbr[title], dfn[title] {
+	border:none;
+	cursor:help;
+}
+
+/* but not if it's a link */
+
+a abbr[title], .link abbr[title], a dfn[title], .link dfn[title] {
+	cursor:inherit;
+}
+
+/* changes the cursor for javascript links */
+
+a, .link {
+	cursor:pointer;
+}
+
+/* content included for content clarity but removed for visual appeal */
+
+.extrainfo {
+	display:none;
+}
+
+/* how often do you really want indentions, numbers, and bullets */
+
+dl, ol, ul {
+	list-style:none;
+}
+
+/* give the titles a little oomph */
+
+dt {
+	font-weight:800;
+}
+
+/* give the titles a little breathing room */
+
+dt:not(:first-of-type) {
+	margin-top:1em;
+}
+
+/* max makes sure it doesn't get bigger than the window */
+
+audio, video {
+	width:100%;
+	height:100%;
+	max-width:100%;
+	max-height:100%;
+}
+
+/* page specific */
+
+/* app screenshot had ~31px gutter on a ~533px screen
+	margin caused the background gradient to be messed up */
+
+.dailybiblereading {
+	padding-left:5%;
+	padding-right:5%;
+}
+
+.events #content {
+	font-style:italic;
+	text-align:center;
+}
+
+.events dt {
+	display:none;
+}
+
+.events .title {
+	margin-top:1em;
+	text-transform:uppercase;
+	font-weight:bold;
+}
+
+.events .venue {
+	margin-top:0.5em;
+	font-weight:bold;
+	color:#29649f;
+	margin-bottom:0;
+}
+
+.events .venue .delimiter, .events .address, .events .phone {
+	color:#7b7b7b;
+	font-weight:normal;
+}
+
+.events .address {
+	margin-top:0.5em;
+}
+
+.events .street {
+	display:block;
+}
+
+.events .schedule {
+	margin-top:0.5em;
+	font-style:normal;
+}
+
+.events .notes {
+	margin-top:0.5em;
+}
+
+.featuredseries dt {
+	display:none;
+}
+
+.featuredseries blockquote {
+	margin-top:1em;
+	margin-bottom:1em;
+}
+
+.featuredseries h3 {
+	margin-top:1em;
+}
+

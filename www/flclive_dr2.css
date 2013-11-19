@@ -1,0 +1,143 @@
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/css?family=Raleway:200,500);
+
+/*
+=============STYLES================
+*/
+
+html {
+}
+
+/* specify foreground colors when specifying background colors */
+
+body {
+	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color:#1d384d;
+	color:#ffffff;
+}
+
+.wrapper {
+	/*padding:5%;*/
+	font-size:1.25rem;
+}
+
+/* background-position:horizontal vertical */
+
+#siteheader {
+	padding-top:1rem;
+}
+
+.heading.site {
+	padding:0.5rem 0;
+	font-family:'Raleway', sans-serif;
+	font-weight:200;
+	font-size:3rem;
+	text-transform:uppercase;
+	text-indent:10%;
+	background-image:url(images/flc_logo_one_color_nbg-215x153.png);
+	background-size:auto 100%;
+	background-repeat:no-repeat;
+	background-position:90% center;
+}
+
+.heading.site span {
+	margin-left:-1rem;
+	font-size:1.5rem;
+	font-style:italic;
+	font-weight:500;
+}
+
+#navigation {
+	display:none;
+}
+
+/* specify a solid color for browsers that don't support rgba */
+
+.block {
+	display:block;
+	padding:1em 0;
+	border-radius:0.75rem;
+	background-color:#ffffff;
+	background-color:rgba(255, 255, 255, 0.25);
+}
+
+/* give a static width in case calc() isn't supported
+	over-ride with calc() for those that do
+	vendor-prefixes come before official version */
+
+/* border-spacing includes left of the first cell and right of the last cell
+	negative margin the left/right and add those negative margins to the width
+	ios6 requires -webkit-
+	android browser doesn't support calc() */
+
+.wrapper.blocks {
+	display:table;
+	border-collapse:separate;
+	border-spacing:0.5rem;
+	width:100%;
+}
+
+/* to match the double-blocks */
+
+#livebroadcast .countdown {
+	margin:0.5rem;
+	margin-bottom:0;
+}
+
+.wrapper.second {
+	padding:0.5rem;
+}
+
+.block.first, .block.second {
+	display:table-cell;
+	width:50%;
+	vertical-align:middle;
+}
+
+#livebroadcast, #rebroadcasts {
+	text-align:center;
+}
+
+#livebroadcast {
+	font-style:italic;
+}
+
+#livebroadcast .countdown {
+	font-style:normal;
+}
+
+#rebroadcasts .block {
+	text-transform:uppercase;
+}
+
+#rebroadcasts .block span {
+	display:block;
+	font-size:0.75rem;
+	font-style:italic;
+}
+
+.wrapper.third {
+	text-align:center;
+	text-transform:uppercase;
+}
+
+.wrapper.first h2, .wrapper.second .block, .wrapper.third h2 {
+	display:none;
+}
+
+.wrapper.first {
+	background-image:linear-gradient(to right, #1a3749 0%, #3d6170 100%);
+}
+
+.wrapper.second {
+	background-color:#92cfd4;
+}
+
+.wrapper.third {
+	background-image:linear-gradient(to right, #07423c 0%, #2a6f67 100%);
+	font-size:1.25rem;
+}
+
+.countdown_wording {
+	font-size:0.75rem;
+}

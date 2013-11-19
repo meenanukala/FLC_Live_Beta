@@ -152,7 +152,7 @@ function featuredSeriesTitle() {
 // show today's chapter reference
 function todaysChapterReference() {
 	if (Date.today().toString('dddd') == 'Saturday' || Date.today().toString('dddd') == 'Sunday') {
-		$('.home #todayschapterreference').append('No chapter today.');
+		$('.home #dailybiblereading .title').append('No chapter today.');
 	} else {
 		// set a global javascript variable
 		var dailychapter_book, dailychapter_chapter, dailychapter_todayschapter;
@@ -165,7 +165,7 @@ function todaysChapterReference() {
 			dailychapter_book = data.dailychapter[0].book;
 			dailychapter_chapter = data.dailychapter[0].chapter;
 			dailychapter_todayschapter = dailychapter_book + '<span> Ch.</span>' + dailychapter_chapter;
-			$('.home #todayschapterreference').append('<span class="extrainfo">Today\'s chapter is </span><a href="dailybiblereading.html">' + dailychapter_todayschapter + '</a><span class="extrainfo">.</span>');
+			$('.home #dailybiblereading .title').append('Today\'s chapter is ' + dailychapter_todayschapter + '.');
 		});
 	}
 }
@@ -378,6 +378,18 @@ function getXmlEvents() {
 	});
 }
 
+// get data as xml and fiddle with it
+function featuredMessageTitle() {
+	// had to use a synchronous connection or the links wouldn't be converted to open in system browser (convertLinks())
+	loadXmlSynchronous('http://www.flcbranson.org/rss/FeaturedMessage.xml', function(data) {
+		// getElementsByTagName() creates an array of elements with that name
+		var items = data.getElementsByTagName('item');
+		// we just want the first one
+		var featuredmessagetitle = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
+		$('#featuredmessage .title').append(featuredmessagetitle + '<span class="extrainfo"> is our currently-featured message.</span>');
+	});
+}
+
 // javascript countdown (http://www.developphp.com/view.php?tid=1248)
 // don't forget to pass the broadcast variable
 function cdtd(broadcast) {
@@ -387,7 +399,7 @@ function cdtd(broadcast) {
 	var timeDiff = nextinternetbroadcast.getTime() - now.getTime();
 	if (timeDiff <= 0) {
 		//document.getElementById('nextinternetbroadcast').classList.remove('disabled');
-		document.getElementById('nextinternetbroadcast').innerHTML = '<a href="index.html">Join now<\/a>';
+		$('#livebroadcast .countdown').html('<a href="index.html">Join now</a>');
 		//document.getElementById('nextinternetbroadcast').innerHTML = '<a href="javscript:openVideo(' + livepublishingpoint + ');">Join live service now<\/a>';
 	} else {
 		var seconds = Math.floor(timeDiff / 1000);
@@ -397,14 +409,26 @@ function cdtd(broadcast) {
 		hours %= 24;
 		minutes %= 60;
 		seconds %= 60;
+
+		var days_wording = 'days';
+		if (days == 1) days_wording = 'day';
+		var hours_wording = 'hrs';
+		if (hours == 1) hours_wording = 'hour';
+		var minutes_wording = 'mins';
+		if (minutes == 1) minutes_wording = 'min';
+		var seconds_wording = 'secs';
+		if (seconds == 1) seconds_wording = 'sec';
+
 		// padDigits() referenced above
-		days = padDigits(days, 2);
-		hours = padDigits(hours, 2);
-		minutes = padDigits(minutes, 2);
-		seconds = padDigits(seconds, 2);
+		//days = padDigits(days, 2);
+		//hours = padDigits(hours, 2);
+		//minutes = padDigits(minutes, 2);
+		//seconds = padDigits(seconds, 2);
+
 		//document.getElementById('nextinternetbroadcast').className += " disabled";
-		document.getElementById('nextinternetbroadcast').innerHTML = '<span class="extrainfo">The next live internet broadcast will start in </span><span class="days">' + days + ':</span><span class="hours">' + hours + ':</span><span class="minutes">' + minutes + ':</span><span class="seconds">' + seconds + '</span><span class="extrainfo">.</span>';
+		$('#livebroadcast .nextbroadcast').html('Join our next live broadcast in <span class="countdown block"><span class="days">' + days + '</span> <span class="countdown_wording">' + days_wording + '</span> <span class="hours">' + hours + '</span> <span class="countdown_wording">' + hours_wording + '</span> <span class="minutes">' + minutes + '</span> <span class="countdown_wording">' + minutes_wording + '</span> <span class="seconds">' + seconds + '</span> <span class="countdown_wording">' + seconds_wording + '</span></span><span class="extrainfo">.</span>');
 		// loop the function every second
+
 		setTimeout(function() { cdtd(broadcast); }, 1000);
 	}
 }
@@ -443,6 +467,12 @@ function convertLinks() {
 	});
 }
 
+// just open links via javascript
+function openLink(url) {
+	// if you don't include _self it will open in a new tab
+	window.open(url, '_self');
+}
+
 // phonegap api media playing
 var media;
 function loadMedia(url, poster) {
@@ -460,6 +490,7 @@ function loadMedia(url, poster) {
 			'<div class="button close" onclick="unloadMedia();">Close</div>' +
 		'</div>'
 	);
+	$('body').addClass('withbackgroundplayer');
 	// load a media resource
 	media = new Media(url);
 }
@@ -485,6 +516,7 @@ function unloadMedia() {
 	if ($('.backgroundplayer')) {
 		$('.backgroundplayer').remove();
 	}
+	$('body').removeClass('withbackgroundplayer');
 }
 
 /* things that are no longer in use or don't work

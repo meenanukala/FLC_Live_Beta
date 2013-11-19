@@ -49,6 +49,23 @@ body {
 	-ms-text-size-adjust:100%;
 }
 
+body.withbackgroundplayer {
+	padding-bottom:41.25%;
+}
+
+@media screen and (orientation:landscape) {
+	body.withbackgroundplayer {
+		padding-top:20%;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-width:639px) {
+	body.withbackgroundplayer {
+		background-image:none !important;
+		padding-bottom:3em;
+	}
+}
+
 /* blue and all-caps only on the main page */
 
 .home {

@@ -5,7 +5,8 @@
 <!-- makes mobile browsers not zoom by default, not good unless media queries are used for phones -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FLC Live</title>
-<link rel="stylesheet" href="flclive_dc.css">
+<link rel="stylesheet" href="flclive_core.css">
+<link rel="stylesheet" href="flclive_dr2.css" title="David Robinson's Second Design" />
 <!-- required for the redirectToSystemBrowser() function (do not actually include the file, just link) -->
 <script src="phonegap.js"></script>
 <!-- used to change the formats of dates -->
@@ -15,54 +16,62 @@
 <!-- our javascripts -->
 <script src="flclive.js"></script>
 </head>
-<body class="home">
-<header>
-	<h1><a href="index.html"><abbr title="Faith Life Church">FLC</abbr> <span>Live</span><span class="extrainfo"> <abbr title="Application">App</abbr></span></a></h1>
-</header>
-<section id="content">
-	<section id="livebroadcasts">
-		<h2>Live Broadcast<span class="extrainfo"> Times</span></h2>
-		<ul class="box">
-			<li class="first">Fridays<span class="delimiter"> @ </span>6:30 (CST)</li>
-			<li class="second">Sundays<span class="delimiter"> @ </span>9:00 &amp; 11:00 (CST)</li>
+<body class="home" role="document">
+<div class="wrapper first">
+	<header id="siteheader" role="banner">
+		<h1 class="heading site link" onclick="openLink('/');"><abbr title="Faith Life Church">FLC</abbr> <span>Live</span><span class="extrainfo"> <abbr title="Application">App</abbr></span></h1>
+	</header>
+	<nav id="navigation" role="navigation">
+		<h2>Main site navigation</h2>
+		<ul class="navigation primary">
+			<li><a href="#content">Skip to content</a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="dailybiblereading.html">Daily Bible Reading</a></li>
+			<li><a href="events.html">Upcoming Events</a></li>
+			<li><a href="featuredseries.html">Featured Series</a></li>
+			<li><a href="featuredmessage.html">Featured Message</a></li>
 		</ul>
+	</nav>
+	<section id="livebroadcast">
+		<h2 class="heading section">Live Internet Broadcast</h2>
 		<!-- filled with content from cdtd() javascript -->
-		<p id="nextinternetbroadcast"></p>
+		<p class="nextbroadcast"></p>
 	</section>
-    <section id="rebroadcasts">
-		<h2><span class="extrainfo">Full Service </span>Rebroadcasts</h2>
-		<ul class="boxwrapper">
-			<li class="first box link" onclick="fridayRebroadcast();">Friday</li>
-			<li class="second box link" onclick="sundayRebroadcast();">Sunday</li>
+	<section id="rebroadcasts">
+		<h2 class="heading section">Full Service Rebroadcasts</h2>
+		<ul class="wrapper blocks">
+			<li class="block first link" onclick="fridayRebroadcast();">Friday <span>Rebroadcast</span></li>
+			<li class="block second link" onclick="sundayRebroadcast();">Sunday <span>Rebroadcast</span></li>
 		</ul>
 	</section>
-	<section id="featuredseries">
-		<h2>Featured Series</h2>
-		<!-- filled with content from featuredSeriesTitle() javascript -->
-		<p id="featuredseriestitle" class="box"></p>
+</div>
+<div class="wrapper second">
+	<section id="featuredmessage" class="link" onclick="openLink('featuredmessage.html');">
+		<h2 class="heading section">Featured Message</h2>
+		<!-- filled with content from featuredMessageTitle() javascript -->
+		<p class="title featuredmessage block"></p>
 	</section>
-    <section id="events">
-		<h2>Events</h2>
-		<p class="box"><a href="events.html">Upcoming Events</a></p>
-	</section>
-    <section id="dailybiblereading">
-		<h2>Daily Bible Reading</h2>
+	<section id="dailybiblereading" class="link" onclick="openLink('dailybiblereading.html');">
+		<h2 class="heading section">Daily Bible Reading</h2>
 		<!-- filled with content from todaysChapterReference() javascript -->
-		<p id="todayschapterreference" class="box"></p>
+		<p class="title todayschapter block"></p>
 	</section>
-    <section id="externallinks">
-		<h2>Links</h2>
-		<ul class="boxwrapper">
-			<li class="first box link" onclick="redirectToSystemBrowser('http://www.flcbranson.org/');"><span class="extrainfo">Official </span><abbr title="Faith Life Church">FLC</abbr> Website</li>
-			<li class="second box link" onclick="redirectToSystemBrowser('https://faithlifechurchbranson.thankyou4caring.org/');"><span class="extrainfo">Official <abbr title="Faith Life Church">FLC</abbr> </span>Sowing <span class="extrainfo"> Page</span></li>
+	<section id="events" class="link" onclick="openLink('events.html');">
+		<h2 class="heading section">Events &amp; Meetings</h2>
+		<p class="block">Upcoming Events</p>
+	</section>
+</div>
+<div class="wrapper third">
+	<footer id="footer" role="contentinfo">
+		<h2 class="heading section">External Links</h2>
+		<ul class="wrapper blocks">
+			<li class="block first link" onclick="redirectToSystemBrowser('http://www.flcbranson.org/');"><span class="extrainfo">Official </span><abbr title="Faith Life Church">FLC</abbr> Website</li>
+			<li class="block second link" onclick="redirectToSystemBrowser('https://faithlifechurchbranson.thankyou4caring.org/');"><span class="extrainfo">Official <abbr title="Faith Life Church">FLC</abbr> </span>Sowing<span class="extrainfo"> Page</span></li>
 		</ul>
-	</section>
-	<section id="testing">
-		<h2>Testing Area</h2>
-		<ul class="box">
-			<li><a href="backgroundaudio.html">Background Audio</a></li>
-		</ul>
-	</section>
+	</footer>
+</div>
+<h2>Testing Area</h2>
+<p><a href="backgroundaudio.html">Background Audio</a></p>
 </section>
 <!-- page specific javascripts -->
 <script>
@@ -73,7 +82,7 @@ liveBroadcast();
 cdtd(nextlivebroadcast);
 
 // show the featured series title
-featuredSeriesTitle();
+featuredMessageTitle();
 
 // show today's chapter reference
 todaysChapterReference();
