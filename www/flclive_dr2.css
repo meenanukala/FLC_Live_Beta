@@ -301,11 +301,11 @@ body {
 	}
 }
 
-/* make things bigger for tablets */
+/* make everything bigger for tablets */
 
-@media screen and (orientation:portrait) and (min-height:768px) and (min-width:768px) {
+@media screen and (orientation:portrait) and (min-width:768px) {
 	body {
-		font-size:1.5em;
+		font-size:2em;
 	}
 
 	.home .block {
@@ -313,16 +313,33 @@ body {
 		padding-bottom:1em;
 	}
 
+	.home .wrapper.first {
+		padding-bottom:0.75em;
+	}
+
 	.home .heading.site {
 		margin-bottom:0.5em;
-		font-size:2.25em;
+		font-size:1.75em;
+	}
+
+	.home .wrapper.second {
+		padding-top:1.25em;
+		padding-bottom:1.25em;
+	}
+
+	.home #featuredmessage, .home #dailybiblereading {
+		margin-bottom:1.25em;
+	}
+
+	.home .wrapper.second .heading.section {
+		font-size:0.75em;
 	}
 
 	.home .wrapper.third {
 		position:absolute;
-		top:0.8em;
+		top:1em;
 		right:0.5em;
-		font-size:0.85em;
+		font-size:0.65em;
 	}
 
 	.home .wrapper.third .block {
@@ -337,6 +354,7 @@ body {
 		top:0;
 		left:0;
 		width:100%;
+		height:1em;
 		overflow:hidden;
 		font-size:0.25em;
 		color:#1a3749;
