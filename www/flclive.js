@@ -76,9 +76,73 @@ function closeVideo() {
 	//document.location.reload(true);
 }
 
+// when the next live broadcast is and play if broadcasting
+// set a global javascript variable
+var nextlivebroadcast;
+function liveBroadcast() {
+	// tell the function where the JSON data is
+	loadJsonSynchronous('http://www.flcbranson.org/api/livebroadcast', function(data){
+		// do something with your data
+		// alert(JSON.stringify(data));
+		// alert(data.datetime + ', ' + data.status);
+		nextlivebroadcast = data.nextbroadcast;
+		if (data.status == 'flcb' || data.status == 'flcs') {
+			// define the global variable (only works when using synchronous connections)
+			var livepublishingpoint = data.publishingpoint_hls;
+			//window.location = 'http://www.flcbranson.org/liveapp';
+			openVideo(livepublishingpoint);
+		}
+	});
+}
+// see if the global variable is still set (would say "undefined" if using an asychronous connection)
+//alert(nextlivebroadcast);
+
 // prepend 0s to a number
 function padDigits(number, digits) {
 	return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+}
+
+// javascript countdown (http://www.developphp.com/view.php?tid=1248)
+// don't forget to pass the broadcast variable
+function cdtd(broadcast) {
+	// just about any standard date format is accepted
+	var nextinternetbroadcast = new Date(broadcast);
+	var now = new Date();
+	var timeDiff = nextinternetbroadcast.getTime() - now.getTime();
+	if (timeDiff <= 0) {
+		//document.getElementById('nextinternetbroadcast').classList.remove('disabled');
+		$('#livebroadcast .countdown').html('<a href="index.html">Join now</a>');
+		//document.getElementById('nextinternetbroadcast').innerHTML = '<a href="javscript:openVideo(' + livepublishingpoint + ');">Join live service now<\/a>';
+	} else {
+		var seconds = Math.floor(timeDiff / 1000);
+		var minutes = Math.floor(seconds / 60);
+		var hours = Math.floor(minutes / 60);
+		var days = Math.floor(hours / 24);
+		hours %= 24;
+		minutes %= 60;
+		seconds %= 60;
+
+		var days_wording = 'days';
+		if (days == 1) days_wording = 'day';
+		var hours_wording = 'hrs';
+		if (hours == 1) hours_wording = 'hour';
+		var minutes_wording = 'mins';
+		if (minutes == 1) minutes_wording = 'min';
+		var seconds_wording = 'secs';
+		if (seconds == 1) seconds_wording = 'sec';
+
+		// padDigits() referenced above
+		//days = padDigits(days, 2);
+		//hours = padDigits(hours, 2);
+		//minutes = padDigits(minutes, 2);
+		//seconds = padDigits(seconds, 2);
+
+		//document.getElementById('nextinternetbroadcast').className += " disabled";
+		$('#livebroadcast .nextbroadcast').html('Join our next live broadcast in <span class="countdown block"><span class="days">' + days + '</span> <span class="countdown_wording">' + days_wording + '</span> <span class="hours">' + hours + '</span> <span class="countdown_wording">' + hours_wording + '</span> <span class="minutes">' + minutes + '</span> <span class="countdown_wording">' + minutes_wording + '</span> <span class="seconds">' + seconds + '</span> <span class="countdown_wording">' + seconds_wording + '</span></span><span class="extrainfo">.</span>');
+		// loop the function every second
+
+		setTimeout(function() { cdtd(broadcast); }, 1000);
+	}
 }
 
 // full service rebroadcasts
@@ -106,27 +170,6 @@ function fridayRebroadcast() {
 		//playAudio(data.friday_publishingpoint_hls);
 	});
 }
-
-// when the next live broadcast is and play if broadcasting
-// set a global javascript variable
-var nextlivebroadcast;
-function liveBroadcast() {
-	// tell the function where the JSON data is
-	loadJsonSynchronous('http://www.flcbranson.org/api/livebroadcast', function(data){
-		// do something with your data
-		// alert(JSON.stringify(data));
-		// alert(data.datetime + ', ' + data.status);
-		nextlivebroadcast = data.nextbroadcast;
-		if (data.status == 'flcb' || data.status == 'flcs') {
-			// define the global variable (only works when using synchronous connections)
-			var livepublishingpoint = data.publishingpoint_hls;
-			//window.location = 'http://www.flcbranson.org/liveapp';
-			openVideo(livepublishingpoint);
-		}
-	});
-}
-// see if the global variable is still set (would say "undefined" if using an asychronous connection)
-//alert(nextlivebroadcast);
 
 // you can't do global variables with asynchronous connections
 // set a global javascript variable
@@ -388,49 +431,6 @@ function featuredMessageTitle() {
 		var featuredmessagetitle = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
 		$('#featuredmessage .title').append(featuredmessagetitle + '<span class="extrainfo"> is our currently-featured message.</span>');
 	});
-}
-
-// javascript countdown (http://www.developphp.com/view.php?tid=1248)
-// don't forget to pass the broadcast variable
-function cdtd(broadcast) {
-	// just about any standard date format is accepted
-	var nextinternetbroadcast = new Date(broadcast);
-	var now = new Date();
-	var timeDiff = nextinternetbroadcast.getTime() - now.getTime();
-	if (timeDiff <= 0) {
-		//document.getElementById('nextinternetbroadcast').classList.remove('disabled');
-		$('#livebroadcast .countdown').html('<a href="index.html">Join now</a>');
-		//document.getElementById('nextinternetbroadcast').innerHTML = '<a href="javscript:openVideo(' + livepublishingpoint + ');">Join live service now<\/a>';
-	} else {
-		var seconds = Math.floor(timeDiff / 1000);
-		var minutes = Math.floor(seconds / 60);
-		var hours = Math.floor(minutes / 60);
-		var days = Math.floor(hours / 24);
-		hours %= 24;
-		minutes %= 60;
-		seconds %= 60;
-
-		var days_wording = 'days';
-		if (days == 1) days_wording = 'day';
-		var hours_wording = 'hrs';
-		if (hours == 1) hours_wording = 'hour';
-		var minutes_wording = 'mins';
-		if (minutes == 1) minutes_wording = 'min';
-		var seconds_wording = 'secs';
-		if (seconds == 1) seconds_wording = 'sec';
-
-		// padDigits() referenced above
-		//days = padDigits(days, 2);
-		//hours = padDigits(hours, 2);
-		//minutes = padDigits(minutes, 2);
-		//seconds = padDigits(seconds, 2);
-
-		//document.getElementById('nextinternetbroadcast').className += " disabled";
-		$('#livebroadcast .nextbroadcast').html('Join our next live broadcast in <span class="countdown block"><span class="days">' + days + '</span> <span class="countdown_wording">' + days_wording + '</span> <span class="hours">' + hours + '</span> <span class="countdown_wording">' + hours_wording + '</span> <span class="minutes">' + minutes + '</span> <span class="countdown_wording">' + minutes_wording + '</span> <span class="seconds">' + seconds + '</span> <span class="countdown_wording">' + seconds_wording + '</span></span><span class="extrainfo">.</span>');
-		// loop the function every second
-
-		setTimeout(function() { cdtd(broadcast); }, 1000);
-	}
 }
 
 // open a link in the system browser
