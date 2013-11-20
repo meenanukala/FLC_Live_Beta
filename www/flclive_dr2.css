@@ -512,7 +512,7 @@ body {
 
 	.home .wrapper.second .heading.section {
 		width:100%;
-		width:calc(100% - 1em);
+		width:calc(100% - 0.75em);
 	}
 
 	.home #dailybiblereading, .home #events {
