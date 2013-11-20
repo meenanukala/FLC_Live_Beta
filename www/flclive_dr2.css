@@ -435,6 +435,7 @@ body {
 		padding-bottom:1em;
 		padding-left:1em;
 		text-align:center;
+		box-shadow:-0.125em -0.125em 0.25em #000000;
 	}
 
 	.home #featuredmessage, .home #dailybiblereading, .home #events {
@@ -525,5 +526,6 @@ body {
 	}
 }
 
-@media screen and (orientation:landscape) and (min-width:1024px) {
+@media screen and (orientation:landscape) and (min-width:1024px) and (max-height:768px) {
+	body {background:white !important; color:black !important;}
 }
