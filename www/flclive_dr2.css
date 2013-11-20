@@ -406,7 +406,7 @@ body {
 		font-size:2.25em;
 	}
 
-	.wrapper.first .block {
+	.home .wrapper.first .block {
 		padding-top:1.5em;
 		padding-bottom:1.5em;
 	}
@@ -466,6 +466,50 @@ body {
 		padding-right:0.25em;
 		padding-bottom:0.75em;
 		padding-left:0.25em;
+	}
+}
+
+/* scrunch it down just a bit for 4x3 phones */
+
+@media screen and (orientation:landscape) and (max-width:480px) {
+	/* border-spacing includes left of the first cell and right of the last cell
+		negative margin the left/right and add those negative margins to the width with calc()
+		ios6 requires -webkit-calc()
+		android browser doesn't support calc() */
+
+	.home .blocks {
+		border-spacing:0.5em;
+	}
+
+	.home .wrapper.first {
+		font-size:1em;
+	}
+
+	.home .heading.site {
+		margin-top:0.25em;
+		margin-bottom:0.5em;
+		margin-left:0.25em;
+		font-size:2em;
+	}
+
+	.home .wrapper.first .block {
+		padding-top:1.25em;
+		padding-bottom:1.25em;
+	}
+
+	/* to match the double-blocks */
+
+	.home #livebroadcast .countdown {
+		margin-right:0.5em;
+		margin-left:0.5em;
+	}
+
+	.home #dailybiblereading, .home #events {
+		font-size:0.6em;
+	}
+
+	.home .wrapper.third {
+		font-size:0.85em;
 	}
 }
 
