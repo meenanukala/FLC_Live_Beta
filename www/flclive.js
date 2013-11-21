@@ -245,7 +245,7 @@ function seriesDownload(seriestitle) {
 		series = data.series;
 		number = data.seriesnumber;
 		description = data.description;
-		$('#content').append('<h2>' + series + '</h2>');
+		$('#content').append('<h2 class="heading page">' + series + '</h2>');
 		$('#content').append('<blockquote><p>' + description + '</p></blockquote>');
 		for (var i = 0, l = data.sermons.length; i < l; i++) {
 			var date, speaker, seriespart, sermon, sermonpart, sermonsubtitle, sermonsubtitlepart, mp3, mp4;
@@ -430,6 +430,44 @@ function featuredMessageTitle() {
 		// we just want the first one
 		var featuredmessagetitle = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
 		$('#featuredmessage .title').append(featuredmessagetitle + '<span class="extrainfo"> is our currently-featured message.</span>');
+	});
+}
+
+// get data as xml and fiddle with it
+function featuredMessage() {
+	// had to use a synchronous connection or the links wouldn't be converted to open in system browser (convertLinks())
+	loadXmlSynchronous('http://www.flcbranson.org/rss/FeaturedMessage.xml', function(data) {
+		// getElementsByTagName() creates an array of elements with that name
+		var items = data.getElementsByTagName('item');
+		// we just want the first one
+		var title = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
+		// replace non-alphanumeric characters with nothing
+		var title_camelcase = title.replace(/[^a-zA-Z0-9]+/g, '');
+		var date = items[0].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
+		// convert rfc-822 date format to iso8601 date format
+		// date.js doesn't seem to like the abbreviated day or time zones so substring() them
+		var date_iso8601 = Date.parse(date.substring(5, 25)).toISOString();
+		var date_readable = Date.parse(date.substring(5, 25)).toString('dddd, MMMM d, yyyy');
+		var speaker = items[0].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator')[0].firstChild.nodeValue;
+		var guid = items[0].getElementsByTagName('guid')[0].firstChild.nodeValue;
+		var mp3 = guid;
+		var mp4 = guid.replace(/mp3/gi, 'mp4');
+		var mp4 = mp4.replace(/Audio/g, 'Video');
+		$('#content').append('<dl>');
+		$('#content dl').append('<dt>Date Preached</dt>');
+		$('#content dl').append('<dd><time datetime="' + date_iso8601 + '">' + date_readable + '</time></dd>');
+		$('#content dl').append('<dt>Title</dt>');
+		$('#content dl').append('<dd>' + title + '</dd>');
+		$('#content dl').append('<dt>Speaker</dt>');
+		$('#content dl').append('<dd>' + speaker + '</dd>');
+		$('#content dl').append('<dt>Download Links</dt>');
+		$('#content dl').append('<dd id="' + title_camelcase + '-downloadlinks">');
+		$('#content dl #' + title_camelcase + '-downloadlinks').append('<ul>');
+		$('#content dl #' + title_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + '\');">Audio (MP3)</li>');
+		$('#content dl #' + title_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + '\');">Video (MP4)</li>');
+		$('#content dl #' + title_camelcase).append('</ul>');
+		$('#content dl').append('</dd>');
+		$('#content').append('</dl>');
 	});
 }
 

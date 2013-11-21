@@ -1,15 +1,93 @@
 @charset "utf-8";
 @import url(http://fonts.googleapis.com/css?family=Raleway:200,500);
 
-/* specify foreground colors when specifying background colors */
+/* 
+=============DESIGN STYLES===================
+*/
 
 body {
 	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-	overflow-x:hidden;
 }
 
+/* specify foreground colors when specifying background colors */
+
+body:not(.home) {
+	padding-top:5em;
+	padding-right:2.5%;
+	padding-bottom:2.5%;
+	padding-left:2.5%;
+	background-color:#efece7;
+	background-image:linear-gradient(to right, #efece7 0%, #eff0eb 100%);
+	color:#000000;
+	line-height:1.5;
+}
+
+body:not(.home) #siteheader {
+	display:none;
+}
+
+#navigation {
+	display:none;
+}
+
+.heading.site, .heading.page {
+	font-family:'Raleway', sans-serif;
+	font-size:2em;
+	font-weight:200;
+	text-transform:uppercase
+}
+
+.heading.page {
+	position:fixed;
+	top:0;
+	right:0;
+	left:0;
+	height:2em;
+	line-height:2em;
+	text-align:center;
+	background-color:#1a3749;
+	background-image:linear-gradient(to right, #1a3749 0%, #3d6170 100%);
+	color:#ffffff;
+	box-shadow:0 0.125em 0.25em rgba(0, 0, 0, 0.75);
+}
+
+/* keep this font size relative to the parent's font size (don't use rem here) */
+
+.heading.page .stylehook {
+	margin-left:-0.5em;
+	font-size:0.5em;
+	font-style:italic;
+	font-weight:500;
+}
+
+/* overrides setting from core.css */
+
+.events #content .heading.page {
+	font-style:normal;
+}
+
+/* font-size and height should match .heading.page */
+
+.back {
+	position:absolute;
+	top:0;
+	left:0;
+	width:2em;
+	height:2em;
+	font-size:2em;
+	background-image:url(images/arrow-circle-green-left.png);
+	background-repeat:no-repeat;
+	background-size:50%;
+	background-position:center center;
+	text-indent:-9999px;
+}
+
+/* page specific */
+
 .home {
+	overflow-x:hidden;
 	background-color:#1d384d;
+	background-image:none;
 	color:#ffffff;
 }
 
@@ -82,10 +160,6 @@ body {
 .home .heading.site {
 	padding-top:0.16666666666em;
 	padding-bottom:0.16666666666em;
-	font-family:'Raleway', sans-serif;
-	font-size:2em;
-	font-weight:200;
-	text-transform:uppercase;
 	background-image:url(images/flc_logo_one_color_nbg-215x153.png);
 	background-size:auto 100%;
 	background-repeat:no-repeat;
@@ -99,10 +173,6 @@ body {
 	font-size:0.5em;
 	font-style:italic;
 	font-weight:500;
-}
-
-.home #navigation {
-	display:none;
 }
 
 .home .wrapper.first .heading.section {
@@ -581,9 +651,6 @@ body {
 		padding-top:0.5em;
 		padding-bottom:0.5em;
 	}
-}
-
-.dailybiblereading {
 }
 
 /*
