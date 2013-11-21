@@ -406,7 +406,7 @@ body {
 		change margin-left from 0 to auto because its parent is 50% */
 
 	.home #siteheader {
-		margin-bottom:1.5em;
+		margin-bottom:1.25em;
 		margin-left:auto;
 		width:85%;
 	}
