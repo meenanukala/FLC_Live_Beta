@@ -69,7 +69,7 @@ body:not(.home) #siteheader {
 /* font-size and height should match .heading.page */
 
 .back {
-	position:absolute;
+	position:fixed;
 	top:0;
 	left:0;
 	width:2em;
