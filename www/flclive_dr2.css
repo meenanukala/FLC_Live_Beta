@@ -637,8 +637,8 @@ body:not(.home) #siteheader {
 
 @media screen and (min-width:900px) and (min-height:640px) {
 	.home .wrapper.first {
-		padding-right:3em;
-		padding-bottom:1.5em;
+		padding-right:5em;
+		padding-bottom:1em;
 		padding-left:5em;
 	}
 
