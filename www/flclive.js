@@ -489,6 +489,16 @@ function unloadMedia() {
 	$('body').removeClass('withbackgroundplayer');
 }
 
+function operatingSystemTest() {
+	var operatingsystem = device.platform;
+	var opeartingsystemversion = device.version;
+	alert("Device OS: " + operatingsystem);
+	alert("Device OS Version: " + opeartingsystemversion);
+	if (parseInt(opeartingsystemversion, 10) < 4) {
+	// do something
+	}
+}
+
 /* things that are no longer in use or don't work
 
 function featuredSeriesTitle() {
