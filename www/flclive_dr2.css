@@ -637,13 +637,13 @@ body:not(.home) #siteheader {
 
 @media screen and (min-width:900px) and (min-height:640px) {
 	.home .wrapper.first {
-		padding-right:5em;
+		padding-right:4em;
 		padding-bottom:1.5em;
 		padding-left:5em;
 	}
 
 	.home #siteheader {
-		margin-bottom:1em;
+		margin-bottom:0.5em;
 		margin-left:-2em;
 		width:-webkit-calc(50% + 1em);
 		width:calc(50% + 1em);
