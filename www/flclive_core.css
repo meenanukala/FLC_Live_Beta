@@ -175,6 +175,8 @@ body.withbackgroundplayer {
 	white-space:normal;
 	background:rgba(0, 0, 0, 0.9);
 	color:#ffffff;
+	font-size:1rem;
+	line-height:1rem;
 	text-align:center;
 }
 
@@ -188,8 +190,6 @@ body.withbackgroundplayer {
 	z-index:9;
 	padding:0 0.35em 0.15em 0.35em;
 	color:#ffffff;
-	font-size:1em;
-	line-height:1em;
 	font-style:normal;
 	font-weight:normal;
 	text-decoration:none;
@@ -199,7 +199,7 @@ body.withbackgroundplayer {
 
 @media screen and (max-height:640px) and (orientation:landscape) {
 	.lightbox {
-		padding-top:1.4em;
+		padding-top:1.4rem;
 	}
 
 	.lightbox .close {
