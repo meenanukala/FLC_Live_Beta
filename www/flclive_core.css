@@ -187,10 +187,12 @@ body.withbackgroundplayer {
 	right:2em;
 	z-index:9;
 	padding:0 0.35em 0.15em 0.35em;
-	font-size:1em;
 	color:#ffffff;
+	font-size:1em;
+	line-height:1em;
 	font-style:normal;
 	font-weight:normal;
+	text-decoration:none;
 	border:1px solid #ffffff;
 	border-radius:1em;
 }
@@ -268,7 +270,7 @@ audio, video {
 
 .events #content {
 	font-style:italic;
-	text-align:center;
+	/*text-align:center;*/
 }
 
 .events dt {

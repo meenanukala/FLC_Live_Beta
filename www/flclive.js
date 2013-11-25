@@ -65,7 +65,7 @@ function loadXmlSynchronous(url, callback) {
 // opens and closes the video lightbox (jquery)
 function openVideo(url, poster) {
 	if (!poster) poster = "http://www.flcbranson.org/images/Posters/Flcb.jpg";
-	$('body').append('<div class="lightbox" onclick="closeVideo();"><a class="close" href="javascript:void(0)" onclick="closeVideo();">x</a></div>');
+	$('body').append('<div class="lightbox" onclick="closeVideo();"><a class="close link" href="javascript:void(0)" onclick="closeVideo();">x</a></div>');
 	$('.lightbox').append('<div class="lightboxcontent video"></div>');
 	$('.lightboxcontent').append('<video src="' + url + '" poster="' + poster + '" autoplay controls x-webkit-airplay="allow" loop></video>');
 }
@@ -170,23 +170,6 @@ function fridayRebroadcast() {
 		//playAudio(data.friday_publishingpoint_hls);
 	});
 }
-
-// you can't do global variables with asynchronous connections
-// set a global javascript variable
-var featuredseries, featuredseries_camelcase, featuredseries_speaker, featuredseries_poster;
-// tell the function where the JSON data is
-loadJsonSynchronous('http://www.flcbranson.org/api/featuredseries', function(data) {
-	// do something with your data
-	// alert(JSON.stringify(data));
-	// alert(data.title + ', ' + data.camelcase);
-	// define the global variable (only works when using synchronous connections)
-	featuredseries = data.title;
-	featuredseries_camelcase = data.camelcase;
-	featuredseries_speaker = data.speaker;
-	featuredseries_poster = data.poster;
-});
-// see if the global variable is still set (would say "undefined" if using an asychronous connection)
-//alert(featuredseries + ', ' + featuredseries_camelcase);
 
 function featuredSeriesTitle() {
 	$('.home #featuredseriestitle').append('<a href="featuredseries.html">' + featuredseries + '</a><span class="extrainfo"> is the currently featured series.</span>');
@@ -558,6 +541,23 @@ function unloadMedia() {
 }
 
 /* things that are no longer in use or don't work
+
+// you can't do global variables with asynchronous connections
+// set a global javascript variable
+var featuredseries, featuredseries_camelcase, featuredseries_speaker, featuredseries_poster;
+// tell the function where the JSON data is
+loadJsonSynchronous('http://www.flcbranson.org/api/featuredseries', function(data) {
+	// do something with your data
+	// alert(JSON.stringify(data));
+	// alert(data.title + ', ' + data.camelcase);
+	// define the global variable (only works when using synchronous connections)
+	featuredseries = data.title;
+	featuredseries_camelcase = data.camelcase;
+	featuredseries_speaker = data.speaker;
+	featuredseries_poster = data.poster;
+});
+// see if the global variable is still set (would say "undefined" if using an asychronous connection)
+//alert(featuredseries + ', ' + featuredseries_camelcase);
 
 // generic get JSON data function
 function fetchJSONFile(path, callback) {
