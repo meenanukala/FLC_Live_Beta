@@ -382,7 +382,8 @@ function featuredMessage() {
 		var speaker = items[0].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator')[0].firstChild.nodeValue;
 		var guid = items[0].getElementsByTagName('guid')[0].firstChild.nodeValue;
 		var mp3 = guid;
-		var mp4 = guid.replace(/mp3/gi, 'mp4');
+		var mp4 = guid.replace(/mp3/g, 'mp4');
+		var mp4 = mp4.replace(/MP3/g, 'MP4');
 		var mp4 = mp4.replace(/Audio/g, 'Video');
 		$('#content').append('<dl>');
 		$('#content dl').append('<dt>Date Preached</dt>');
