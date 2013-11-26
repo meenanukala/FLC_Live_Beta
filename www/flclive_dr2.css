@@ -375,7 +375,7 @@ body:not(.home) #siteheader {
 	}
 }
 
-@media screen and (orientation:landscape) and (min-width:915px), screen and (orientation:portrait) and (min-height:481px) {
+@media screen and (orientation:landscape) and (min-width:915px), screen and (orientation:portrait) {
 	/* position:relative for the //////////// */
 
 	.home .wrapper.second {

@@ -273,6 +273,10 @@ audio, video {
 	text-align:center;
 }
 
+.events [itemtype="http://schema.org/Event"]:not(:first-of-type) {
+	margin-top:2em
+}
+
 .events dt {
 	display:none;
 }
@@ -282,12 +286,7 @@ audio, video {
 	font-weight:bold;
 }
 
-.events .title:not(:first-of-type) {
-	margin-top:2em;
-}
-
 .events .venue {
-	margin-top:0.5em;
 	font-weight:bold;
 	color:#29649f;
 	margin-bottom:0;
@@ -298,21 +297,12 @@ audio, video {
 	font-weight:normal;
 }
 
-.events .address {
-	margin-top:0.5em;
-}
-
 .events .street {
 	display:block;
 }
 
 .events .schedule {
-	margin-top:0.5em;
 	font-style:normal;
-}
-
-.events .notes {
-	margin-top:0.5em;
 }
 
 .featuredseries dt {
