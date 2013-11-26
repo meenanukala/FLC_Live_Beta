@@ -270,7 +270,7 @@ audio, video {
 
 .events #content {
 	font-style:italic;
-	/*text-align:center;*/
+	text-align:center;
 }
 
 .events dt {
@@ -278,9 +278,12 @@ audio, video {
 }
 
 .events .title {
-	margin-top:1em;
 	text-transform:uppercase;
 	font-weight:bold;
+}
+
+.events .title:not(:first-of-type) {
+	margin-top:2em;
 }
 
 .events .venue {

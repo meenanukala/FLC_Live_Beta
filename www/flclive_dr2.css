@@ -15,9 +15,9 @@ body {
 
 body:not(.home) {
 	padding-top:5em;
-	padding-right:5%;
-	padding-bottom:5%;
-	padding-left:5%;
+	padding-right:6%;
+	padding-bottom:6%;
+	padding-left:6%;
 	background-color:#efece7;
 	background-image:linear-gradient(to right, #efece7 0%, #eff0eb 100%);
 	color:#000000;
