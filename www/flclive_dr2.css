@@ -564,10 +564,14 @@ body:not(.home) #siteheader {
 
 /* scrunch it down just a bit for 4x3 phones */
 
-@media screen and (width:480px) and (max-height:320px) {
+@media screen and (max-width:480px) and (max-height:320px) {
 	.home #siteheader {
 		margin-left:-0.25em;
 		width:100%;
+	}
+
+	.home .wrapper.second {
+		padding-right:0.5em;
 	}
 
 	/* remove double the border-spacing */
@@ -576,6 +580,10 @@ body:not(.home) #siteheader {
 		width:84%;
 		width:-webkit-calc(100% - 1.5em);
 		width:calc(100% - 1.5em);
+	}
+
+	.home #dailybiblereading .heading.section, .home #events .heading.section {
+		font-size:0.8em;
 	}
 }
 
