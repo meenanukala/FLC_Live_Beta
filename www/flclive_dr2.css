@@ -526,7 +526,6 @@ body:not(.home) #siteheader {
 		padding-right:1em;
 		padding-bottom:1em;
 		padding-left:1em;
-		text-align:center;
 		box-shadow:-0.125em -0.125em 0.25em #000000;
 	}
 
@@ -550,7 +549,7 @@ body:not(.home) #siteheader {
 		width:50%;
 		width:-webkit-calc(50% - 0.75em);
 		width:calc(50% - 0.75em);
-		font-size:0.75em;
+		font-size:0.6em;
 	}
 
 	/* match border-spacing */
@@ -572,18 +571,6 @@ body:not(.home) #siteheader {
 
 	.home .wrapper.second {
 		padding-right:0.5em;
-	}
-
-	/* remove double the border-spacing */
-
-	.home .wrapper.second .heading.section {
-		width:84%;
-		width:-webkit-calc(100% - 1.5em);
-		width:calc(100% - 1.5em);
-	}
-
-	.home #dailybiblereading .heading.section, .home #events .heading.section {
-		font-size:0.8em;
 	}
 }
 
