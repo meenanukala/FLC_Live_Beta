@@ -549,7 +549,7 @@ body:not(.home) #siteheader {
 		width:50%;
 		width:-webkit-calc(50% - 0.75em);
 		width:calc(50% - 0.75em);
-		font-size:0.6em;
+		font-size:0.7em;
 	}
 
 	/* match border-spacing */
@@ -571,6 +571,10 @@ body:not(.home) #siteheader {
 
 	.home .wrapper.second {
 		padding-right:0.5em;
+	}
+
+	.home #dailybiblereading, .home #events {
+		font-size:0.6em;
 	}
 }
 
