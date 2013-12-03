@@ -204,14 +204,24 @@ body:not(.home) #siteheader {
 }
 
 .home #livebroadcast .countdown {
+	display:table;
+	width:100%;
 	margin-top:0.5em;
 	font-style:normal;
 }
 
+/* space the parts equally */
+
+.home #livebroadcast .countdown .days, .home #livebroadcast .countdown .hours, .home #livebroadcast .countdown .minutes, .home #livebroadcast .countdown .seconds {
+	display:table-cell;
+}
+
 /* keep this font size relative to the parent's font size (don't use rem here) */
 
-.home #livebroadcast .countdown_wording {
+.home #livebroadcast .countdown .countdown_wording {
 	font-size:0.65em;
+	font-style:italic;
+	text-transform:uppercase;
 }
 
 /* keep this font size relative to the parent's font size (don't use rem here) */

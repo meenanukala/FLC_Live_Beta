@@ -138,7 +138,7 @@ function cdtd(broadcast) {
 		//seconds = padDigits(seconds, 2);
 
 		//document.getElementById('nextinternetbroadcast').className += " disabled";
-		$('#livebroadcast .nextbroadcast').html('Join our next live broadcast in <span class="countdown block"><span class="days">' + days + '</span> <span class="countdown_wording">' + days_wording + '</span> <span class="hours">' + hours + '</span> <span class="countdown_wording">' + hours_wording + '</span> <span class="minutes">' + minutes + '</span> <span class="countdown_wording">' + minutes_wording + '</span> <span class="seconds">' + seconds + '</span> <span class="countdown_wording">' + seconds_wording + '</span></span><span class="extrainfo">.</span>');
+		$('#livebroadcast .nextbroadcast').html('Join our next live broadcast in <span class="countdown block"><span class="days">' + days + ' <span class="countdown_wording">' + days_wording + '</span></span> <span class="hours">' + hours + ' <span class="countdown_wording">' + hours_wording + '</span></span> <span class="minutes">' + minutes + ' <span class="countdown_wording">' + minutes_wording + '</span></span> <span class="seconds">' + seconds + ' <span class="countdown_wording">' + seconds_wording + '</span></span></span><span class="extrainfo">.</span>');
 		// loop the function every second
 
 		setTimeout(function() { cdtd(broadcast); }, 1000);
