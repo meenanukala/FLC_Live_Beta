@@ -407,11 +407,14 @@ body:not(.home) #siteheader {
 		left:52%;
 		left:-webkit-calc(50% + 0.5rem);
 		left:calc(50% + 0.5rem);
-		width:13.5em;
+		width:10.25em;
 		padding-right:0;
 		padding-left:0;
-		font-size:0.75em;
 		background:transparent;
+	}
+
+	.home .wrapper.third .block {
+		font-size:0.75em;
 	}
 }
 
@@ -503,32 +506,48 @@ body:not(.home) #siteheader {
 }
 
 @media screen and (orientation:landscape) and (min-height:720px) {
+	.home #siteheader, .home .wrapper.third {
+		font-size:1.25em;
+	}
+
+	.home #siteheader {
+		right:55%;
+		right:-webkit-calc(50% + 1.5rem);
+		right:calc(50% + 1.5rem);
+	}
+
+	/* leave room for #siteheader and .wrapper.third
+		don't use margin or the background won't go to the top */
+	
 	.home .wrapper.first {
-		padding-bottom:2em;
+		padding-top:5em;
+		padding-bottom:1.5em;
 	}
 
 	.home .wrapper.second {
-		padding-top:2em;
-		padding-bottom:2em;
+		padding-top:1.5em;
+		padding-bottom:1.5em;
+	}
+
+	.home #featuredmessage, .home #dailybiblereading, .home #events {
+		height:8em;
+	}
+
+	.home .wrapper.third {
+		padding-top:0.82em;
+		padding-bottom:0.82em;
+		left:55%;
+		left:-webkit-calc(50% + 1.5rem);
+		left:calc(50% + 1.5rem);
+	}
+
+	.home .wrapper.third .block {
+		padding-top:0.5em;
+		padding-bottom:0.5em;
 	}
 }
 
 /*
-@media screen and (orientation:landscape) and (max-height:300px) and (max-width:480px) {
-	body {
-		color:red !important;
-	}
-}
-@media screen and (orientation:landscape) and (max-height:300px) and (min-width:481px) and (max-width:568px) {
-	body {
-		color:pink !important;
-	}
-}
-@media screen and (orientation:landscape) and (min-height:748px) and (min-width:1024px) {
-	body {
-		color:orange !important;
-	}
-}
 @media screen and (orientation:portrait) and (max-width:320px) and (max-height:460px) {
 	body {
 		color:red !important;
@@ -536,12 +555,27 @@ body:not(.home) #siteheader {
 }
 @media screen and (orientation:portrait) and (max-width:320px) and (min-height:461px) and (max-height:548px) {
 	body {
-		color:pink !important;
+		color:orange !important;
 	}
 }
 @media screen and (orientation:portrait) and (min-width:768px) {
 	body {
+		color:yellow !important;
+	}
+}
+@media screen and (orientation:landscape) and (max-height:300px) and (max-width:480px) {
+	body {
+		color:red !important;
+	}
+}
+@media screen and (orientation:landscape) and (max-height:300px) and (min-width:481px) and (max-width:568px) {
+	body {
 		color:orange !important;
+	}
+}
+@media screen and (orientation:landscape) and (min-height:748px) and (min-width:1024px) {
+	body {
+		color:yellow !important;
 	}
 }
 */
