@@ -504,6 +504,7 @@ body:not(.home) #siteheader {
 	}
 }
 
+/*
 @media screen and (orientation:landscape) and (max-height:300px) and (max-width:480px) {
 	body {
 		color:red !important;
@@ -534,3 +535,4 @@ body:not(.home) #siteheader {
 		color:orange !important;
 	}
 }
+*/
