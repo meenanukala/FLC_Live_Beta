@@ -16,10 +16,13 @@ body {
 body:not(.home) {
 	padding-top:5em;
 	padding-right:6%;
-	padding-bottom:6%;
+	padding-bottom:1em;
 	padding-left:6%;
 	background-color:#efece7;
-	background-image:linear-gradient(to right, #efece7 0%, #eff0eb 100%);
+	background-repeat:no-repeat;
+	background-position:left center;
+	background-size:cover;
+	background-attachment:fixed;
 	color:#000000;
 	line-height:1.5;
 }
@@ -207,7 +210,7 @@ body:not(.home) #siteheader {
 /* this will change depending on how you want the text to fit */
 
 .home #livebroadcast .wording {
-	font-size:0.75em;
+	font-size:0.65em;
 }
 
 .home #livebroadcast .countdown {
@@ -435,9 +438,20 @@ body:not(.home) #siteheader {
 	}
 }
 
+@media screen and (orientation:portrait) {
+	body:not(.home) {
+		background-image:url(images/paper-1536x2048.jpg);
+	}
+
+}
+
 /* ios status bar is 20px tall */
 
 @media screen and (orientation:portrait) and (max-height:460px) {
+	.home .wrapper.second:before {
+		font-size:0.175rem;
+	}
+
 	.home .wrapper.third {
 		padding-top:0.5em;
 		padding-bottom:0.5em;
@@ -496,6 +510,10 @@ body:not(.home) #siteheader {
 }
 
 @media screen and (orientation:landscape) {
+	body:not(.home) {
+		background-image:url(images/paper-2048x1536.jpg);
+	}
+
 	.home .wrapper.second {
 		display:table;
 		table-layout:fixed;
