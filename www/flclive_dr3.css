@@ -152,10 +152,7 @@ body:not(.home) #siteheader {
 
 .home .wrapper.first {
 	box-sizing:border-box;
-	padding-top:0.5em;
-	padding-right:0.5em;
 	padding-bottom:0.5em;
-	padding-left:0.5em;
 	background-color:#1a3749;
 	background-image:linear-gradient(to right, #1a3749 0%, #3d6170 100%);
 }
@@ -163,8 +160,8 @@ body:not(.home) #siteheader {
 .home #siteheader {
 	display:table;
 	margin-right:auto;
-	margin-left:auto;
 	margin-bottom:0.5em;
+	margin-left:auto;
 }
 
 /* the top/bottom padding is so the logo can be taller than the text
@@ -191,6 +188,12 @@ body:not(.home) #siteheader {
 
 .home .wrapper.first .heading.section {
 	display:none;
+}
+
+.home #livebroadcast, .home #rebroadcasts {
+	width:75%;
+	margin-right:auto;
+	margin-left:auto;
 }
 
 .home #livebroadcast {
@@ -226,9 +229,9 @@ body:not(.home) #siteheader {
 	box-shadow:inset 0 0.25em 0.5em -0.25em #000000;
 	box-sizing:border-box;
 	padding-top:0.5em;
-	padding-right:0.5em;
+	padding-right:1em;
 	padding-bottom:0.5em;
-	padding-left:0.5em;
+	padding-left:1em;
 	background-color:#92cfd4;
 }
 
@@ -274,9 +277,9 @@ body:not(.home) #siteheader {
 	position:absolute;
 	bottom:0.5em;
 	left:-0.5em;
-	padding-top:0.5em;
+	padding-top:0.25em;
 	padding-right:1em;
-	padding-bottom:0.5em;
+	padding-bottom:0.25em;
 	padding-left:1em;
 	background-color:#16303d;
 }
@@ -319,13 +322,13 @@ body:not(.home) #siteheader {
 	background-image:linear-gradient(to right, #07423c 0%, #2a6f67 100%);
 }
 
-.home .wrapper.third .heading.section {
-	display:none;
-}
-
 .home .wrapper.third .block {
 	padding-top:1em;
 	padding-bottom:1em;
+}
+
+.home .wrapper.third .heading.section {
+	display:none;
 }
 
 .home .wrapper.testing {
@@ -349,14 +352,22 @@ body:not(.home) #siteheader {
 		font-size:1.75em;
 	}
 
+	/* margin-top will show a bit without the background */
+
+	.home #siteheader {
+		padding-top:0.25rem;
+	}
+
 	/* .wrapper.third goes to the top-right so it doesn't get the shadow anymore */
 
 	.home .wrapper.third {
+		padding-top:1em;
+		padding-bottom:1em;
 		box-shadow:inset 0 0.25em 0.5em -0.25em #000000;
 	}
 }
 
-/* #siteheader and .wrapper.third share the top of the screen */
+/* #siteheader and .wrapper.third share the top of the screen (they should have opposite but equal position settings) */
 
 @media screen and (min-width:480px) {
 	.home #siteheader {
@@ -377,22 +388,79 @@ body:not(.home) #siteheader {
 		padding-top:3.5em;
 	}
 
+	/* padding of 0 keeps the edges of the table at the parent's edges */
+
 	.home .wrapper.third {
 		position:absolute;
 		top:0;
-		right:0;
-		width:50%;
+		left:52%;
+		left:-webkit-calc(50% + 0.5rem);
+		left:calc(50% + 0.5rem);
+		width:13.5em;
+		padding-right:0;
+		padding-left:0;
 		font-size:0.75em;
 		background:transparent;
 	}
 }
 
-@media screen and (orientation:portrait) {
+/* ios status bar is 20px tall */
+
+@media screen and (orientation:portrait) and (max-height:460px) {
+	.home .wrapper.third {
+		padding-top:0.5em;
+		padding-bottom:0.5em;
+	}
+
+	.home .wrapper.third .block {
+		padding-top:0.5em;
+		padding-bottom:0.5em;
+	}
+
+	.home #featuredmessage, .home #dailybiblereading, .home #events {
+		height:4.5em;
+	}
+}
+
+/* ios status bar is 20px tall */
+
+@media screen and (orientation:portrait) and (min-height:461px) {
+	.home .wrapper.first {
+		padding-bottom:1em;
+	}
+
+	.home .wrapper.second {
+		padding-top:1em;
+		padding-bottom:1em;
+	}
+
+	.home #featuredmessage, .home #dailybiblereading {
+		margin-bottom:0.75em;
+	}
+}
+
+@media screen and (orientation:portrait) and (min-width:768px) {
+	.home .wrapper.first {
+		padding-bottom:1.5em;
+	}
+
+	.home .wrapper.second {
+		padding-top:1.5em;
+		padding-right:2em;
+		padding-bottom:1.5em;
+		padding-left:2em;
+	}
+
+	.home #featuredmessage, .home #dailybiblereading {
+		margin-bottom:1em;
+	}
 }
 
 /* make everything bigger for tablets */
 
-@media screen and (min-width:640px) and (min-height:640px) {
+/* ios status bar is 20px tall */
+
+@media screen and (min-width:748px) and (min-height:748px) {
 	.home {
 		font-size:2em;
 	}
@@ -413,11 +481,56 @@ body:not(.home) #siteheader {
 	.home #featuredmessage, .home #dailybiblereading, .home #events {
 		display:table-cell;
 		width:33%;
-		height:10em;
+		height:7.25em;
 	}
 
 	.home #dailybiblereading {
 		width:34%;
 	}
+
+	.home .wrapper.second .heading.section {
+		font-size:0.8em;
+	}
 }
 
+@media screen and (orientation:landscape) and (min-height:748px) {
+	.home .wrapper.first {
+		padding-bottom:2em;
+	}
+
+	.home .wrapper.second {
+		padding-top:2em;
+		padding-bottom:2em;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-height:300px) and (max-width:480px) {
+	body {
+		color:red !important;
+	}
+}
+@media screen and (orientation:landscape) and (max-height:300px) and (min-width:481px) and (max-width:568px) {
+	body {
+		color:pink !important;
+	}
+}
+@media screen and (orientation:landscape) and (min-height:748px) and (min-width:1024px) {
+	body {
+		color:orange !important;
+	}
+}
+@media screen and (orientation:portrait) and (max-width:320px) and (max-height:460px) {
+	body {
+		color:red !important;
+	}
+}
+@media screen and (orientation:portrait) and (max-width:320px) and (min-height:461px) and (max-height:548px) {
+	body {
+		color:pink !important;
+	}
+}
+@media screen and (orientation:portrait) and (min-width:768px) {
+	body {
+		color:orange !important;
+	}
+}
