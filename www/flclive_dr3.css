@@ -439,7 +439,7 @@ body:not(.home) #siteheader {
 	}
 }
 
-@media screen and (orientation:portrait) and (min-width:768px) {
+@media screen and (orientation:portrait) and (min-width:720px) {
 	.home .wrapper.first {
 		padding-bottom:1.5em;
 	}
@@ -458,9 +458,7 @@ body:not(.home) #siteheader {
 
 /* make everything bigger for tablets */
 
-/* ios status bar is 20px tall */
-
-@media screen and (min-width:748px) and (min-height:748px) {
+@media screen and (min-width:720px) and (min-height:480px) {
 	.home {
 		font-size:2em;
 	}
@@ -493,7 +491,7 @@ body:not(.home) #siteheader {
 	}
 }
 
-@media screen and (orientation:landscape) and (min-height:748px) {
+@media screen and (orientation:landscape) and (min-height:720px) {
 	.home .wrapper.first {
 		padding-bottom:2em;
 	}
