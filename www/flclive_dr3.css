@@ -396,6 +396,7 @@ body:not(.home) #siteheader {
 		padding-top:0.25em;
 		padding-bottom:0.25em;
 		font-size:0.95em;
+		border:1px solid red;
 	}
 
 	/* leave room for #siteheader and .wrapper.third
@@ -414,9 +415,12 @@ body:not(.home) #siteheader {
 		left:-webkit-calc(50% + 0.5rem);
 		left:calc(50% + 0.5rem);
 		width:10.25em;
+		padding-top:0.375em;
 		padding-right:0;
+		padding-bottom:0.375em;
 		padding-left:0;
 		background:transparent;
+		border:1px solid red;
 	}
 
 	.home .wrapper.third .block {
