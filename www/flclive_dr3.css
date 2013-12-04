@@ -438,6 +438,14 @@ body:not(.home) #siteheader {
 	}
 }
 
+@media screen and (min-width:480px) and (max-width:719px) {
+	/* push the //// up just a bit at these widths */
+
+	.home .wrapper.second:before {
+		top:-1px;
+	}
+}
+
 @media screen and (max-height:480px) {
 	.home .wrapper.second:before {
 		font-size:0.175rem;
