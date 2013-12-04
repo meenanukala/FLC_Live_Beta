@@ -201,22 +201,27 @@ body:not(.home) #siteheader {
 	margin-left:auto;
 }
 
+.home #livebroadcast .stylehook, .home #rebroadcasts .stylehook {
+	font-size:0.65em;
+	font-style:italic;
+	font-weight:lighter;
+}
+
 .home #livebroadcast {
 	margin-bottom:0.5em;
 	font-style:italic;
 	text-align:center;
 }
 
-/* this will change depending on how you want the text to fit */
-
-.home #livebroadcast .wording {
-	font-size:0.65em;
+.home #livebroadcast .block {
+	margin-top:0.5em;
 }
 
 .home #livebroadcast .countdown {
 	display:table;
 	width:100%;
-	margin-top:0.5em;
+	margin-right:auto;
+	margin-left:auto;
 	font-style:normal;
 }
 
@@ -226,20 +231,8 @@ body:not(.home) #siteheader {
 	display:table-cell;
 }
 
-/* keep this font size relative to the parent's font size (don't use rem here) */
-
-.home #livebroadcast .countdown .countdown_wording {
-	font-size:0.65em;
-	font-style:italic;
-}
-
-/* keep this font size relative to the parent's font size (don't use rem here) */
-
 .home #rebroadcasts .block .stylehook {
 	display:block;
-	font-size:0.65em;
-	font-style:italic;
-	font-weight:lighter;
 }
 
 /* position:relative for the //////////// */
@@ -300,7 +293,7 @@ body:not(.home) #siteheader {
 	left:-0.5em;
 	padding-top:0.25em;
 	padding-right:1em;
-	padding-bottom:0.25em;
+	padding-bottom:0.4em;
 	padding-left:1em;
 	background-color:#16303d;
 }
@@ -396,6 +389,12 @@ body:not(.home) #siteheader {
 	}
 }
 
+@media screen and (min-width:320px) and (max-width:479px) {
+	.home #livebroadcast .countdown {
+		width:88%;
+	}
+}
+
 /* #siteheader and .wrapper.third share the top of the screen (they should have opposite but equal position settings) */
 
 @media screen and (min-width:480px) {
@@ -438,11 +437,35 @@ body:not(.home) #siteheader {
 	}
 }
 
+@media screen and (min-width:480px) and (max-width:567px) {
+	.home #livebroadcast .countdown {
+		width:80%;
+	}
+}
+
 @media screen and (min-width:480px) and (max-width:719px) {
 	/* push the //// up just a bit at these widths */
 
 	.home .wrapper.second:before {
 		top:-1px;
+	}
+}
+
+@media screen and (min-width:568px) and (max-width:719px) {
+	.home #livebroadcast .countdown {
+		width:78%;
+	}
+}
+
+@media screen and (min-width:720px) and (max-width:768px) {
+	.home #livebroadcast .countdown {
+		width:85%;
+	}
+}
+
+@media screen and (min-width:769px) and (max-width:1024px) {
+	.home #livebroadcast .countdown {
+		width:79%;
 	}
 }
 
