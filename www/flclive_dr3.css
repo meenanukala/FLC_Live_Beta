@@ -438,6 +438,12 @@ body:not(.home) #siteheader {
 	}
 }
 
+@media screen and (max-height:480px) {
+	.home .wrapper.second:before {
+		font-size:0.175rem;
+	}
+}
+
 @media screen and (orientation:portrait) {
 	body:not(.home) {
 		background-image:url(images/paper-1536x2048.jpg);
@@ -448,10 +454,6 @@ body:not(.home) #siteheader {
 /* ios status bar is 20px tall */
 
 @media screen and (orientation:portrait) and (max-height:460px) {
-	.home .wrapper.second:before {
-		font-size:0.175rem;
-	}
-
 	.home .wrapper.third {
 		padding-top:0.5em;
 		padding-bottom:0.5em;
