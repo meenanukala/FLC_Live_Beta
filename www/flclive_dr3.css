@@ -475,13 +475,6 @@ body:not(.home) #siteheader {
 	}
 }
 
-@media screen and (orientation:portrait) {
-	body:not(.home) {
-		background-image:url(images/paper-1536x2048.jpg);
-	}
-
-}
-
 /* ios status bar is 20px tall */
 
 @media screen and (orientation:portrait) and (max-height:460px) {
@@ -517,7 +510,18 @@ body:not(.home) #siteheader {
 	}
 }
 
+@media screen and (orientation:portrait) and (max-width:719px) {
+	body:not(.home) {
+		background-image:url(images/paper-640x1136.jpg);
+	}
+
+}
+
 @media screen and (orientation:portrait) and (min-width:720px) {
+	body:not(.home) {
+		background-image:url(images/paper-1536x2048.jpg);
+	}
+
 	.home .wrapper.first {
 		padding-bottom:1.5em;
 	}
@@ -573,7 +577,18 @@ body:not(.home) #siteheader {
 	}
 }
 
+@media screen and (orientation:landscape) and (max-height:719px) {
+	body:not(.home) {
+		background-image:url(images/paper-1136x640.jpg);
+	}
+
+}
+
 @media screen and (orientation:landscape) and (min-height:720px) {
+	body:not(.home) {
+		background-image:url(images/paper-2048x1536.jpg);
+	}
+
 	.home #siteheader, .home .wrapper.third {
 		font-size:1.25em;
 	}
