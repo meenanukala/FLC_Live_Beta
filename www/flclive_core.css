@@ -231,7 +231,7 @@ a abbr[title], .link abbr[title], a dfn[title], .link dfn[title] {
 
 a, .link {
 	cursor: pointer;
-	color: #477480;
+	color: #005e77;
 	text-decoration: none;
 }
 
@@ -290,7 +290,7 @@ audio, video {
 
 .events .venue {
 	font-weight: bold;
-	color: #477480;
+	color: #005e77;
 	margin-bottom: 0;
 }
 
