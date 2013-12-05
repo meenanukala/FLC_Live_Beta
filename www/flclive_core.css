@@ -230,7 +230,9 @@ a abbr[title], .link abbr[title], a dfn[title], .link dfn[title] {
 /* changes the cursor for javascript links */
 
 a, .link {
-	cursor:pointer;
+	cursor: pointer;
+	color: #477480;
+	text-decoration: none;
 }
 
 /* content included for content clarity but removed for visual appeal */
@@ -287,9 +289,9 @@ audio, video {
 }
 
 .events .venue {
-	font-weight:bold;
-	color:#29649f;
-	margin-bottom:0;
+	font-weight: bold;
+	color: #477480;
+	margin-bottom: 0;
 }
 
 .events .venue .delimiter, .events .address, .events .phone {
@@ -317,4 +319,3 @@ audio, video {
 .featuredseries h3 {
 	margin-top:1em;
 }
-
