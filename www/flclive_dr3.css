@@ -268,7 +268,7 @@ body:not(.home) #siteheader {
 	height:5em;
 	background-repeat:no-repeat;
 	background-size:cover;
-	box-shadow:inset 0 0 2em -0.25em #000000;
+	box-shadow:inset 0 0 1em -0.5em #16303d;
 }
 
 .home #featuredmessage {
@@ -520,7 +520,7 @@ body:not(.home) #siteheader {
 
 @media screen and (orientation:portrait) and (min-width:720px) {
 	body:not(.home) {
-		background-image:url(images/paper-1536x2048.jpg);
+		background-image:url(images/paper-1536x2048.jpg); background-size:768px 1024px;
 	}
 
 	.home .wrapper.first {
@@ -549,7 +549,7 @@ body:not(.home) #siteheader {
 
 @media screen and (orientation:landscape) {
 	body:not(.home) {
-		background-image:url(images/paper-2048x1536.jpg);
+		background-image:url(images/paper-2048x1536.jpg); background-size:1024px 768px;
 	}
 
 	.home .wrapper.second {
@@ -587,7 +587,7 @@ body:not(.home) #siteheader {
 
 @media screen and (orientation:landscape) and (min-height:720px) {
 	body:not(.home) {
-		background-image:url(images/paper-2048x1536.jpg);
+		background-image:url(images/paper-2048x1536.jpg); background-size:1024px 768px;
 	}
 
 	.home #siteheader, .home .wrapper.third {
