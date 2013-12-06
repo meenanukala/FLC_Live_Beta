@@ -18,7 +18,8 @@ body:not(.home) {
 	padding-right:6%;
 	padding-bottom:1em;
 	padding-left:6%;
-	background-color:#efece7;
+	background-color:#f3f3f3;
+	background-image:url(images/papertexture-500x500.png);
 	color:#000000;
 	line-height:1.5;
 }
