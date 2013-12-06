@@ -19,10 +19,6 @@ body:not(.home) {
 	padding-bottom:1em;
 	padding-left:6%;
 	background-color:#efece7;
-	background-repeat:no-repeat;
-	background-position:left top;
-	background-size:100% auto;
-	background-attachment:fixed;
 	color:#000000;
 	line-height:1.5;
 }
@@ -511,18 +507,7 @@ body:not(.home) #siteheader {
 	}
 }
 
-@media screen and (orientation:portrait) and (max-width:719px) {
-	body:not(.home) {
-		background-image:url(images/paper-640x1136.jpg);
-	}
-
-}
-
 @media screen and (orientation:portrait) and (min-width:720px) {
-	body:not(.home) {
-		background-image:url(images/paper-1536x2048.jpg);
-	}
-
 	.home .wrapper.first {
 		padding-bottom:1.5em;
 	}
@@ -574,18 +559,7 @@ body:not(.home) #siteheader {
 	}
 }
 
-@media screen and (orientation:landscape) and (max-height:719px) {
-	body:not(.home) {
-		background-image:url(images/paper-1136x640.jpg);
-	}
-
-}
-
 @media screen and (orientation:landscape) and (min-height:720px) {
-	body:not(.home) {
-		background-image:url(images/paper-2048x1536.jpg);
-	}
-
 	.home #siteheader, .home .wrapper.third {
 		font-size:1.25em;
 	}
