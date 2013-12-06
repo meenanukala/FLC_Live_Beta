@@ -366,7 +366,7 @@ body:not(.home) #siteheader {
 	}
 
 	.heading.page:before {
-		top:1.55rem;
+		top:1.75rem;
 	}
 
 	/* font-size and height should match .heading.page */
