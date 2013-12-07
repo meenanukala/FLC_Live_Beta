@@ -353,6 +353,68 @@ body:not(.home) #siteheader {
 	margin-bottom:1em;
 }
 
+.featuredmessage .message {
+	margin:1em;
+	padding-top:1em;
+	padding-right:2em;
+	padding-bottom:2em;
+	padding-left:2em;
+	background-color:#cfe3e2;
+	border-radius:0.5em;
+	text-align:center;
+}
+
+.featuredmessage dt {
+	display:none;
+}
+
+.featuredmessage .date, .featuredmessage .title {
+	margin-bottom:1em;
+}
+
+.featuredmessage .title {
+	font-weight:bold;
+}
+
+.featuredmessage .title.sermon {
+	display:block;
+}
+
+.featuredmessage .title.sermon:before {
+	content:"(";
+}
+
+.featuredmessage .title.sermon:after {
+	content:")";
+}
+
+.featuredmessage .date, .featuredmessage .speaker {
+	font-size:0.85em;
+	font-style:italic;
+	font-weight:lighter;
+}
+
+.featuredmessage .speaker {
+	margin-bottom:3em;
+}
+
+.featuredmessage .message .link {
+	margin-top:2em;
+	padding-top:1em;
+	padding-bottom:1em;
+	border-radius:0.5em;
+	color:#ffffff;
+	text-transform:uppercase;
+}
+
+.featuredmessage .message .link.audio {
+	background-color:#4cda64;
+}
+
+.featuredmessage .message .link.video {
+	background-color:#4e5766;
+}
+
 @media screen and (max-width:479px) {
 	body:not(.home) {
 		padding-top:4em;

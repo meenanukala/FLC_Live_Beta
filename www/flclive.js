@@ -240,6 +240,7 @@ function getXmlEvents() {
 			var phone = '';
 			var notes = '';
 
+			// redefine your variables only if there is actual data
 			// getElementsByTagName() creates an array of elements with that name
 			// these files only have one title for each item
 			// you can create an array of the titles (of which there is only one) and then a variable for the one title
@@ -247,7 +248,6 @@ function getXmlEvents() {
 			//alert(titles[0].firstChild.nodeValue);
 			//var title = titles[0].firstChild.nodeValue;
 			// or just directly access the title
-			// redefine your variables only if there is actual data
 			if (items[i].getElementsByTagName('title').length !== 0) var title = items[i].getElementsByTagName('title')[0].firstChild.nodeValue;
 			// replace non-alphanumeric characters with nothing
 			if (title) title_camelcase = title.replace(/[^a-zA-Z0-9]+/g, '');
@@ -329,6 +329,7 @@ function getXmlEvents() {
 				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate')[0].firstChild.nodeValue);
 	
 				for (var ii = 0; ii < dates.length; ii++) {
+					// define your variables as null within the loop (just re-declaring a variable will not remove a previous value)
 					var date = '';
 					var date_iso8601 = '';
 					var date_array = '';
@@ -370,36 +371,67 @@ function featuredMessage() {
 	loadXmlSynchronous('http://www.flcbranson.org/rss/FeaturedMessage.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
-		// we just want the first one
-		var title = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
-		// replace non-alphanumeric characters with nothing
-		var title_camelcase = title.replace(/[^a-zA-Z0-9]+/g, '');
-		var date = items[0].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
-		// convert rfc-822 date format to iso8601 date format
-		// date.js doesn't seem to like the abbreviated day or time zones so substring() them
-		var date_iso8601 = Date.parse(date.substring(5, 25)).toISOString();
-		var date_readable = Date.parse(date.substring(5, 25)).toString('dddd, MMMM d, yyyy');
-		var speaker = items[0].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator')[0].firstChild.nodeValue;
-		var guid = items[0].getElementsByTagName('guid')[0].firstChild.nodeValue;
-		var mp3 = guid;
-		var mp4 = guid.replace(/mp3/g, 'mp4');
-		var mp4 = mp4.replace(/MP3/g, 'MP4');
-		var mp4 = mp4.replace(/Audio/g, 'Video');
-		$('#content').append('<dl>');
-		$('#content dl').append('<dt>Date Preached</dt>');
-		$('#content dl').append('<dd><time datetime="' + date_iso8601 + '">' + date_readable + '</time></dd>');
-		$('#content dl').append('<dt>Title</dt>');
-		$('#content dl').append('<dd>' + title + '</dd>');
-		$('#content dl').append('<dt>Speaker</dt>');
-		$('#content dl').append('<dd>' + speaker + '</dd>');
-		$('#content dl').append('<dt>Download Links</dt>');
-		$('#content dl').append('<dd id="' + title_camelcase + '-downloadlinks">');
-		$('#content dl #' + title_camelcase + '-downloadlinks').append('<ul>');
-		$('#content dl #' + title_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp3 + '\');">Audio (MP3)</li>');
-		$('#content dl #' + title_camelcase + '-downloadlinks ul').append('<li class="link" onclick="openVideo(\'' + mp4 + '\');">Video (MP4)</li>');
-		$('#content dl #' + title_camelcase).append('</ul>');
-		$('#content dl').append('</dd>');
-		$('#content').append('</dl>');
+		// iterate through the array
+		for (var i = 0; i <= items.length; i++) {
+			var title = '';
+			var title_camelcase = '';
+			var title_array = '';
+			var title_series = '';
+			var title_seriespart = '';
+			var title_sermon = '';
+			var date = '';
+			var date_iso8601 = '';
+			var date_readable = '';
+			var speaker = '';
+			var guid = '';
+			var mp3 = '';
+			var mp4 = '';
+
+			// redefine your variables only if there is actual data
+			// getElementsByTagName() creates an array of elements with that name
+			// these files only have one title for each item
+			// you can create an array of the titles (of which there is only one) and then a variable for the one title
+			//var titles = items[i].getElementsByTagName('title');
+			//alert(titles[0].firstChild.nodeValue);
+			//var title = titles[0].firstChild.nodeValue;
+			// or just directly access the title
+			var title = items[i].getElementsByTagName('title')[0].firstChild.nodeValue;
+			// replace non-alphanumeric characters with nothing
+			var title_camelcase = title.replace(/[^a-zA-Z0-9]+/g, '');
+			var title_array = title.split(' - ');
+			if (title_array && title_array.length <= 3) {
+				title_series = title_array[0];
+				title_seriespart = title_array[1];
+				title_sermon = title_array[2];
+			}
+			var date = items[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
+			// convert rfc-822 date format to iso8601 date format
+			// date.js doesn't seem to like the abbreviated day or time zones so substring() them
+			var date_iso8601 = Date.parse(date.substring(5, 25)).toISOString();
+			var date_readable = Date.parse(date.substring(5, 25)).toString('dddd, MMMM d, yyyy');
+			var speaker = items[i].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator')[0].firstChild.nodeValue;
+			var guid = items[i].getElementsByTagName('guid')[0].firstChild.nodeValue;
+			var mp3 = guid;
+			var mp4 = guid.replace(/mp3/g, 'mp4');
+			var mp4 = mp4.replace(/MP3/g, 'MP4');
+			var mp4 = mp4.replace(/Audio/g, 'Video');
+			$('#content').append('<dl id="' + title_camelcase + '" class="message">');
+			$('#content #' + title_camelcase).append('<dt>Date Preached</dt>');
+			$('#content #' + title_camelcase).append('<dd class="date"><time datetime="' + date_iso8601 + '">' + date_readable + '</time></dd>');
+			$('#content #' + title_camelcase).append('<dt>Title</dt>');
+			$('#content #' + title_camelcase).append('<dd class="title series">' + title_series + ' - ' + title_seriespart + '</dd>');
+			$('#content #' + title_camelcase).append('<dd class="title sermon">' + title_sermon + '</dd>');
+			$('#content #' + title_camelcase).append('<dt>Speaker</dt>');
+			$('#content #' + title_camelcase).append('<dd class="speaker">' + speaker + '</dd>');
+			$('#content #' + title_camelcase).append('<dt>Download Links</dt>');
+			$('#content #' + title_camelcase).append('<dd id="' + title_camelcase + '-downloadlinks">');
+			$('#content #' + title_camelcase + ' #' + title_camelcase + '-downloadlinks').append('<ul>');
+			$('#content #' + title_camelcase + ' #' + title_camelcase + '-downloadlinks ul').append('<li class="link audio" onclick="openVideo(\'' + mp3 + '\');">Listen</li>');
+			$('#content #' + title_camelcase + ' #' + title_camelcase + '-downloadlinks ul').append('<li class="link video" onclick="openVideo(\'' + mp4 + '\');">Watch</li>');
+			$('#content #' + title_camelcase + ' #' + title_camelcase).append('</ul>');
+			$('#content #' + title_camelcase).append('</dd>');
+			$('#content').append('</dl>');
+		}
 	});
 }
 
