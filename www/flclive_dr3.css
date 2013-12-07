@@ -20,6 +20,7 @@ body:not(.home) {
 	padding-left:6%;
 	background-color:#f3f3f3;
 	background-image:url(images/papertexture-500x500.png);
+	background-size:250px 250px;
 	color:#000000;
 	line-height:1.5;
 }
