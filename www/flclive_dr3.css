@@ -174,7 +174,7 @@ body:not(.home) #siteheader {
 	padding-top:0.16666666666em;
 	padding-right:2.5em;
 	padding-bottom:0.16666666666em;
-	background-image:url(images/flc_logo_one_color_nbg-215x153.png);
+	background-image:url(images/flc_logo_one_color_nbg-927x672.png);
 	background-size:auto 100%;
 	background-repeat:no-repeat;
 	background-position:right center;
@@ -271,18 +271,18 @@ body:not(.home) #siteheader {
 
 .home #featuredmessage {
 	margin-bottom:0.5em;
-	background-image:url(images/flcs_bromooreinfrontofstagemm13-1440x360.jpg);
-	background-position:center top;
+	background-image:url(images/flcs_bromooreinfrontofstagemm13-5184x3456.jpg);
+	background-position:center 30%;
 }
 
 .home #dailybiblereading {
 	margin-bottom:0.5em;
-	background-image:url(images/openbible-1440x360.jpg);
+	background-image:url(images/openbible-1920x1280.jpg);
 	background-position:center center;
 }
 
 .home #events {
-	background-image:url(images/palmtrees-1440x360.jpg);
+	background-image:url(images/palmtrees-2400x1606.jpg);
 	background-position:center bottom;
 }
 
