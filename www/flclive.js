@@ -195,7 +195,7 @@ function todaysChapterReference() {
 // get data as json and fiddle with it
 function todaysChapter() {
 	if (Date.today().toString('dddd') == 'Saturday' || Date.today().toString('dddd') == 'Sunday') {
-		$('.home #content').append('<p>There is no chapter to read on Saturday or Sunday.</p>');
+		$('.dailybiblereading #content').append('<p>There is no chapter to read on Saturday or Sunday.</p>');
 	} else {
 		// tell the function where the JSON data is
 		loadJsonSynchronous('http://www.flcbranson.org/api/dailybiblereading', function(data) {
