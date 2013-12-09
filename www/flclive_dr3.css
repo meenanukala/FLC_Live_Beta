@@ -271,18 +271,18 @@ body:not(.home) #siteheader {
 
 .home #featuredmessage {
 	margin-bottom:0.5em;
-	background-image:url(images/flcs_bromooreinfrontofstagemm13-5184x3456.jpg);
-	background-position:center 30%;
+	background-image:url(images/flcs_bromooreinfrontofstagemm13-1440x360.jpg);
+	background-position:center top;
 }
 
 .home #dailybiblereading {
 	margin-bottom:0.5em;
-	background-image:url(images/openbible-1920x1280.jpg);
+	background-image:url(images/openbible-1440x360.jpg);
 	background-position:center center;
 }
 
 .home #events {
-	background-image:url(images/palmtrees-2400x1606.jpg);
+	background-image:url(images/palmtrees-1440x360.jpg);
 	background-position:center bottom;
 }
 
