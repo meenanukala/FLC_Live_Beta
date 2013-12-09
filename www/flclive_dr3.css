@@ -51,7 +51,7 @@ body:not(.home) #siteheader {
 	background-color:#1a3749;
 	background-image:linear-gradient(to right, #1a3749 0%, #3d6170 100%);
 	color:#ffffff;
-	box-shadow:0 0.125em 0.25em rgba(0, 0, 0, 0.5);
+	box-shadow:0 0.0625em 0.125em rgba(0, 0, 0, 0.25);
 }
 
 .heading.page:before {
@@ -418,7 +418,7 @@ body:not(.home) #siteheader {
 
 @media screen and (max-width:479px) {
 	body:not(.home) {
-		padding-top:4em;
+		padding-top:4.5em;
 	}
 
 	.heading.page {
