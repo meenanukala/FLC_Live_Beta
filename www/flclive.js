@@ -354,21 +354,21 @@ function getXmlEvents() {
 }
 
 // get data as xml and fiddle with it
-function featuredMessageTitle() {
+function featuredMessagesTitle() {
 	// had to use a synchronous connection or the links wouldn't be converted to open in system browser (convertLinks())
-	loadXmlSynchronous('http://www.flcbranson.org/rss/FeaturedMessage.xml', function(data) {
+	loadXmlSynchronous('http://www.flcbranson.org/rss/FeaturedMessages.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
 		// we just want the first one
-		var featuredmessagetitle = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
-		$('#featuredmessage .title').append(featuredmessagetitle + '<span class="extrainfo"> is our currently-featured message.</span>');
+		var featuredmessagsetitle = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
+		$('#featuredmessages .title').append(featuredmessagestitle + '<span class="extrainfo"> is our currently-featured messages.</span>');
 	});
 }
 
 // get data as xml and fiddle with it
-function featuredMessage() {
+function featuredMessages() {
 	// had to use a synchronous connection or the links wouldn't be converted to open in system browser (convertLinks())
-	loadXmlSynchronous('http://www.flcbranson.org/rss/FeaturedMessage.xml', function(data) {
+	loadXmlSynchronous('http://www.flcbranson.org/rss/FeaturedMessages.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
 		// iterate through the array

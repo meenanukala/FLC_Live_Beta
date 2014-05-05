@@ -261,7 +261,7 @@ body:not(.home) #siteheader {
 
 /* position:relative so headers can be position:absolute within them */
 
-.home #featuredmessage, .home #dailybiblereading, .home #events {
+.home #featuredmessages, .home #dailybiblereading, .home #events {
 	position:relative;
 	height:5em;
 	background-repeat:no-repeat;
@@ -269,7 +269,7 @@ body:not(.home) #siteheader {
 	box-shadow:inset 0 0 1em -0.5em #16303d;
 }
 
-.home #featuredmessage {
+.home #featuredmessages {
 	margin-bottom:0.5em;
 	background-image:url(images/flcs_bromooreinfrontofstagemm13-1440x360.jpg);
 	background-position:center top;
@@ -354,7 +354,7 @@ body:not(.home) #siteheader {
 	margin-bottom:1em;
 }
 
-.featuredmessage .message {
+.featuredmessages .message {
 	margin:1em;
 	padding-top:1em;
 	padding-right:2em;
@@ -365,41 +365,41 @@ body:not(.home) #siteheader {
 	text-align:center;
 }
 
-.featuredmessage dt {
+.featuredmessages dt {
 	display:none;
 }
 
-.featuredmessage .date, .featuredmessage .title {
+.featuredmessages .date, .featuredmessages .title {
 	margin-bottom:1em;
 }
 
-.featuredmessage .title {
+.featuredmessages .title {
 	font-weight:bold;
 }
 
-.featuredmessage .title.sermon {
+.featuredmessages .title.sermon {
 	display:block;
 }
 
-.featuredmessage .title.sermon:before {
+.featuredmessages .title.sermon:before {
 	content:"(";
 }
 
-.featuredmessage .title.sermon:after {
+.featuredmessages .title.sermon:after {
 	content:")";
 }
 
-.featuredmessage .date, .featuredmessage .speaker {
+.featuredmessages .date, .featuredmessages .speaker {
 	font-size:0.85em;
 	font-style:italic;
 	font-weight:lighter;
 }
 
-.featuredmessage .speaker {
+.featuredmessages .speaker {
 	margin-bottom:3em;
 }
 
-.featuredmessage .message .link {
+.featuredmessages .message .link {
 	margin-top:2em;
 	padding-top:1em;
 	padding-bottom:1em;
@@ -408,11 +408,11 @@ body:not(.home) #siteheader {
 	text-transform:uppercase;
 }
 
-.featuredmessage .message .link.audio {
+.featuredmessages .message .link.audio {
 	background-color:#4cda64;
 }
 
-.featuredmessage .message .link.video {
+.featuredmessages .message .link.video {
 	background-color:#4e5766;
 }
 
@@ -549,7 +549,7 @@ body:not(.home) #siteheader {
 		padding-bottom:0.5em;
 	}
 
-	.home #featuredmessage, .home #dailybiblereading, .home #events {
+	.home #featuredmessages, .home #dailybiblereading, .home #events {
 		height:4.5em;
 	}
 }
@@ -566,7 +566,7 @@ body:not(.home) #siteheader {
 		padding-bottom:1em;
 	}
 
-	.home #featuredmessage, .home #dailybiblereading {
+	.home #featuredmessages, .home #dailybiblereading {
 		margin-bottom:0.75em;
 	}
 }
@@ -583,7 +583,7 @@ body:not(.home) #siteheader {
 		padding-left:2em;
 	}
 
-	.home #featuredmessage, .home #dailybiblereading {
+	.home #featuredmessages, .home #dailybiblereading {
 		margin-bottom:1em;
 	}
 }
@@ -608,7 +608,7 @@ body:not(.home) #siteheader {
 		width:calc(100% + 2em);
 	}
 
-	.home #featuredmessage, .home #dailybiblereading, .home #events {
+	.home #featuredmessages, .home #dailybiblereading, .home #events {
 		display:table-cell;
 		width:33%;
 		height:7.25em;
@@ -647,7 +647,7 @@ body:not(.home) #siteheader {
 		padding-bottom:1.5em;
 	}
 
-	.home #featuredmessage, .home #dailybiblereading, .home #events {
+	.home #featuredmessages, .home #dailybiblereading, .home #events {
 		height:8em;
 	}
 

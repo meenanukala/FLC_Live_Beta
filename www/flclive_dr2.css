@@ -217,14 +217,14 @@ body:not(.home) #siteheader {
 
 /* position:relative so headers can be position:absolute within them */
 
-.home #featuredmessage, .home #dailybiblereading, .home #events {
+.home #featuredmessages, .home #dailybiblereading, .home #events {
 	position:relative;
 	height:5em;
 	background-repeat:no-repeat;
 	background-size:cover;
 }
 
-.home #featuredmessage {
+.home #featuredmessages {
 	margin-bottom:0.5em;
 	background-image:url(images/flcs_bromooreinfrontofstagemm13-1440x360.jpg);
 	background-position:center top;
@@ -364,7 +364,7 @@ body:not(.home) #siteheader {
 		width:calc(100% + 2em);
 	}
 
-	.home #featuredmessage, .home #dailybiblereading, .home #events {
+	.home #featuredmessages, .home #dailybiblereading, .home #events {
 		display:table-cell;
 		width:33%;
 		height:10em;
@@ -437,7 +437,7 @@ body:not(.home) #siteheader {
 		margin-top:0.125em;
 	}
 
-	.home #featuredmessage, .home #dailybiblereading, .home #events {
+	.home #featuredmessages, .home #dailybiblereading, .home #events {
 		height:4.5em;
 	}
 
@@ -461,7 +461,7 @@ body:not(.home) #siteheader {
 		padding-bottom:1em;
 	}
 
-	.home #featuredmessage, .home #dailybiblereading {
+	.home #featuredmessages, .home #dailybiblereading {
 		margin-bottom:1em;
 	}
 
@@ -529,13 +529,13 @@ body:not(.home) #siteheader {
 		box-shadow:-0.125em -0.125em 0.25em #000000;
 	}
 
-	.home #featuredmessage, .home #dailybiblereading, .home #events {
+	.home #featuredmessages, .home #dailybiblereading, .home #events {
 		height:50%;
 		height:-webkit-calc(50% - 0.5em);
 		height:calc(50% - 0.5em);
 	}
 
-	.home #featuredmessage {
+	.home #featuredmessages {
 		margin-bottom:1em;
 	}
 
@@ -630,7 +630,7 @@ body:not(.home) #siteheader {
 		padding-bottom:1em;
 	}
 
-	.home #featuredmessage, .home #dailybiblereading {
+	.home #featuredmessages, .home #dailybiblereading {
 		margin-bottom:1em;
 	}
 

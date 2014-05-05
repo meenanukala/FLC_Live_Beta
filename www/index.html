@@ -28,7 +28,7 @@
 			<li><a href="index.html">Home</a></li>
 			<li><a href="dailybiblereading.html">Daily Bible Reading</a></li>
 			<li><a href="events.html">Upcoming Events</a></li>
-			<li><a href="featuredmessage.html">Featured Message</a></li>
+			<li><a href="featuredmessages.html">Featured Messages</a></li>
 		</ul>
 	</nav>
 	<section id="livebroadcast">
@@ -45,10 +45,10 @@
 	</section>
 </div>
 <div class="wrapper second">
-	<section id="featuredmessage" class="link" onclick="openLink('featuredmessage.html');">
-		<h2 class="heading section">Featured Message</h2>
-		<!-- filled with content from featuredMessageTitle() javascript -->
-		<p class="title featuredmessage block"></p>
+	<section id="featuredmessages" class="link" onclick="openLink('featuredmessages.html');">
+		<h2 class="heading section">Featured Messages</h2>
+		<!-- filled with content from featuredMessagesTitle() javascript -->
+		<p class="title featuredmessages block"></p>
 	</section>
 	<section id="dailybiblereading" class="link" onclick="openLink('dailybiblereading.html');">
 		<h2 class="heading section">Bible Reading</h2>
@@ -84,7 +84,7 @@ liveBroadcast();
 cdtd(nextlivebroadcast);
 
 // show the featured series title
-featuredMessageTitle();
+featuredMessagesTitle();
 
 // show today's chapter reference
 todaysChapterReference();
