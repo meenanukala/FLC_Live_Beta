@@ -381,6 +381,7 @@ body:not(.home) #siteheader {
 	display:block;
 }
 
+/*
 .featuredmessages .title.sermon:before {
 	content:"(";
 }
@@ -388,6 +389,7 @@ body:not(.home) #siteheader {
 .featuredmessages .title.sermon:after {
 	content:")";
 }
+*/
 
 .featuredmessages .date, .featuredmessages .speaker {
 	font-size:0.85em;
