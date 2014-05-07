@@ -1,6 +1,4 @@
-// global date reference for today (uses date.js)
-var today = Date.today().toString('yyyy-MM-dd');
-//alert(today);
+var today = moment().format('YYYY-MM-DD');
 
 // make an asynchronous json call
 function loadJson(url, callback) {
@@ -173,7 +171,7 @@ function fridayRebroadcast() {
 
 // show today's chapter reference
 function todaysChapterReference() {
-	if (Date.today().toString('dddd') == 'Saturday' || Date.today().toString('dddd') == 'Sunday') {
+	if (moment().format('dddd') == 'Saturday' || moment().format('dddd') == 'Sunday') {
 		$('.home #dailybiblereading .title').append('No chapter today.');
 	} else {
 		// set a global javascript variable
@@ -194,7 +192,7 @@ function todaysChapterReference() {
 
 // get data as json and fiddle with it
 function todaysChapter() {
-	if (Date.today().toString('dddd') == 'Saturday' || Date.today().toString('dddd') == 'Sunday') {
+	if (moment().format('dddd') == 'Saturday' || moment().format('dddd') == 'Sunday') {
 		$('.dailybiblereading #content').append('<p>Come join us in reading the Bible this year. We read one chapter of the Bible each weekday (Monday through Friday).</p>');
 	} else {
 		// tell the function where the JSON data is
@@ -220,7 +218,7 @@ function getXmlEvents() {
 	loadXmlSynchronous('http://www.flcbranson.org/rss/Events.xml', function(data) {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
-		var today = Date.today().toString('yyyyMMdd');
+		var today = moment().format('YYYYMMDD');
 		// iterate through the array in reverse
 		for (var i = items.length - 1; i >= 0; i--) {
 			// define your variables as null within the loop (just re-declaring a variable will not remove a previous value)
@@ -273,9 +271,9 @@ function getXmlEvents() {
 			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'phone').length !== 0) phone = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'phone')[0].firstChild.nodeValue;
 			if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'notes').length !== 0) notes = items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'notes')[0].firstChild.nodeValue;
 			if (enddate) {
-				enddate = Date.parse(enddate.substring(5, 16)).toString('yyyyMMdd');
+				enddate = moment(enddate.substring(5, 16)).format('YYYYMMDD');
 			} else {
-				enddate = Date.parse(begindate.substring(5, 16)).toString('yyyyMMdd');
+				enddate = moment(begindate.substring(5, 16)).format('YYYYMMDD');
 			}
 			if (enddate && enddate >= today) {
 				$('#content').append(
@@ -338,14 +336,14 @@ function getXmlEvents() {
 					// this will be in rfc-822 format
 					var date = dates[ii];
 					// convert rfc-822 date format to iso8601 date format
-					// date.js doesn't seem to like the abbreviated day or time zones so substring() them
-					if (date) date_iso8601 = Date.parse(date.substring(5, 25)).toISOString();
+					// remove abbreviated day or time zones from date using substring()
+					if (date) date_iso8601 = moment(date.substring(5, 25)).toISOString();
 					// create an array from a string using the defined delimiter
 					if (date) date_array = date.split(' ');
 					// splitting rfc-822 by spaces should result in 6 fields (starting with field 0)
 					if (date_array && date_array.length === 6) date_timezone = date_array[5];
-					// date.js doesn't seem to like the abbreviated day or time zones so substring() them
-					if (date) date_readable = Date.parse(date.substring(5, 25)).toString('ddd, MMM d @ h:mmtt') + ' (' + date_timezone + ')';
+					// remove abbreviated day or time zones from date using substring()
+					if (date) date_readable = moment(date.substring(5, 25)).format('ddd, MMM D @ h:mmA') + ' (' + date_timezone + ')';
 					$('#content #' + title_camelcase + '-schedule').append('<dd><time datetime="' + date_iso8601 + '">' + date_readable + '</time></dd>');
 				}
 			}
@@ -399,16 +397,16 @@ function featuredMessages() {
 			// replace non-alphanumeric characters with nothing
 			var title_camelcase = title.replace(/[^a-zA-Z0-9]+/g, '');
 			var title_array = title.split(' - ');
-			if (title_array && title_array.length <= 3) {
-				title_series = title_array[0];
-				title_seriespart = title_array[1];
-				title_sermon = title_array[2];
+			if (title_array) {
+				title_series = title_array[0] || '';
+				title_seriespart = title_array[1] || '';
+				title_sermon = title_array[2] || '';
 			}
 			var date = items[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue;
 			// convert rfc-822 date format to iso8601 date format
-			// date.js doesn't seem to like the abbreviated day or time zones so substring() them
-			var date_iso8601 = Date.parse(date.substring(5, 25)).toISOString();
-			var date_readable = Date.parse(date.substring(5, 25)).toString('dddd, MMMM d, yyyy');
+			// remove abbreviated day or time zones from date using substring()
+			var date_iso8601 = moment(date.substring(5, 25)).toISOString();
+			var date_readable = moment(date.substring(5, 25)).format('dddd, MMMM D, YYYY');
 			var speaker = items[i].getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'creator')[0].firstChild.nodeValue;
 			var guid = items[i].getElementsByTagName('guid')[0].firstChild.nodeValue;
 			var mp3 = guid;
@@ -419,7 +417,7 @@ function featuredMessages() {
 			$('#content #' + title_camelcase).append('<dt>Date Preached</dt>');
 			$('#content #' + title_camelcase).append('<dd class="date"><time datetime="' + date_iso8601 + '">' + date_readable + '</time></dd>');
 			$('#content #' + title_camelcase).append('<dt>Title</dt>');
-			$('#content #' + title_camelcase).append('<dd class="title series">' + title_series + ' - ' + title_seriespart + '</dd>');
+			$('#content #' + title_camelcase).append('<dd class="title series">' + title_series + (title_seriespart.length ? ' - ' + title_seriespart : '') + '</dd>');
 			$('#content #' + title_camelcase).append('<dd class="title sermon">' + title_sermon + '</dd>');
 			$('#content #' + title_camelcase).append('<dt>Speaker</dt>');
 			$('#content #' + title_camelcase).append('<dd class="speaker">' + speaker + '</dd>');
