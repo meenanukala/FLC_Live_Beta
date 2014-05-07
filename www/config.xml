@@ -27,7 +27,6 @@
 	<preference name="android-installLocation" value="auto" /> <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 
 	<!-- Plugins can also be added here.  A list of available plugins are available at https://build.phonegap.com/docs/plugins-->
-	<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
 	<!--<gap:plugin name="GAPlugin" />-->
 	<!--<gap:plugin name="org.apache.cordova.media" />-->
 	<!--<gap:plugin name="Media" />-->
