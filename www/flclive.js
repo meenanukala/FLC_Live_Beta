@@ -325,7 +325,7 @@ function getXmlEvents() {
 				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate3').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate3')[0].firstChild.nodeValue);
 				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate4').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'extraDate4')[0].firstChild.nodeValue);
 				if (items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate').length !== 0) dates.push(items[i].getElementsByTagNameNS('http://www.moorelife.org/', 'endDate')[0].firstChild.nodeValue);
-	
+
 				for (var ii = 0; ii < dates.length; ii++) {
 					// define your variables as null within the loop (just re-declaring a variable will not remove a previous value)
 					var date = '';
@@ -418,7 +418,7 @@ function featuredMessages() {
 			$('#content #' + title_camelcase).append('<dd class="date"><time datetime="' + date_iso8601 + '">' + date_readable + '</time></dd>');
 			$('#content #' + title_camelcase).append('<dt>Title</dt>');
 			$('#content #' + title_camelcase).append('<dd class="title series">' + title_series + (title_seriespart.length ? ' - ' + title_seriespart : '') + '</dd>');
-			$('#content #' + title_camelcase).append('<dd class="title sermon">' + title_sermon + '</dd>');
+			$('#content #' + title_camelcase).append('<dd class="title sermon">' + (title_sermon ? '(' + title_sermon + ')' : title_sermon) + '</dd>');
 			$('#content #' + title_camelcase).append('<dt>Speaker</dt>');
 			$('#content #' + title_camelcase).append('<dd class="speaker">' + speaker + '</dd>');
 			$('#content #' + title_camelcase).append('<dt>Download Links</dt>');
@@ -603,7 +603,7 @@ function fetchJSONFile(path, callback) {
 	};
 	// false tells it to be synchronous instead of asynchronous
 	httpRequest.open('GET', path, false);
-	httpRequest.send(); 
+	httpRequest.send();
 }
 
 // get data as json and fiddle with it
