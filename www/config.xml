@@ -28,10 +28,11 @@
 	<preference name="StatusBarOverlaysWebView" value="false" /> <!-- iOS: keeps status bar on top out of webview if "false" -->
 
 	<!-- Plugins can also be added here.  A list of available plugins are available at https://build.phonegap.com/docs/plugins-->
-	<!--<gap:plugin name="GAPlugin" />-->
+	<gap:plugin name="GAPlugin" />
 	<!--<gap:plugin name="org.apache.cordova.media" />-->
 	<!--<gap:plugin name="Media" />-->
 	<!--<gap:plugin name="com.adobe.plugins.gaplugin" />-->
+	<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
 
 	<!-- Define app icon for each platform. -->
 	<icon src="images/logo.png" />
