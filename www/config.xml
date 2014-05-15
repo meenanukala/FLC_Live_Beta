@@ -13,7 +13,7 @@
 	<preference name="phonegap-version" value="3.0.0" /> <!-- all: current version of PhoneGap -->
 	<preference name="orientation" value="default" /> <!-- all: default means both landscape and portrait are enabled -->
 	<preference name="target-device" value="universal" /> <!-- all: possible values handset, tablet, or universal -->
-	<preference name="fullscreen" value="false" /> <!-- all: hides the status bar at the top of the screen -->
+	<preference name="fullscreen" value="true" /> <!-- all: hides the status bar at the top of the screen -->
 	<preference name="webviewbounce" value="true" /> <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
 	<preference name="prerendered-icon" value="false" /> <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
 	<preference name="stay-in-webview" value="false" /> <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
@@ -47,6 +47,10 @@
 	<gap:splash src="images/LaunchScreens/launch-ipad-app-P-2x.png" gap:platform="ios" width="1536" height="2048" />
 	<gap:splash src="images/LaunchScreens/launch-ipad-app-L.png" gap:platform="ios" width="1024" height="768" />
 	<gap:splash src="images/LaunchScreens/launch-ipad-app-L-2x.png" gap:platform="ios" width="2048" height="1536" />
+
+	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
+	    <false/>
+	</gap:config-file>
 
 	<!-- Define access to external domains. -->
 	<!-- 
