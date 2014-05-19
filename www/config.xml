@@ -35,11 +35,11 @@
 	<feature name="StatusBar">
 		<param name="ios-package" value="CDVStatusBar" onload="true" />
 	</feature>
-	<!--
+
 	<gap:config-file platform="ios" parent="UIStatusBarHidden">
-		<true/>
+		<false/>
 	</gap:config-file>
-	-->
+
 	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
 		<false/>
 	</gap:config-file>
