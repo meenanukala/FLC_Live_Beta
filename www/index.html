@@ -20,6 +20,7 @@
 	    if (parseFloat(window.device.version) >= 7.0) {
 	          document.body.style.marginTop = "20px";
 	    }
+	    alert(parseFloat(window.device.version) + ', ' + document.body.style.marginTop);
 	}
 
 	document.addEventListener('deviceready', onDeviceReady, false);
