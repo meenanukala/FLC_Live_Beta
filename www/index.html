@@ -7,14 +7,6 @@
 <title>FLC Live</title>
 <link rel="stylesheet" href="flclive_core.css">
 <link rel="stylesheet" href="flclive_dr3.css" title="David Robinson's Second Design" />
-<style>
-	/**
-	* Only add the margin for phonegap apps on ios 7
-	**/
-	body.phonegap-ios-7{
-	  margin-top: 20px;
-	}
-</style>
 <!-- required for the redirectToSystemBrowser() function (do not actually include the file, just link) -->
 <script src="phonegap.js"></script>
 <!-- used to change the formats of dates -->
@@ -24,25 +16,13 @@
 <!-- our javascripts -->
 <script src="flclive.js"></script>
 <script>
-	$(function () {
-
-	    function isPhonegap() {
-	        return typeof cordova !== 'undefined' || typeof PhoneGap !== 'undefined' || typeof phonegap !== 'undefined';
+	function onDeviceReady() {
+	    if (parseFloat(window.device.version) >= 7.0) {
+	          document.body.style.marginTop = "20px";
 	    }
+	}
 
-	    function isIOS() {
-	        return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
-	    }
-
-	    document.addEventListener('deviceready', function () {
-	        // window.device is available only if you include the phonegap package
-	        // http://docs.phonegap.com/en/3.0.0/cordova_device_device.md.html#Device
-	        // Note for ios, you do not need to add anything to the config.xml, just add the plugin
-	        if (isPhonegap() && isIOS() && window.device && parseFloat(window.device.version) >= 7.0) {
-	            $('body').addClass('phonegap-ios-7');
-	        }
-	    });
-	});
+	document.addEventListener('deviceready', onDeviceReady, false);
 </script>
 </head>
 <body class="home" role="document">
