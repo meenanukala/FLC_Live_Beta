@@ -363,7 +363,7 @@ function featuredMessagesTitle() {
 		// getElementsByTagName() creates an array of elements with that name
 		var items = data.getElementsByTagName('item');
 		// we just want the first one
-		var featuredmessagsetitle = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
+		var featuredmessagestitle = items[0].getElementsByTagName('title')[0].firstChild.nodeValue;
 		$('#featuredmessages .title').append(featuredmessagestitle + '<span class="extrainfo"> is our currently-featured messages.</span>');
 	});
 }
