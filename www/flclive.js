@@ -17,7 +17,7 @@ function loadJson(url, callback) {
 
 // make a synchronous json call
 function loadJsonSynchronous(url, callback) {
-	var xmlhttprequest = new XMLHttpRequest();
+    var xmlhttprequest = new XMLHttpRequest();
 	xmlhttprequest.onreadystatechange = function() {
 		if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
 			// do something with your data
@@ -145,28 +145,33 @@ function cdtd(broadcast) {
 
 // full service rebroadcasts
 function sundayRebroadcast() {
-	// tell the function where the JSON data is
-	loadJsonSynchronous('http://www.flcbranson.org/api/rebroadcast', function(data){
-		// do something with your data
-		// alert(JSON.stringify(data));
-		//alert(data.sunday_publishingpoint_hls);
-		//var sundayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.sunday + '&rebroadcastday=sun';
-		//window.location = sundayrebroadcastlink;
-		openVideo(data.sunday_publishingpoint_hls);
-		//playAudio(data.sunday_publishingpoint_hls);
-	});
+    openVideo('http://209.206.240.250/vod/RBSun.m3u8');
+
+//	// tell the function where the JSON data is
+//	loadJsonSynchronous('http://www.flcbranson.org/api/rebroadcast', function(data){
+//		// do something with your data
+//		// alert(JSON.stringify(data));
+//		//alert(data.sunday_publishingpoint_hls);
+//		//var sundayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.sunday + '&rebroadcastday=sun';
+//		//window.location = sundayrebroadcastlink;
+//		openVideo(data.sunday_publishingpoint_hls);
+//		//playAudio(data.sunday_publishingpoint_hls);
+//	});
 }
 function fridayRebroadcast() {
-	// tell the function where the JSON data is
-	loadJsonSynchronous('http://www.flcbranson.org/api/rebroadcast', function(data){
-		// do something with your data
-		// alert(JSON.stringify(data));
-		//alert(data.friday_publishingpoint_hls);
-		//var fridayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.friday + '&rebroadcastday=fri';
-		//window.location = fridayrebroadcastlink;
-		openVideo(data.friday_publishingpoint_hls);
-		//playAudio(data.friday_publishingpoint_hls);
-	});
+    openVideo('http://209.206.240.250/vod/RBFri.m3u8');
+
+//	// tell the function where the JSON data is
+//	loadJsonSynchronous('http://www.flcbranson.org/api/rebroadcast', function(data){
+//        console.log('data', data);
+//		// do something with your data
+//		// alert(JSON.stringify(data));
+//		//alert(data.friday_publishingpoint_hls);
+//		//var fridayrebroadcastlink = 'http://www.flcbranson.org/liveapp/?rebroadcastsite=' + data.friday + '&rebroadcastday=fri';
+//		//window.location = fridayrebroadcastlink;
+//		openVideo(data.friday_publishingpoint_hls);
+//		//playAudio(data.friday_publishingpoint_hls);
+//	});
 }
 
 // show today's chapter reference
