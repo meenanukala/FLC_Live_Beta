@@ -145,7 +145,7 @@ function cdtd(broadcast) {
 
 // full service rebroadcasts
 function sundayRebroadcast() {
-    openVideo('http://209.206.240.250/vod/RBSun.m3u8');
+    openVideo('http://ams.flcmedia.org/vod/RBSun.m3u8');
 
 //	// tell the function where the JSON data is
 //	loadJsonSynchronous('http://www.flcbranson.org/api/rebroadcast', function(data){
@@ -159,7 +159,7 @@ function sundayRebroadcast() {
 //	});
 }
 function fridayRebroadcast() {
-    openVideo('http://209.206.240.250/vod/RBFri.m3u8');
+    openVideo('http://ams.flcmedia.org/vod/RBFri.m3u8');
 
 //	// tell the function where the JSON data is
 //	loadJsonSynchronous('http://www.flcbranson.org/api/rebroadcast', function(data){
