@@ -36,6 +36,9 @@
 	<feature name="StatusBar">
 		<param name="ios-package" value="CDVStatusBar" onload="true" />
 	</feature>
+
+    <gap:plugin name="org.apache.cordova.inappbrowser" />
+
     <!--
     <gap:config-file platform="ios" parent="UIStatusBarHidden">
         <false/>
