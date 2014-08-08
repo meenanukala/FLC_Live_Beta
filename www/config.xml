@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
-<widget xmlns = "http://www.w3.org/ns/widgets" xmlns:gap = "http://phonegap.com/ns/1.0" id = "org.flcbranson.flclbeta" version = "2.0.2">
+<widget xmlns = "http://www.w3.org/ns/widgets" xmlns:gap = "http://phonegap.com/ns/1.0" id = "org.flcbranson.flclive" version = "2.0.2">
 	<name>FLCL Beta</name>
 	<description>FLC Live   ///   Version 2.0.2</description>
 	<author href="http://www.flcbranson.org" email="drobinson@moorelife.org">David Robinson</author>
