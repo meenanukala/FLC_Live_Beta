@@ -198,7 +198,7 @@ function todaysChapterReference() {
 // get data as json and fiddle with it
 function todaysChapter() {
 	if (moment().format('dddd') == 'Saturday' || moment().format('dddd') == 'Sunday') {
-		$('.dailybiblereading #content').append('<p>Come join us in reading the Bible this year. We read one chapter of the Bible each weekday (Monday through Friday).</p>');
+		$('.dailybiblereading #content').append('<p>Come join us in reading the Bible this year. We read one chapter of the Bible each weekday (Monday through Friday). <img src="http://www.flcbranson.org/images/DBR-1.jpg"><img src="http://www.flcbranson.org/images/DBR-2.jpg"></p>');
 	} else {
 		// tell the function where the JSON data is
 		loadJsonSynchronous('http://www.flcbranson.org/api/dailybiblereading', function(data) {
