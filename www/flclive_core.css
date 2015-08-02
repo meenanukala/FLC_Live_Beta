@@ -90,6 +90,12 @@ input, select {
 =============CORE STYLES===================
 */
 
+.dbrcard {
+	width:100%;	
+	margin-top: 20px;
+}
+
+
 /* keep text from getting bigger when switching from portrait to landscape */
 
 body {
